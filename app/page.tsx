@@ -14,124 +14,76 @@ import {
   Check,
   Mail,
   Megaphone,
-  Menu,
   Monitor,
   Palette,
-  Quote,
   Rocket,
   Search,
   Share2,
   Video,
   Workflow,
-  X,
 } from "lucide-react";
 import Link from "next/link";
 import {
   MouseEvent as ReactMouseEvent,
   ReactNode,
-  useState,
 } from "react";
 
+import HomeProjectCTA from "@/components/HomeProjectCTA";
 import SelectedWork from "@/components/SelectedWork";
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
-
-const navigation = [
-  {
-    label: "Work",
-    href: "#work",
-  },
-  {
-    label: "Services",
-    href: "#services",
-  },
-  {
-    label: "Skills",
-    href: "#skills",
-  },
-  {
-    label: "Experience",
-    href: "#experience",
-  },
-  {
-    label: "About",
-    href: "/about",
-  },
-  {
-    label: "Contact",
-    href: "#contact",
-  },
-];
+import SiteFooter from "@/components/SiteFooter";
+import SiteHeader from "@/components/SiteHeader";
 
 /* =========================================================
    SERVICES
 ========================================================= */
 
-const services = [
+const capabilities = [
   {
-    number: "01",
     title: "Social Media Management",
     description:
-      "Planning, organizing, scheduling, and publishing social media content across Facebook, Instagram, LinkedIn, TikTok, and other digital channels.",
-    tools: "Canva · CapCut · Metricool · GoHighLevel",
+      "Planning, scheduling, publishing, and organizing content across digital social platforms.",
     icon: Share2,
   },
   {
-    number: "02",
     title: "Graphic Design & Content Creation",
     description:
-      "Creating branded social graphics, promotional materials, carousel posts, educational content, templates, and digital marketing visuals.",
-    tools: "Canva",
+      "Social graphics, branded templates, promotional assets, carousel posts, and marketing visuals.",
     icon: Palette,
   },
   {
-    number: "03",
     title: "Short-Form Video Editing",
     description:
-      "Editing Reels, TikTok videos, and vertical social content with captions, text overlays, scripts, and platform-ready formatting.",
-    tools: "CapCut · Descript Learning",
+      "Reels, TikTok content, captions, text overlays, and vertical platform-ready video.",
     icon: Video,
   },
   {
-    number: "04",
     title: "GoHighLevel Marketing Operations",
     description:
-      "Supporting funnels, landing pages, workflows, automations, contacts, tags, campaigns, lead follow-up, and social publishing.",
-    tools: "GoHighLevel",
+      "Funnels, workflows, contacts, tags, campaigns, forms, scheduling, and lead follow-up.",
     icon: Workflow,
   },
   {
-    number: "05",
-    title: "Email Marketing & Newsletter Support",
+    title: "Email Marketing",
     description:
-      "Preparing newsletters, formatting campaigns, organizing email follow-ups, supporting automation, and nurturing leads through email.",
-    tools: "GoHighLevel · Mailchimp · Klaviyo",
+      "Newsletters, campaigns, follow-up organization, lead nurturing, and promotional communication.",
     icon: Mail,
   },
   {
-    number: "06",
-    title: "Virtual Assistance & Executive Support",
+    title: "Virtual & Executive Support",
     description:
-      "Supporting calendars, meetings, scheduling, client communication, project coordination, documents, presentations, and daily operations.",
-    tools: "Outlook · Calendly · Canva",
-    icon: CalendarDays,
+      "Scheduling, calendars, communication, coordination, documentation, and operational support.",
+    icon: BriefcaseBusiness,
   },
   {
-    number: "07",
     title: "Websites, Landing Pages & Funnels",
     description:
-      "Updating websites, landing pages, lead capture forms, calls to action, funnels, and promotional pages for marketing campaigns.",
-    tools: "GoHighLevel · WordPress · ClickFunnels · Shopify",
+      "Website updates, landing pages, funnels, lead forms, calls to action, and promotional pages.",
     icon: Monitor,
   },
   {
-    number: "08",
     title: "Digital Marketing & Lead Generation",
     description:
-      "Supporting campaigns, promotional content, lead follow-up, marketing coordination, client nurturing, and consistent branding.",
-    tools: "Content Marketing · Campaign Coordination · CRM",
+      "Campaign support, lead follow-up, promotional content, coordination, and brand consistency.",
     icon: Megaphone,
   },
 ];
@@ -140,7 +92,7 @@ const services = [
    SKILLS & TOOLS
 ========================================================= */
 
-const toolGroups = [
+const toolCategories = [
   {
     category: "Social & Content",
     description:
@@ -148,12 +100,12 @@ const toolGroups = [
     tools: [
       {
         name: "Canva",
-        logo: "https://cdn.simpleicons.org/canva",
+        logo: "https://cdn.simpleicons.org/canva/00C4CC",
         domain: "canva.com",
       },
       {
         name: "CapCut",
-        logo: "https://cdn.simpleicons.org/capcut",
+        logo: "https://cdn.simpleicons.org/capcut/000000",
         domain: "capcut.com",
       },
       {
@@ -164,32 +116,36 @@ const toolGroups = [
       },
       {
         name: "Facebook",
-        logo: "https://cdn.simpleicons.org/facebook",
+        logo:
+          "https://cdn.simpleicons.org/facebook/1877F2",
         domain: "facebook.com",
       },
       {
         name: "Instagram",
-        logo: "https://cdn.simpleicons.org/instagram",
+        logo:
+          "https://cdn.simpleicons.org/instagram/E4405F",
         domain: "instagram.com",
       },
       {
         name: "LinkedIn",
-        logo: "https://cdn.simpleicons.org/linkedin",
+        logo:
+          "https://cdn.simpleicons.org/linkedin/0A66C2",
         domain: "linkedin.com",
       },
       {
         name: "TikTok",
-        logo: "https://cdn.simpleicons.org/tiktok",
+        logo:
+          "https://cdn.simpleicons.org/tiktok/000000",
         domain: "tiktok.com",
       },
       {
         name: "Pinterest",
-        logo: "https://cdn.simpleicons.org/pinterest",
+        logo:
+          "https://cdn.simpleicons.org/pinterest/BD081C",
         domain: "pinterest.com",
       },
     ],
   },
-
   {
     category: "Marketing & CRM",
     description:
@@ -203,17 +159,18 @@ const toolGroups = [
       },
       {
         name: "Mailchimp",
-        logo: "https://cdn.simpleicons.org/mailchimp",
+        logo:
+          "https://cdn.simpleicons.org/mailchimp/FFE01B",
         domain: "mailchimp.com",
       },
       {
         name: "Klaviyo",
-        logo: "https://cdn.simpleicons.org/klaviyo",
+        logo:
+          "https://cdn.simpleicons.org/klaviyo/000000",
         domain: "klaviyo.com",
       },
     ],
   },
-
   {
     category: "Web & Funnels",
     description:
@@ -221,7 +178,8 @@ const toolGroups = [
     tools: [
       {
         name: "WordPress",
-        logo: "https://cdn.simpleicons.org/wordpress",
+        logo:
+          "https://cdn.simpleicons.org/wordpress/21759B",
         domain: "wordpress.org",
       },
       {
@@ -232,12 +190,12 @@ const toolGroups = [
       },
       {
         name: "Shopify",
-        logo: "https://cdn.simpleicons.org/shopify",
+        logo:
+          "https://cdn.simpleicons.org/shopify/7AB55C",
         domain: "shopify.com",
       },
     ],
   },
-
   {
     category: "Business Operations",
     description:
@@ -246,12 +204,13 @@ const toolGroups = [
       {
         name: "Microsoft Outlook",
         logo:
-          "https://cdn.simpleicons.org/microsoftoutlook",
+          "https://cdn.simpleicons.org/microsoftoutlook/0078D4",
         domain: "outlook.com",
       },
       {
         name: "Calendly",
-        logo: "https://cdn.simpleicons.org/calendly",
+        logo:
+          "https://cdn.simpleicons.org/calendly/006BFF",
         domain: "calendly.com",
       },
       {
@@ -265,143 +224,50 @@ const toolGroups = [
 ];
 
 /* =========================================================
-   EXPERIENCE
-========================================================= */
-
-const experienceAreas = [
-  {
-    number: "01",
-    title: "Social Media & Content Operations",
-    description:
-      "Planning, creating, organizing, scheduling, and publishing branded social media content.",
-    highlights: [
-      "Content calendar planning",
-      "Social publishing and scheduling",
-      "Caption and CTA preparation",
-      "Brand consistency support",
-    ],
-  },
-  {
-    number: "02",
-    title: "GoHighLevel Marketing Operations",
-    description:
-      "Supporting funnels, landing pages, campaigns, contacts, workflows, automation, and lead follow-up inside GoHighLevel.",
-    highlights: [
-      "Funnels and landing pages",
-      "Workflow and automation support",
-      "Contact and tag organization",
-      "Email and campaign support",
-    ],
-  },
-  {
-    number: "03",
-    title: "Creative Content Production",
-    description:
-      "Creating social media graphics, marketing assets, educational content, and short-form videos.",
-    highlights: [
-      "Social media graphics",
-      "Carousel content",
-      "Short-form video editing",
-      "Promotional assets",
-    ],
-  },
-  {
-    number: "04",
-    title: "Virtual & Executive Support",
-    description:
-      "Supporting scheduling, communication, project organization, documentation, and daily digital business operations.",
-    highlights: [
-      "Calendar management",
-      "Client communication",
-      "Project coordination",
-      "Documents and presentations",
-    ],
-  },
-];
-
-/* =========================================================
    PROCESS
 ========================================================= */
 
-const processSteps = [
+const process = [
   {
-    number: "01",
     title: "Understand",
     description:
-      "Review the business goal, audience, campaign, content needs, and priorities.",
+      "Clarify the goal, audience, requirements, and priorities before the work begins.",
     icon: Search,
   },
   {
-    number: "02",
     title: "Plan",
     description:
-      "Organize the content, timeline, workflow, campaign, or operational tasks.",
+      "Organize the timeline, workflow, resources, content, and required deliverables.",
     icon: CalendarDays,
   },
   {
-    number: "03",
     title: "Create",
     description:
-      "Prepare graphics, videos, captions, emails, pages, or other required assets.",
+      "Produce the required creative, content, messaging, or digital assets.",
     icon: Palette,
   },
   {
-    number: "04",
-    title: "Build & Schedule",
+    title: "Build",
     description:
-      "Set up campaigns, workflows, funnels, content schedules, or business systems.",
+      "Implement campaigns, workflows, funnels, pages, and digital systems.",
     icon: Workflow,
   },
   {
-    number: "05",
     title: "Review",
     description:
-      "Check branding, formatting, messaging, links, layouts, schedules, and details.",
+      "Check branding, functionality, messaging, links, and final details.",
     icon: Check,
   },
   {
-    number: "06",
-    title: "Publish & Support",
+    title: "Deliver",
     description:
-      "Launch or publish the work and provide continued operational support where needed.",
+      "Prepare the completed work for publishing, launch, or final handoff.",
     icon: Rocket,
   },
 ];
 
 /* =========================================================
-   WHY WORK WITH ME
-========================================================= */
-
-const reasons = [
-  {
-    title: "Creative + Operational",
-    description:
-      "Support that can move between creative content and practical business operations.",
-  },
-  {
-    title: "Multi-Channel",
-    description:
-      "Experience across social, email, websites, funnels, CRM, and communication.",
-  },
-  {
-    title: "Organized Execution",
-    description:
-      "Turning plans into scheduled content, campaigns, systems, and completed tasks.",
-  },
-  {
-    title: "Brand Consistency",
-    description:
-      "Attention to messaging, formatting, visual quality, and consistency across channels.",
-  },
-  {
-    title: "Flexible Support",
-    description:
-      "Able to support both marketing projects and the daily operations behind them.",
-  },
-];
-
-/* =========================================================
-   TOOL LOGO COMPONENT
+   TOOL LOGO
 ========================================================= */
 
 function ToolLogo({
@@ -414,25 +280,20 @@ function ToolLogo({
   domain: string;
 }) {
   return (
-    <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-[#E2E8F0] bg-white p-3 shadow-[0_6px_18px_rgba(15,23,42,0.06)]">
+    <div className="flex h-14 w-14 items-center justify-center rounded-xl border border-[#E1E7EF] bg-white p-2.5 shadow-[0_5px_15px_rgba(15,23,42,0.06)]">
       <img
         src={logo}
         alt={`${name} logo`}
         loading="lazy"
         className="h-full w-full object-contain"
         onError={(event) => {
-          const image =
-            event.currentTarget;
+          const image = event.currentTarget;
 
-          if (
-            image.dataset.fallback ===
-            "true"
-          ) {
+          if (image.dataset.fallback === "true") {
             return;
           }
 
-          image.dataset.fallback =
-            "true";
+          image.dataset.fallback = "true";
 
           image.src = `https://www.google.com/s2/favicons?domain_url=https://${domain}&sz=256`;
         }}
@@ -454,23 +315,18 @@ function MagneticButton({
   href: string;
   secondary?: boolean;
 }) {
-  const x =
-    useMotionValue(0);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
 
-  const y =
-    useMotionValue(0);
+  const springX = useSpring(x, {
+    stiffness: 240,
+    damping: 20,
+  });
 
-  const springX =
-    useSpring(x, {
-      stiffness: 240,
-      damping: 20,
-    });
-
-  const springY =
-    useSpring(y, {
-      stiffness: 240,
-      damping: 20,
-    });
+  const springY = useSpring(y, {
+    stiffness: 240,
+    damping: 20,
+  });
 
   function handleMouseMove(
     event: ReactMouseEvent<HTMLAnchorElement>,
@@ -501,12 +357,8 @@ function MagneticButton({
   return (
     <motion.a
       href={href}
-      onMouseMove={
-        handleMouseMove
-      }
-      onMouseLeave={
-        reset
-      }
+      onMouseMove={handleMouseMove}
+      onMouseLeave={reset}
       style={{
         x: springX,
         y: springY,
@@ -526,20 +378,12 @@ function MagneticButton({
 }
 
 /* =========================================================
-   HOME
+   HOME PAGE
 ========================================================= */
 
-export default function Home() {
-  const [
-    menuOpen,
-    setMenuOpen,
-  ] = useState(false);
-
-  const spotlightX =
-    useMotionValue(50);
-
-  const spotlightY =
-    useMotionValue(50);
+export default function HomePage() {
+  const spotlightX = useMotionValue(50);
+  const spotlightY = useMotionValue(50);
 
   function handleHeroMouseMove(
     event: ReactMouseEvent<HTMLElement>,
@@ -548,15 +392,13 @@ export default function Home() {
       event.currentTarget.getBoundingClientRect();
 
     spotlightX.set(
-      ((event.clientX -
-        rect.left) /
+      ((event.clientX - rect.left) /
         rect.width) *
         100,
     );
 
     spotlightY.set(
-      ((event.clientY -
-        rect.top) /
+      ((event.clientY - rect.top) /
         rect.height) *
         100,
     );
@@ -564,188 +406,25 @@ export default function Home() {
 
   const spotlightBackground =
     useTransform(
-      [
-        spotlightX,
-        spotlightY,
-      ],
+      [spotlightX, spotlightY],
       ([x, y]) =>
-        `radial-gradient(600px circle at ${x}% ${y}%, rgba(79,140,255,0.17), transparent 48%)`,
+        `radial-gradient(650px circle at ${x}% ${y}%, rgba(79,140,255,0.17), transparent 48%)`,
     );
 
   return (
     <main className="min-h-screen font-(family-name:--font-body) selection:bg-[#4F8CFF] selection:text-white">
-      {/* =====================================================
-          NAVIGATION
-      ====================================================== */}
-
-      <header className="fixed left-0 top-0 z-50 w-full">
-        <div className="mx-auto max-w-360 px-4 pt-4 md:px-8 lg:px-10">
-          <nav className="flex h-18 items-center justify-between rounded-2xl border border-white/10 bg-[#07111F]/85 px-5 shadow-[0_20px_80px_rgba(0,0,0,0.22)] backdrop-blur-2xl md:px-7">
-            <Link
-              href="/"
-              className="flex items-center gap-3"
-            >
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#4F8CFF]/25 bg-[#4F8CFF]/10">
-                <span className="font-(family-name:--font-display) text-xs font-bold text-white">
-                  KM
-                </span>
-              </div>
-
-              <div className="hidden sm:block">
-                <p className="font-(family-name:--font-display) text-sm font-semibold text-white">
-                  Khimberlie D. Macose
-                </p>
-
-                <p className="mt-1 text-[9px] uppercase tracking-[0.17em] text-[#6E7C90]">
-                  Digital Work Portfolio
-                </p>
-              </div>
-            </Link>
-
-            <div className="hidden items-center gap-7 xl:flex">
-              {navigation.map(
-                (item) =>
-                  item.href.startsWith(
-                    "/",
-                  ) ? (
-                    <Link
-                      key={
-                        item.label
-                      }
-                      href={
-                        item.href
-                      }
-                      className="group relative text-[9px] font-semibold uppercase tracking-[0.16em] text-[#A8B3C4] transition-colors hover:text-white"
-                    >
-                      {
-                        item.label
-                      }
-
-                      <span className="absolute -bottom-2 left-0 h-px w-0 bg-[#4F8CFF] transition-all duration-300 group-hover:w-full" />
-                    </Link>
-                  ) : (
-                    <a
-                      key={
-                        item.label
-                      }
-                      href={
-                        item.href
-                      }
-                      className="group relative text-[9px] font-semibold uppercase tracking-[0.16em] text-[#A8B3C4] transition-colors hover:text-white"
-                    >
-                      {
-                        item.label
-                      }
-
-                      <span className="absolute -bottom-2 left-0 h-px w-0 bg-[#4F8CFF] transition-all duration-300 group-hover:w-full" />
-                    </a>
-                  ),
-              )}
-            </div>
-
-            <div className="flex items-center gap-2">
-              <Link
-                href="/about"
-                className="hidden rounded-xl border border-white/10 px-4 py-3 text-xs font-semibold text-[#A8B3C4] transition-colors hover:text-white md:block"
-              >
-                About Me
-              </Link>
-
-              <a
-                href="#contact"
-                className="hidden rounded-xl bg-white px-5 py-3 text-xs font-bold text-[#07111F] transition-colors hover:bg-[#B8D2FF] md:block"
-              >
-                Hire Me
-              </a>
-
-              <button
-                type="button"
-                aria-label="Toggle navigation"
-                onClick={() =>
-                  setMenuOpen(
-                    !menuOpen,
-                  )
-                }
-                className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white xl:hidden"
-              >
-                {menuOpen ? (
-                  <X
-                    size={
-                      19
-                    }
-                  />
-                ) : (
-                  <Menu
-                    size={
-                      19
-                    }
-                  />
-                )}
-              </button>
-            </div>
-          </nav>
-
-          {menuOpen && (
-            <div className="mt-2 rounded-2xl border border-white/10 bg-[#07111F]/95 p-3 backdrop-blur-2xl xl:hidden">
-              {navigation.map(
-                (item) =>
-                  item.href.startsWith(
-                    "/",
-                  ) ? (
-                    <Link
-                      key={
-                        item.label
-                      }
-                      href={
-                        item.href
-                      }
-                      onClick={() =>
-                        setMenuOpen(
-                          false,
-                        )
-                      }
-                      className="block border-b border-white/5 px-4 py-4 text-lg text-[#A8B3C4] last:border-none hover:text-white"
-                    >
-                      {
-                        item.label
-                      }
-                    </Link>
-                  ) : (
-                    <a
-                      key={
-                        item.label
-                      }
-                      href={
-                        item.href
-                      }
-                      onClick={() =>
-                        setMenuOpen(
-                          false,
-                        )
-                      }
-                      className="block border-b border-white/5 px-4 py-4 text-lg text-[#A8B3C4] last:border-none hover:text-white"
-                    >
-                      {
-                        item.label
-                      }
-                    </a>
-                  ),
-              )}
-            </div>
-          )}
-        </div>
-      </header>
+      <SiteHeader />
 
       {/* =====================================================
           HERO
       ====================================================== */}
 
       <section
-        onMouseMove={
-          handleHeroMouseMove
-        }
-        className="relative flex min-h-screen items-center overflow-hidden bg-[#07111F] pt-28 text-white"
+        onMouseMove={handleHeroMouseMove}
+        className="relative flex min-h-screen items-center overflow-hidden bg-[#07111F] pt-22 text-white"
       >
+        {/* GRID */}
+
         <div
           className="
             pointer-events-none absolute inset-0 opacity-60
@@ -754,95 +433,120 @@ export default function Home() {
           "
         />
 
-        <div className="pointer-events-none absolute left-[-15%] top-[-20%] h-150 w-150 rounded-full bg-[#4F8CFF]/15 blur-[190px]" />
+        {/* GLOWS */}
+
+        <div className="pointer-events-none absolute -left-60 -top-60 h-175 w-175 rounded-full bg-[#4F8CFF]/13 blur-[190px]" />
+
+        <div className="pointer-events-none absolute -bottom-60 right-[-10%] h-150 w-150 rounded-full bg-[#94A3B8]/7 blur-[170px]" />
+
+        {/* CURSOR LIGHT */}
 
         <motion.div
           style={{
-            background:
-              spotlightBackground,
+            background: spotlightBackground,
           }}
           className="pointer-events-none absolute inset-0 hidden lg:block"
         />
 
-        <div className="relative mx-auto grid w-full max-w-360 items-center gap-16 px-5 py-20 md:px-8 lg:grid-cols-[1.12fr_0.88fr] lg:px-10">
+        <div className="relative mx-auto grid w-full max-w-360 items-center gap-14 px-5 py-20 md:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:px-10 xl:gap-20">
+          {/* =================================================
+              HERO CONTENT
+          ================================================= */}
+
           <div>
-            <div className="mb-7 inline-flex items-center gap-3 rounded-full border border-[#4F8CFF]/25 bg-[#4F8CFF]/10 px-4 py-2">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#79A8FF] opacity-70" />
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: 15,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              className="mb-7 inline-flex items-center gap-3 rounded-full border border-[#4F8CFF]/25 bg-[#4F8CFF]/10 px-4 py-2"
+            >
+              <span className="h-2 w-2 rounded-full bg-[#79A8FF]" />
 
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#4F8CFF]" />
+              <span className="text-[9px] font-semibold uppercase tracking-[0.21em] text-[#B8D2FF]">
+                Khim&apos;s Digital Work · Portfolio
               </span>
-
-              <span className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#B8D2FF]">
-                Khim&apos;s Digital Work
-              </span>
-            </div>
+            </motion.div>
 
             <p className="mb-6 text-[10px] font-semibold uppercase tracking-[0.23em] text-[#6E7C90]">
-              Selected Work · Marketing · Content · Operations
+              Marketing · Content · Systems · Operations
             </p>
 
-            <h1 className="font-(family-name:--font-display) max-w-5xl text-[clamp(3.4rem,7vw,7rem)] font-semibold leading-[0.9] tracking-tighter">
-              Digital work
+            <motion.h1
+              initial={{
+                opacity: 0,
+                y: 25,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                duration: 0.7,
+              }}
+              className="font-(family-name:--font-display) max-w-4xl text-[clamp(3.2rem,5vw,5.75rem)] font-semibold leading-[0.92] tracking-tighter"
+            >
+              Creative work.
               <br />
-              built across
+
+              Marketing systems.
               <br />
 
-              <motion.span
-                animate={{
-                  backgroundPosition:
-                    [
-                      "0% center",
-                      "200% center",
-                    ],
-                }}
-                transition={{
-                  duration:
-                    7,
-                  repeat:
-                    Infinity,
-                  ease: "linear",
-                }}
-                className="
-                  bg-[linear-gradient(100deg,#F7F9FC_0%,#DCE8FF_30%,#B8D2FF_55%,#79A8FF_78%,#F7F9FC_100%)]
-                  bg-size-[200%_auto]
-                  bg-clip-text
-                  text-transparent
-                "
-              >
-                content & systems.
-              </motion.span>
-            </h1>
+              <span className="text-[#79A8FF]">
+                Digital operations.
+              </span>
+            </motion.h1>
 
-            <p className="mt-9 max-w-190 text-base leading-8 text-[#A8B3C4] md:text-lg">
-              A portfolio of work across social media,
-              graphic design, short-form video, GoHighLevel,
-              email marketing, websites, funnels, lead
-              generation, and digital business operations.
-            </p>
+            <motion.p
+              initial={{
+                opacity: 0,
+                y: 20,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                delay: 0.12,
+              }}
+              className="mt-8 max-w-2xl text-base leading-8 text-[#A8B3C4] md:text-lg"
+            >
+              Creative and operational support designed
+              to help businesses communicate, organize,
+              and execute their digital work.
+            </motion.p>
 
-            <div className="mt-10 flex flex-wrap gap-4">
-              <MagneticButton href="#work">
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: 20,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                delay: 0.2,
+              }}
+              className="mt-10 flex flex-wrap gap-4"
+            >
+              <MagneticButton href="/portfolio">
                 Explore My Work
 
-                <ArrowRight
-                  size={
-                    17
-                  }
-                />
+                <ArrowRight size={17} />
               </MagneticButton>
 
               <MagneticButton
-                href="#services"
+                href="/contact#contact-form"
                 secondary
               >
-                <BriefcaseBusiness
-                  size={
-                    16
-                  }
-                />
+                <BriefcaseBusiness size={16} />
 
-                View Services
+                Start a Project
               </MagneticButton>
 
               <Link
@@ -851,110 +555,88 @@ export default function Home() {
               >
                 About Khim
 
-                <ArrowUpRight
-                  size={
-                    15
-                  }
-                />
+                <ArrowUpRight size={15} />
               </Link>
-            </div>
-
-            <div className="mt-14 flex flex-wrap gap-10 border-t border-white/10 pt-7">
-              <div>
-                <p className="font-(family-name:--font-display) text-xl font-semibold">
-                  08
-                </p>
-
-                <p className="mt-1 text-[9px] uppercase tracking-[0.16em] text-[#6E7C90]">
-                  Work Areas
-                </p>
-              </div>
-
-              <div>
-                <p className="font-(family-name:--font-display) text-xl font-semibold">
-                  06
-                </p>
-
-                <p className="mt-1 text-[9px] uppercase tracking-[0.16em] text-[#6E7C90]">
-                  Work Archives
-                </p>
-              </div>
-
-              <div>
-                <p className="font-(family-name:--font-display) text-xl font-semibold">
-                  Multi
-                </p>
-
-                <p className="mt-1 text-[9px] uppercase tracking-[0.16em] text-[#6E7C90]">
-                  Channel Work
-                </p>
-              </div>
-            </div>
+            </motion.div>
           </div>
 
-          {/* HERO VISUAL */}
+          {/* =================================================
+              HERO VISUAL
+          ================================================= */}
 
-          <div className="relative mx-auto flex aspect-square w-full max-w-120 items-center justify-center">
-            <div className="absolute inset-[5%] rounded-full border border-[#4F8CFF]/15" />
+          <motion.div
+            initial={{
+              opacity: 0,
+              x: 40,
+            }}
+            animate={{
+              opacity: 1,
+              x: 0,
+            }}
+            transition={{
+              duration: 0.9,
+            }}
+            className="relative mx-auto flex aspect-square w-full max-w-120 items-center justify-center"
+          >
+            <div className="absolute inset-[3%] rounded-full border border-white/5" />
 
             <motion.div
               animate={{
-                rotate:
-                  360,
+                rotate: 360,
               }}
               transition={{
-                duration:
-                  25,
-                repeat:
-                  Infinity,
+                duration: 28,
+                repeat: Infinity,
                 ease: "linear",
               }}
-              className="absolute inset-[13%] rounded-full border border-dashed border-[#4F8CFF]/30"
+              className="absolute inset-[11%] rounded-full border border-dashed border-[#4F8CFF]/25"
             />
 
             <motion.div
               animate={{
-                rotate:
-                  -360,
+                rotate: -360,
               }}
               transition={{
-                duration:
-                  18,
-                repeat:
-                  Infinity,
+                duration: 20,
+                repeat: Infinity,
                 ease: "linear",
               }}
-              className="absolute inset-[23%] rounded-full border border-white/10"
+              className="absolute inset-[22%] rounded-full border border-white/10"
             />
 
-            <div className="absolute inset-[30%] rounded-full bg-[#4F8CFF]/15 blur-[45px]" />
+            <div className="absolute inset-[29%] rounded-full bg-[#4F8CFF]/13 blur-[50px]" />
 
-            <div className="relative flex h-42 w-42 items-center justify-center rounded-full border border-[#4F8CFF]/30 bg-[#132033] shadow-[0_0_80px_rgba(79,140,255,0.15)]">
+            {/* CENTER */}
+
+            <motion.div
+              animate={{
+                scale: [1, 1.035, 1],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+              }}
+              className="relative flex h-40 w-40 items-center justify-center rounded-full border border-[#4F8CFF]/30 bg-[#132033]/95 md:h-44 md:w-44"
+            >
               <span className="font-(family-name:--font-display) text-5xl font-semibold tracking-tighter">
                 KM
               </span>
-            </div>
+            </motion.div>
+
+            {/* SOCIAL */}
 
             <motion.div
               animate={{
-                y: [
-                  0,
-                  -10,
-                  0,
-                ],
+                y: [0, -10, 0],
               }}
               transition={{
-                duration:
-                  5,
-                repeat:
-                  Infinity,
+                duration: 5,
+                repeat: Infinity,
               }}
-              className="absolute left-0 top-[22%] rounded-2xl border border-white/10 bg-[#132033]/95 p-4 shadow-2xl"
+              className="absolute left-0 top-[16%] rounded-2xl border border-white/10 bg-[#132033]/95 p-4 shadow-2xl"
             >
               <Share2
-                size={
-                  18
-                }
+                size={17}
                 className="text-[#79A8FF]"
               />
 
@@ -963,26 +645,42 @@ export default function Home() {
               </p>
             </motion.div>
 
+            {/* VIDEO */}
+
             <motion.div
               animate={{
-                y: [
-                  0,
-                  10,
-                  0,
-                ],
+                x: [0, 8, 0],
               }}
               transition={{
-                duration:
-                  4,
-                repeat:
-                  Infinity,
+                duration: 6,
+                repeat: Infinity,
               }}
-              className="absolute bottom-[20%] right-0 rounded-2xl border border-white/10 bg-[#132033]/95 p-4 shadow-2xl"
+              className="absolute right-[3%] top-[29%] rounded-2xl border border-white/10 bg-[#132033]/95 p-4 shadow-2xl"
+            >
+              <Video
+                size={17}
+                className="text-[#79A8FF]"
+              />
+
+              <p className="mt-3 text-xs font-semibold">
+                Video Editing
+              </p>
+            </motion.div>
+
+            {/* GHL */}
+
+            <motion.div
+              animate={{
+                y: [0, 9, 0],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+              }}
+              className="absolute bottom-[18%] right-0 rounded-2xl border border-white/10 bg-[#132033]/95 p-4 shadow-2xl"
             >
               <Workflow
-                size={
-                  18
-                }
+                size={17}
                 className="text-[#79A8FF]"
               />
 
@@ -990,167 +688,29 @@ export default function Home() {
                 GoHighLevel
               </p>
             </motion.div>
-          </div>
-        </div>
-      </section>
 
-      {/* =====================================================
-          MARQUEE
-      ====================================================== */}
+            {/* EMAIL */}
 
-      <section className="overflow-hidden border-b border-[#D7DFE9] bg-white py-5">
-        <motion.div
-          animate={{
-            x: [
-              "0%",
-              "-50%",
-            ],
-          }}
-          transition={{
-            duration:
-              30,
-            repeat:
-              Infinity,
-            ease: "linear",
-          }}
-          className="flex w-max"
-        >
-          {[0, 1].map(
-            (group) => (
-              <div
-                key={
-                  group
-                }
-                className="flex shrink-0 items-center"
-              >
-                {[
-                  "SOCIAL MEDIA",
-                  "GRAPHIC DESIGN",
-                  "VIDEO EDITING",
-                  "GOHIGHLEVEL",
-                  "EMAIL MARKETING",
-                  "VIRTUAL ASSISTANCE",
-                  "WEBSITES & FUNNELS",
-                  "LEAD GENERATION",
-                ].map(
-                  (item) => (
-                    <div
-                      key={`${group}-${item}`}
-                      className="flex items-center"
-                    >
-                      <span className="font-(family-name:--font-display) mx-8 text-xl font-medium text-[#344054] md:text-2xl">
-                        {
-                          item
-                        }
-                      </span>
+            <motion.div
+              animate={{
+                x: [0, -8, 0],
+              }}
+              transition={{
+                duration: 6.5,
+                repeat: Infinity,
+              }}
+              className="absolute bottom-[8%] left-[14%] rounded-2xl border border-white/10 bg-[#132033]/95 p-4 shadow-2xl"
+            >
+              <Mail
+                size={17}
+                className="text-[#79A8FF]"
+              />
 
-                      <span className="text-[#4F8CFF]">
-                        ✦
-                      </span>
-                    </div>
-                  ),
-                )}
-              </div>
-            ),
-          )}
-        </motion.div>
-      </section>
-
-      {/* =====================================================
-          SERVICES
-      ====================================================== */}
-
-      <section
-        id="services"
-        className="bg-[#F8FAFC] px-5 py-28 text-[#101828] md:px-8 md:py-40"
-      >
-        <div className="mx-auto max-w-360">
-          <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-[#4F8CFF]">
-            01 / Capabilities
-          </p>
-
-          <h2 className="font-(family-name:--font-display) mt-5 max-w-4xl text-4xl font-semibold tracking-tighter md:text-6xl">
-            Digital work across{" "}
-            <span className="text-[#4F8CFF]">
-              creative, marketing, and operations.
-            </span>
-          </h2>
-
-          <div className="mt-16">
-            {services.map(
-              (
-                service,
-                index,
-              ) => {
-                const Icon =
-                  service.icon;
-
-                return (
-                  <motion.div
-                    key={
-                      service.title
-                    }
-                    initial={{
-                      opacity:
-                        0,
-                      y: 20,
-                    }}
-                    whileInView={{
-                      opacity:
-                        1,
-                      y: 0,
-                    }}
-                    viewport={{
-                      once:
-                        true,
-                    }}
-                    transition={{
-                      delay:
-                        index *
-                        0.04,
-                    }}
-                    className="group grid gap-5 border-t border-[#D8E0EA] py-8 md:grid-cols-[60px_1fr_1fr_auto] md:items-center"
-                  >
-                    <span className="text-xs text-[#98A2B3]">
-                      {
-                        service.number
-                      }
-                    </span>
-
-                    <div>
-                      <h3 className="font-(family-name:--font-display) text-2xl font-medium md:text-3xl">
-                        {
-                          service.title
-                        }
-                      </h3>
-
-                      <p className="mt-3 text-[9px] font-semibold uppercase tracking-[0.14em] text-[#4F8CFF]">
-                        {
-                          service.tools
-                        }
-                      </p>
-                    </div>
-
-                    <p className="max-w-lg text-sm leading-7 text-[#667085]">
-                      {
-                        service.description
-                      }
-                    </p>
-
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full border border-[#CDD6E2] bg-white text-[#475467] transition-all duration-300 group-hover:border-[#4F8CFF] group-hover:bg-[#4F8CFF] group-hover:text-white">
-                      <Icon
-                        size={
-                          17
-                        }
-                      />
-                    </div>
-                  </motion.div>
-                );
-              },
-            )}
-
-            <div className="border-t border-[#D8E0EA]" />
-          </div>
+              <p className="mt-3 text-xs font-semibold">
+                Email Marketing
+              </p>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
@@ -1161,271 +721,342 @@ export default function Home() {
       <SelectedWork />
 
       {/* =====================================================
+          SERVICES
+      ====================================================== */}
+
+      <section
+        id="capabilities"
+        className="relative overflow-hidden bg-[#F8FAFC] px-5 py-28 text-[#101828] md:px-8 md:py-40 lg:px-10"
+      >
+        <div className="pointer-events-none absolute -right-40 -top-40 h-125 w-125 rounded-full bg-[#4F8CFF]/6 blur-[160px]" />
+
+        <div className="relative mx-auto max-w-360">
+          {/* =================================================
+              HEADING + PARAGRAPH POSITION
+          ================================================= */}
+
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 25,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            viewport={{
+              once: true,
+            }}
+            transition={{
+              duration: 0.6,
+            }}
+            className="grid gap-8 lg:grid-cols-[0.28fr_1fr] lg:gap-12"
+          >
+            {/* LABEL */}
+
+            <div className="pt-2">
+              <div className="flex items-center gap-3">
+                <span className="h-px w-8 bg-[#4F8CFF]" />
+
+                <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-[#4F8CFF]">
+                  Services
+                </p>
+              </div>
+            </div>
+
+            {/* HEADING + DESCRIPTION */}
+
+            <div className="grid gap-7 xl:grid-cols-[1fr_0.55fr] xl:items-end">
+              <h2 className="font-(family-name:--font-display) max-w-3xl text-[clamp(2.8rem,4.5vw,4.75rem)] font-semibold leading-[0.96] tracking-tighter">
+                Where creative work meets{" "}
+
+                <span className="text-[#4F8CFF]">
+                  digital execution.
+                </span>
+              </h2>
+
+              <p className="max-w-md text-sm leading-7 text-[#667085] xl:justify-self-end xl:text-base xl:leading-8">
+                Creative, marketing, technical, and
+                operational support built around the
+                needs of digital businesses.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* =================================================
+              SERVICE CARDS
+          ================================================= */}
+
+          <div className="mt-16 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+            {capabilities.map(
+              (
+                service,
+                index,
+              ) => {
+                const Icon = service.icon;
+
+                return (
+                  <motion.article
+                    key={service.title}
+                    initial={{
+                      opacity: 0,
+                      y: 25,
+                    }}
+                    whileInView={{
+                      opacity: 1,
+                      y: 0,
+                    }}
+                    viewport={{
+                      once: true,
+                      amount: 0.15,
+                    }}
+                    transition={{
+                      duration: 0.5,
+                      delay: index * 0.05,
+                    }}
+                    whileHover={{
+                      y: -7,
+                    }}
+                    className="group relative flex min-h-80 flex-col overflow-hidden rounded-4xl border border-[#D8E0EA] bg-white p-6 shadow-[0_12px_40px_rgba(15,23,42,0.04)] transition-all duration-300 hover:border-[#4F8CFF]/45 hover:shadow-[0_22px_55px_rgba(15,23,42,0.09)] md:p-7"
+                  >
+                    {/* HOVER GLOW */}
+
+                    <div className="pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full bg-[#4F8CFF]/0 blur-[70px] transition-all duration-500 group-hover:bg-[#4F8CFF]/10" />
+
+                    {/* ICON */}
+
+                    <div className="relative">
+                      <div className="flex h-13 w-13 items-center justify-center rounded-2xl border border-[#D8E0EA] bg-[#F8FAFC] text-[#4F8CFF] transition-all duration-300 group-hover:border-[#4F8CFF]/30 group-hover:bg-[#EEF4FF]">
+                        <Icon size={19} />
+                      </div>
+                    </div>
+
+                    {/* CONTENT */}
+
+                    <div className="relative mt-10">
+                      <h3 className="font-(family-name:--font-display) text-2xl font-semibold leading-tight tracking-tight text-[#101828]">
+                        {service.title}
+                      </h3>
+
+                      <p className="mt-5 text-sm leading-7 text-[#667085]">
+                        {service.description}
+                      </p>
+                    </div>
+                  </motion.article>
+                );
+              },
+            )}
+          </div>
+
+          {/* VIEW ALL */}
+
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 15,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            viewport={{
+              once: true,
+            }}
+            className="mt-10 flex justify-end"
+          >
+            <Link
+              href="/services"
+              className="group inline-flex items-center gap-3 rounded-xl border border-[#D8E0EA] bg-white px-5 py-3.5 text-sm font-semibold text-[#344054] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#4F8CFF]/40 hover:shadow-[0_10px_30px_rgba(15,23,42,0.06)]"
+            >
+              View All Services
+
+              <ArrowRight
+                size={15}
+                className="text-[#4F8CFF] transition-transform duration-300 group-hover:translate-x-1"
+              />
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* =====================================================
           SKILLS & TOOLS
       ====================================================== */}
 
       <section
-        id="skills"
-        className="relative overflow-hidden bg-[#E8EDF4] px-5 py-28 text-[#101828] md:px-8 md:py-40"
+        id="tools"
+        className="relative overflow-hidden bg-[#E9EEF5] px-5 py-28 text-[#101828] md:px-8 md:py-36 lg:px-10"
       >
-        <div className="pointer-events-none absolute -right-40 -top-40 h-125 w-125 rounded-full bg-[#4F8CFF]/7 blur-[150px]" />
+        {/* GLOWS */}
 
-        <div className="pointer-events-none absolute -bottom-40 -left-40 h-100 w-100 rounded-full bg-[#94A3B8]/10 blur-[140px]" />
+        <div className="pointer-events-none absolute -right-40 -top-40 h-150 w-150 rounded-full bg-[#4F8CFF]/5 blur-[170px]" />
+
+        <div className="pointer-events-none absolute -bottom-40 -left-40 h-125 w-125 rounded-full bg-white/60 blur-[150px]" />
 
         <div className="relative mx-auto max-w-360">
-          <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-            <div>
-              <div className="flex items-center gap-4">
-                <span className="h-px w-10 bg-[#4F8CFF]" />
+          {/* =================================================
+              HEADING + PARAGRAPH POSITION
+          ================================================= */}
+
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 25,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            viewport={{
+              once: true,
+            }}
+            transition={{
+              duration: 0.6,
+            }}
+            className="grid gap-8 lg:grid-cols-[0.28fr_1fr] lg:gap-12"
+          >
+            {/* LABEL */}
+
+            <div className="pt-2">
+              <div className="flex items-center gap-3">
+                <span className="h-px w-8 bg-[#4F8CFF]" />
 
                 <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-[#4F8CFF]">
-                  03 / Skills & Tools
+                  Skills & Tools
                 </p>
               </div>
+            </div>
 
-              <h2 className="font-(family-name:--font-display) mt-6 max-w-4xl text-4xl font-semibold tracking-tighter md:text-6xl">
+            {/* TITLE / DESCRIPTION */}
+
+            <div className="grid gap-7 xl:grid-cols-[1fr_0.55fr] xl:items-end">
+              <h2 className="font-(family-name:--font-display) max-w-3xl text-[clamp(2.8rem,4.5vw,4.75rem)] font-semibold leading-[0.96] tracking-tighter">
                 The tools behind the{" "}
+
                 <span className="text-[#4F8CFF]">
                   work.
                 </span>
               </h2>
+
+              <p className="max-w-md text-sm leading-7 text-[#667085] xl:justify-self-end xl:text-base xl:leading-8">
+                Platforms used across content creation,
+                marketing, CRM, websites, scheduling,
+                social media, and business operations.
+              </p>
             </div>
+          </motion.div>
 
-            <p className="max-w-md text-sm leading-7 text-[#667085]">
-              Platforms used across social media, content
-              creation, marketing, CRM, email, websites,
-              scheduling, and business operations.
-            </p>
-          </div>
+          {/* =================================================
+              TOOL CATEGORY CARDS
+          ================================================= */}
 
-          <div className="mt-16 grid gap-5 lg:grid-cols-2">
-            {toolGroups.map(
+          <div className="mt-16 grid gap-5 xl:grid-cols-2">
+            {toolCategories.map(
               (
-                group,
-                groupIndex,
+                category,
+                categoryIndex,
               ) => (
-                <motion.div
-                  key={
-                    group.category
-                  }
+                <motion.article
+                  key={category.category}
                   initial={{
-                    opacity:
-                      0,
+                    opacity: 0,
                     y: 30,
                   }}
                   whileInView={{
-                    opacity:
-                      1,
+                    opacity: 1,
                     y: 0,
                   }}
                   viewport={{
-                    once:
-                      true,
+                    once: true,
+                    amount: 0.1,
                   }}
                   transition={{
+                    duration: 0.55,
                     delay:
-                      groupIndex *
-                      0.07,
+                      categoryIndex *
+                      0.06,
                   }}
-                  className="group relative overflow-hidden rounded-4xl border border-[#D0D8E3] bg-white p-6 shadow-[0_15px_50px_rgba(15,23,42,0.04)] transition-all duration-500 hover:-translate-y-1 hover:border-[#4F8CFF]/35 hover:shadow-[0_22px_60px_rgba(15,23,42,0.08)] md:p-8"
+                  className="rounded-[28px] border border-[#D2DBE6] bg-white p-6 shadow-[0_14px_40px_rgba(15,23,42,0.035)] sm:p-7 lg:p-8"
                 >
-                  <div className="pointer-events-none absolute -right-20 -top-20 h-60 w-60 rounded-full bg-[#4F8CFF]/0 blur-[90px] transition-all duration-500 group-hover:bg-[#4F8CFF]/7" />
+                  {/* CATEGORY HEADER */}
 
-                  <div className="relative flex items-start justify-between gap-5">
-                    <div>
-                      <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#4F8CFF]">
-                        Tool Category
-                      </p>
+                  <div>
+                    <p className="text-[8px] font-semibold uppercase tracking-[0.2em] text-[#4F8CFF]">
+                      Tool Category
+                    </p>
 
-                      <h3 className="font-(family-name:--font-display) mt-2 text-2xl font-semibold tracking-tight">
-                        {
-                          group.category
-                        }
-                      </h3>
-                    </div>
-
-                    <span className="font-(family-name:--font-display) text-sm font-semibold text-[#98A2B3]">
-                      {String(
-                        group
-                          .tools
-                          .length,
-                      ).padStart(
-                        2,
-                        "0",
-                      )}
-                    </span>
+                    <h3 className="font-(family-name:--font-display) mt-3 text-2xl font-semibold tracking-tight md:text-[28px]">
+                      {category.category}
+                    </h3>
                   </div>
 
-                  <p className="relative mt-4 max-w-lg text-sm leading-7 text-[#667085]">
-                    {
-                      group.description
-                    }
+                  <p className="mt-5 max-w-2xl text-sm leading-7 text-[#667085]">
+                    {category.description}
                   </p>
 
-                  <div className="relative my-7 h-px bg-[#E2E8F0]" />
+                  <div className="my-7 h-px bg-[#DDE4ED]" />
 
-                  <div className="relative grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-4">
-                    {group.tools.map(
+                  {/* TOOLS */}
+
+                  <div
+                    className={`
+                      grid gap-3
+                      ${
+                        category.tools.length >
+                        4
+                          ? "grid-cols-2 sm:grid-cols-4"
+                          : "grid-cols-2 sm:grid-cols-3"
+                      }
+                    `}
+                  >
+                    {category.tools.map(
                       (
                         tool,
                         toolIndex,
                       ) => (
                         <motion.div
-                          key={
-                            tool.name
-                          }
+                          key={tool.name}
                           initial={{
-                            opacity:
-                              0,
-                            scale:
-                              0.9,
+                            opacity: 0,
+                            y: 15,
                           }}
                           whileInView={{
-                            opacity:
-                              1,
-                            scale:
-                              1,
+                            opacity: 1,
+                            y: 0,
                           }}
                           viewport={{
-                            once:
-                              true,
+                            once: true,
                           }}
                           transition={{
                             delay:
-                              groupIndex *
-                                0.03 +
+                              categoryIndex *
+                                0.04 +
                               toolIndex *
-                                0.025,
+                                0.035,
                           }}
                           whileHover={{
                             y: -5,
                           }}
-                          className="group/tool flex min-h-38 flex-col items-center justify-center rounded-3xl border border-[#D8E0EA] bg-[#F8FAFC] px-4 py-6 text-center transition-all duration-300 hover:border-[#4F8CFF]/45 hover:bg-white hover:shadow-[0_14px_35px_rgba(15,23,42,0.08)]"
+                          className="group flex min-h-35 flex-col items-center justify-center rounded-[20px] border border-[#D9E1EB] bg-[#F7F9FC] px-3 py-5 text-center transition-all duration-300 hover:border-[#B8C9DE] hover:bg-white hover:shadow-[0_12px_30px_rgba(15,23,42,0.07)]"
                         >
-                          <div className="transition-transform duration-300 group-hover/tool:scale-105">
+                          <div className="transition-transform duration-300 group-hover:scale-105">
                             <ToolLogo
-                              name={
-                                tool.name
-                              }
-                              logo={
-                                tool.logo
-                              }
-                              domain={
-                                tool.domain
-                              }
+                              name={tool.name}
+                              logo={tool.logo}
+                              domain={tool.domain}
                             />
                           </div>
 
-                          <p className="mt-4 text-sm font-semibold leading-5 text-[#344054]">
-                            {
-                              tool.name
-                            }
+                          <p className="mt-4 max-w-full text-xs font-medium leading-4 text-[#27364A]">
+                            {tool.name}
                           </p>
                         </motion.div>
                       ),
                     )}
                   </div>
-                </motion.div>
+                </motion.article>
               ),
             )}
-          </div>
-
-          <div className="mt-10 flex flex-col gap-3 border-t border-[#D0D8E3] pt-6 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-xs leading-6 text-[#667085]">
-              Tools used across Khim&apos;s digital
-              marketing, creative, web, and operational work.
-            </p>
-
-            <div className="flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.16em] text-[#4F8CFF]">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#4F8CFF]" />
-
-              Digital Toolkit
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =====================================================
-          EXPERIENCE
-      ====================================================== */}
-
-      <section
-        id="experience"
-        className="bg-[#111827] px-5 py-28 text-white md:px-8 md:py-40"
-      >
-        <div className="mx-auto max-w-360">
-          <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-[#79A8FF]">
-            04 / Work Experience
-          </p>
-
-          <h2 className="font-(family-name:--font-display) mt-5 max-w-4xl text-4xl font-semibold tracking-tighter md:text-6xl">
-            Work across{" "}
-            <span className="text-[#79A8FF]">
-              creative and digital operations.
-            </span>
-          </h2>
-
-          <div className="mt-14">
-            {experienceAreas.map(
-              (item) => (
-                <article
-                  key={
-                    item.title
-                  }
-                  className="grid gap-6 border-t border-white/10 py-9 md:grid-cols-[70px_1fr]"
-                >
-                  <span className="text-xs text-[#6E7C90]">
-                    {
-                      item.number
-                    }
-                  </span>
-
-                  <div>
-                    <h3 className="font-(family-name:--font-display) text-2xl font-semibold">
-                      {
-                        item.title
-                      }
-                    </h3>
-
-                    <p className="mt-5 max-w-2xl text-sm leading-7 text-[#98A2B3]">
-                      {
-                        item.description
-                      }
-                    </p>
-
-                    <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                      {item.highlights.map(
-                        (
-                          highlight,
-                        ) => (
-                          <div
-                            key={
-                              highlight
-                            }
-                            className="flex items-start gap-3 text-sm text-[#CBD5E1]"
-                          >
-                            <Check
-                              size={
-                                15
-                              }
-                              className="mt-0.5 shrink-0 text-[#79A8FF]"
-                            />
-
-                            <span>
-                              {
-                                highlight
-                              }
-                            </span>
-                          </div>
-                        ),
-                      )}
-                    </div>
-                  </div>
-                </article>
-              ),
-            )}
-
-            <div className="border-t border-white/10" />
           </div>
         </div>
       </section>
@@ -1434,360 +1065,351 @@ export default function Home() {
           PROCESS
       ====================================================== */}
 
-      <section className="bg-[#F8FAFC] px-5 py-28 text-[#101828] md:px-8 md:py-40">
-        <div className="mx-auto max-w-360">
-          <div className="text-center">
-            <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-[#4F8CFF]">
-              05 / Work Process
-            </p>
-
-            <h2 className="font-(family-name:--font-display) mx-auto mt-5 max-w-4xl text-4xl font-semibold tracking-tighter md:text-6xl">
-              From request to{" "}
-              <span className="text-[#4F8CFF]">
-                completed work.
-              </span>
-            </h2>
-          </div>
-
-          <div className="mt-16 grid gap-4 md:grid-cols-2 xl:grid-cols-6">
-            {processSteps.map(
-              (step) => {
-                const Icon =
-                  step.icon;
-
-                return (
-                  <div
-                    key={
-                      step.number
-                    }
-                    className="rounded-3xl border border-[#D8E0EA] bg-white p-6 shadow-[0_12px_35px_rgba(15,23,42,0.04)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(15,23,42,0.08)]"
-                  >
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#4F8CFF]/10 text-[#4F8CFF]">
-                      <Icon
-                        size={
-                          18
-                        }
-                      />
-                    </div>
-
-                    <p className="mt-7 text-[9px] uppercase tracking-[0.18em] text-[#98A2B3]">
-                      Step{" "}
-                      {
-                        step.number
-                      }
-                    </p>
-
-                    <h3 className="font-(family-name:--font-display) mt-2 text-xl font-semibold">
-                      {
-                        step.title
-                      }
-                    </h3>
-
-                    <p className="mt-4 text-sm leading-6 text-[#667085]">
-                      {
-                        step.description
-                      }
-                    </p>
-                  </div>
-                );
-              },
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* =====================================================
-          TESTIMONIALS
-      ====================================================== */}
-
-      <section className="bg-[#E9EEF5] px-5 py-28 text-[#101828] md:px-8 md:py-40">
-        <div className="mx-auto max-w-360">
-          <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-[#4F8CFF]">
-            06 / Work Feedback
-          </p>
-
-          <h2 className="font-(family-name:--font-display) mt-5 max-w-3xl text-4xl font-semibold tracking-tighter md:text-6xl">
-            Feedback from people I&apos;ve{" "}
-            <span className="text-[#4F8CFF]">
-              worked with.
-            </span>
-          </h2>
-
-          <div className="mt-14 grid gap-5 md:grid-cols-2">
-            {[1, 2].map(
-              (item) => (
-                <div
-                  key={item}
-                  className="rounded-4xl border border-[#D5DDE8] bg-white p-7 shadow-[0_14px_40px_rgba(15,23,42,0.05)]"
-                >
-                  <Quote
-                    size={
-                      28
-                    }
-                    className="text-[#4F8CFF]/45"
-                  />
-
-                  <p className="mt-8 text-base leading-8 text-[#667085]">
-                    Add a verified client, employer, or
-                    colleague testimonial here.
-                  </p>
-
-                  <div className="mt-8 border-t border-[#E2E8F0] pt-5">
-                    <p className="font-(family-name:--font-display) text-sm font-semibold">
-                      Verified Name
-                    </p>
-
-                    <p className="mt-1 text-xs text-[#98A2B3]">
-                      Role / Company
-                    </p>
-                  </div>
-                </div>
-              ),
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* =====================================================
-          WHY WORK WITH ME
-      ====================================================== */}
-
-      <section className="bg-[#0B1320] px-5 py-28 text-white md:px-8 md:py-40">
-        <div className="mx-auto max-w-360">
-          <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-[#79A8FF]">
-            07 / Working With Me
-          </p>
-
-          <h2 className="font-(family-name:--font-display) mt-5 max-w-4xl text-4xl font-semibold tracking-tighter md:text-6xl">
-            Flexible support across{" "}
-            <span className="text-[#79A8FF]">
-              creative work and operations.
-            </span>
-          </h2>
-
-          <div className="mt-14 grid gap-px overflow-hidden rounded-4xl border border-white/10 bg-white/10 md:grid-cols-2 xl:grid-cols-5">
-            {reasons.map(
-              (
-                reason,
-                index,
-              ) => (
-                <div
-                  key={
-                    reason.title
-                  }
-                  className="bg-[#111C2C] p-7 transition-colors duration-300 hover:bg-[#17263A]"
-                >
-                  <span className="text-xs text-[#79A8FF]">
-                    0
-                    {
-                      index +
-                      1
-                    }
-                  </span>
-
-                  <h3 className="font-(family-name:--font-display) mt-12 text-xl font-semibold">
-                    {
-                      reason.title
-                    }
-                  </h3>
-
-                  <p className="mt-4 text-sm leading-7 text-[#94A3B8]">
-                    {
-                      reason.description
-                    }
-                  </p>
-                </div>
-              ),
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* =====================================================
-          CONTACT
-      ====================================================== */}
-
       <section
-        id="contact"
-        className="relative overflow-hidden bg-linear-to-br from-[#07111F] via-[#0D1826] to-[#111827] px-5 py-28 text-white md:px-8 md:py-40"
+        id="process"
+        className="relative overflow-hidden bg-[#F8FAFC] px-5 py-28 text-[#101828] md:px-8 md:py-40 lg:px-10"
       >
-        <div className="pointer-events-none absolute right-[-15%] top-[-50%] h-150 w-150 rounded-full bg-[#4F8CFF]/15 blur-[180px]" />
+        {/* BACKGROUND */}
+
+        <div className="pointer-events-none absolute -left-40 top-20 h-125 w-125 rounded-full bg-[#4F8CFF]/6 blur-[150px]" />
+
+        <div className="pointer-events-none absolute -right-40 bottom-0 h-125 w-125 rounded-full bg-[#79A8FF]/6 blur-[150px]" />
 
         <div className="relative mx-auto max-w-360">
-          <div className="grid gap-16 lg:grid-cols-[0.9fr_1.1fr]">
-            <div>
-              <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-[#79A8FF]">
-                08 / Contact
-              </p>
+          {/* =================================================
+              HEADING + PARAGRAPH POSITION
+          ================================================= */}
 
-              <h2 className="font-(family-name:--font-display) mt-6 text-[clamp(3.5rem,6vw,6.5rem)] font-semibold leading-[0.9] tracking-tighter">
-                Have work
-                <br />
-                in mind?
-                <br />
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 25,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            viewport={{
+              once: true,
+            }}
+            transition={{
+              duration: 0.6,
+            }}
+            className="grid gap-8 lg:grid-cols-[0.28fr_1fr] lg:gap-12"
+          >
+            {/* LABEL */}
 
-                <span className="text-[#79A8FF]">
-                  Let&apos;s talk.
+            <div className="pt-2">
+              <div className="flex items-center gap-3">
+                <span className="h-px w-8 bg-[#4F8CFF]" />
+
+                <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-[#4F8CFF]">
+                  Process
+                </p>
+              </div>
+            </div>
+
+            {/* TITLE / DESCRIPTION */}
+
+            <div className="grid gap-7 xl:grid-cols-[1fr_0.55fr] xl:items-end">
+              <h2 className="font-(family-name:--font-display) max-w-3xl text-[clamp(2.8rem,4.5vw,4.75rem)] font-semibold leading-[0.96] tracking-tighter">
+                A simple path from{" "}
+
+                <span className="text-[#4F8CFF]">
+                  idea to delivery.
                 </span>
               </h2>
 
-              <p className="mt-8 max-w-xl text-base leading-8 text-[#A8B3C4]">
-                Need help with social media, content,
-                GoHighLevel, email marketing, websites,
-                funnels, or digital operations? Send an
-                inquiry.
+              <p className="max-w-md text-sm leading-7 text-[#667085] xl:justify-self-end xl:text-base xl:leading-8">
+                Every project moves through a clear
+                workflow so the work stays organized,
+                focused, and easy to follow.
               </p>
+            </div>
+          </motion.div>
 
-              <Link
-                href="/about"
-                className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[#B8D2FF] hover:text-white"
+          {/* =================================================
+              PROCESS JOURNEY
+          ================================================= */}
+
+          <div className="relative mt-28">
+            {/* DESKTOP CURVED PATH */}
+
+            <div className="pointer-events-none absolute left-[4%] right-[4%] top-1/2 hidden -translate-y-1/2 xl:block">
+              <svg
+                viewBox="0 0 1200 360"
+                className="h-90 w-full"
+                preserveAspectRatio="none"
               >
-                Want to know more about me?
+                {/* BASE PATH */}
 
-                <ArrowUpRight
-                  size={
-                    15
-                  }
+                <path
+                  d="
+                    M 40 180
+                    C 130 180, 135 65, 225 65
+                    C 315 65, 315 295, 405 295
+                    C 495 295, 495 65, 585 65
+                    C 675 65, 675 295, 765 295
+                    C 855 295, 855 65, 945 65
+                    C 1035 65, 1040 180, 1160 180
+                  "
+                  fill="none"
+                  stroke="#D8E0EA"
+                  strokeWidth="2"
                 />
-              </Link>
+
+                {/* BLUE PATH */}
+
+                <motion.path
+                  d="
+                    M 40 180
+                    C 130 180, 135 65, 225 65
+                    C 315 65, 315 295, 405 295
+                    C 495 295, 495 65, 585 65
+                    C 675 65, 675 295, 765 295
+                    C 855 295, 855 65, 945 65
+                    C 1035 65, 1040 180, 1160 180
+                  "
+                  fill="none"
+                  stroke="#4F8CFF"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  initial={{
+                    pathLength: 0,
+                  }}
+                  whileInView={{
+                    pathLength: 1,
+                  }}
+                  viewport={{
+                    once: true,
+                  }}
+                  transition={{
+                    duration: 2,
+                    ease: "easeInOut",
+                  }}
+                />
+              </svg>
             </div>
 
-            <form
-              action="mailto:your@email.com"
-              method="post"
-              encType="text/plain"
-              className="rounded-4xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl md:p-8"
-            >
-              <div className="grid gap-5 md:grid-cols-2">
-                <input
-                  name="name"
-                  placeholder="Your Name"
-                  className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-sm outline-none placeholder:text-[#64748B] focus:border-[#4F8CFF]/60"
-                />
+            {/* PROCESS ITEMS */}
 
-                <input
-                  name="email"
-                  type="email"
-                  placeholder="Email Address"
-                  className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-sm outline-none placeholder:text-[#64748B] focus:border-[#4F8CFF]/60"
-                />
-              </div>
+            <div className="relative grid gap-6 md:grid-cols-2 xl:grid-cols-6 xl:gap-4">
+              {process.map(
+                (
+                  step,
+                  index,
+                ) => {
+                  const Icon = step.icon;
 
-              <select
-                name="service"
-                defaultValue=""
-                className="mt-5 w-full rounded-2xl border border-white/10 bg-[#132033] px-5 py-4 text-sm text-[#A8B3C4] outline-none"
-              >
-                <option
-                  value=""
-                  disabled
-                >
-                  Select a service
-                </option>
+                  const raised =
+                    index % 2 === 0;
 
-                {services.map(
-                  (
-                    service,
-                  ) => (
-                    <option
-                      key={
-                        service.title
-                      }
-                      value={
-                        service.title
-                      }
+                  return (
+                    <motion.article
+                      key={step.title}
+                      initial={{
+                        opacity: 0,
+                        y: raised
+                          ? 35
+                          : -35,
+                      }}
+                      whileInView={{
+                        opacity: 1,
+                        y: 0,
+                      }}
+                      viewport={{
+                        once: true,
+                        amount: 0.2,
+                      }}
+                      transition={{
+                        duration: 0.55,
+                        delay:
+                          index *
+                          0.09,
+                      }}
+                      className={`
+                        group relative
+                        ${
+                          raised
+                            ? "xl:-translate-y-14"
+                            : "xl:translate-y-14"
+                        }
+                      `}
                     >
-                      {
-                        service.title
-                      }
-                    </option>
-                  ),
-                )}
-              </select>
+                      {/* PROCESS CARD */}
 
-              <textarea
-                name="message"
-                rows={6}
-                placeholder="Tell me about the work you need..."
-                className="mt-5 w-full resize-none rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-sm leading-7 outline-none placeholder:text-[#64748B] focus:border-[#4F8CFF]/60"
-              />
+                      <motion.div
+                        whileHover={{
+                          y: -8,
+                          scale: 1.015,
+                        }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 240,
+                          damping: 18,
+                        }}
+                        className="relative min-h-72 overflow-hidden rounded-4xl border border-[#D8E0EA] bg-white p-6 shadow-[0_12px_40px_rgba(15,23,42,0.045)] transition-all duration-300 group-hover:border-[#4F8CFF]/45 group-hover:shadow-[0_22px_55px_rgba(79,140,255,0.12)]"
+                      >
+                        {/* TOP ACCENT */}
 
-              <button
-                type="submit"
-                className="mt-6 flex w-full items-center justify-center gap-3 rounded-2xl bg-[#4F8CFF] px-6 py-4 text-sm font-semibold transition-colors hover:bg-[#79A8FF]"
-              >
-                Send Inquiry
+                        <div className="absolute inset-x-0 top-0 h-1 scale-x-0 bg-[#4F8CFF] transition-transform duration-500 group-hover:scale-x-100" />
 
-                <ArrowUpRight
-                  size={
-                    16
-                  }
+                        {/* GLOW */}
+
+                        <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-[#4F8CFF]/0 blur-[60px] transition-all duration-500 group-hover:bg-[#4F8CFF]/12" />
+
+                        <div className="relative">
+                          {/* ICON */}
+
+                          <motion.div
+                            whileHover={{
+                              rotate: -8,
+                              scale: 1.08,
+                            }}
+                            transition={{
+                              type: "spring",
+                              stiffness: 250,
+                              damping: 17,
+                            }}
+                            className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#EEF4FF] text-[#4F8CFF]"
+                          >
+                            <Icon size={18} />
+                          </motion.div>
+
+                          {/* TITLE */}
+
+                          <h3 className="font-(family-name:--font-display) mt-8 text-2xl font-semibold tracking-tight text-[#101828]">
+                            {step.title}
+                          </h3>
+
+                          {/* DESCRIPTION */}
+
+                          <p className="mt-4 text-sm leading-7 text-[#667085]">
+                            {step.description}
+                          </p>
+                        </div>
+
+                        {/* PULSE */}
+
+                        <motion.span
+                          animate={{
+                            scale: [
+                              1,
+                              1.5,
+                              1,
+                            ],
+                            opacity: [
+                              0.5,
+                              1,
+                              0.5,
+                            ],
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            delay:
+                              index *
+                              0.15,
+                          }}
+                          className="absolute bottom-5 right-5 h-2 w-2 rounded-full bg-[#4F8CFF]"
+                        />
+                      </motion.div>
+
+                      {/* MOBILE CONNECTOR */}
+
+                      {index <
+                        process.length -
+                          1 && (
+                        <div className="flex justify-center py-3 xl:hidden">
+                          <motion.div
+                            animate={{
+                              y: [
+                                0,
+                                5,
+                                0,
+                              ],
+                            }}
+                            transition={{
+                              duration: 1.5,
+                              repeat: Infinity,
+                            }}
+                            className="flex h-9 w-9 items-center justify-center rounded-full border border-[#D8E0EA] bg-white text-[#4F8CFF]"
+                          >
+                            <ArrowRight
+                              size={14}
+                              className="rotate-90 md:rotate-0"
+                            />
+                          </motion.div>
+                        </div>
+                      )}
+                    </motion.article>
+                  );
+                },
+              )}
+            </div>
+
+            {/* WORKFLOW BADGE */}
+
+            <motion.div
+              initial={{
+                opacity: 0,
+                scale: 0.9,
+              }}
+              whileInView={{
+                opacity: 1,
+                scale: 1,
+              }}
+              viewport={{
+                once: true,
+              }}
+              transition={{
+                delay: 0.6,
+              }}
+              className="relative mx-auto mt-16 flex w-fit items-center gap-3 rounded-full border border-[#D8E0EA] bg-white px-5 py-3 shadow-[0_8px_25px_rgba(15,23,42,0.05)] xl:mt-24"
+            >
+              <span className="relative flex h-2.5 w-2.5">
+                <motion.span
+                  animate={{
+                    scale: [
+                      1,
+                      1.9,
+                      1,
+                    ],
+                    opacity: [
+                      0.45,
+                      0,
+                      0.45,
+                    ],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                  }}
+                  className="absolute inset-0 rounded-full bg-[#4F8CFF]"
                 />
-              </button>
-            </form>
+
+                <span className="relative m-auto h-2 w-2 rounded-full bg-[#4F8CFF]" />
+              </span>
+
+              <span className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#667085]">
+                Structured Workflow
+              </span>
+            </motion.div>
           </div>
         </div>
       </section>
+
+      {/* =====================================================
+          PROJECT CTA
+      ====================================================== */}
+
+      <HomeProjectCTA />
 
       {/* =====================================================
           FOOTER
       ====================================================== */}
 
-      <footer className="bg-[#050A12] px-5 py-10 text-white md:px-8 lg:px-10">
-        <div className="mx-auto max-w-360">
-          <div className="flex flex-col justify-between gap-8 border-b border-white/10 pb-10 md:flex-row">
-            <div>
-              <p className="font-(family-name:--font-display) text-lg font-semibold">
-                Khimberlie D. Macose
-              </p>
-
-              <p className="mt-2 text-sm text-[#6E7C90]">
-                Digital Marketing & Operations Portfolio
-              </p>
-            </div>
-
-            <div className="flex flex-wrap gap-6 text-sm">
-              <a
-                href="#work"
-                className="text-[#A8B3C4] hover:text-white"
-              >
-                Work
-              </a>
-
-              <a
-                href="#skills"
-                className="text-[#A8B3C4] hover:text-white"
-              >
-                Skills
-              </a>
-
-              <Link
-                href="/about"
-                className="text-[#A8B3C4] hover:text-white"
-              >
-                About
-              </Link>
-
-              <a
-                href="#contact"
-                className="text-[#A8B3C4] hover:text-white"
-              >
-                Contact
-              </a>
-            </div>
-          </div>
-
-          <div className="flex flex-col justify-between gap-4 pt-7 text-xs text-[#6E7C90] sm:flex-row">
-            <span>
-              © 2026 Khimberlie D. Macose. All rights reserved.
-            </span>
-
-            <span>
-              Digital Work Portfolio
-            </span>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }

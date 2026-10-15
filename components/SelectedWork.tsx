@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import {
   ArrowUpRight,
-  CalendarDays,
+  BriefcaseBusiness,
   FolderOpen,
   Mail,
   Palette,
@@ -21,7 +21,7 @@ const workFolders = [
     title: "Social Media",
     label: "Content & Management",
     description:
-      "Social graphics, content calendars, captions, scheduling, publishing, and brand-focused social media support.",
+      "Social graphics, content calendars, captions, scheduling, publishing, and brand-focused social media work.",
     href: "/work/social-media",
     icon: Share2,
     number: "01",
@@ -39,7 +39,7 @@ const workFolders = [
     title: "Video Editing",
     label: "Short-Form Content",
     description:
-      "Reels, TikTok content, captions, text overlays, scripts, and vertical social media video editing.",
+      "Reels, TikTok content, captions, text overlays, scripts, and vertical social-media video editing.",
     href: "/work/video-editing",
     icon: Video,
     number: "03",
@@ -48,7 +48,7 @@ const workFolders = [
     title: "GoHighLevel",
     label: "Marketing Operations",
     description:
-      "Funnels, landing pages, workflows, automations, contacts, tags, email campaigns, and lead follow-up support.",
+      "Funnels, landing pages, workflows, automation, contacts, tags, campaigns, and lead follow-up systems.",
     href: "/work/gohighlevel",
     icon: Workflow,
     number: "04",
@@ -57,18 +57,18 @@ const workFolders = [
     title: "Email Marketing",
     label: "Campaign Support",
     description:
-      "Newsletters, campaign formatting, email automation support, follow-ups, and lead nurturing content.",
+      "Newsletters, campaigns, automated follow-up, email formatting, and lead-nurturing support.",
     href: "/work/email-marketing",
     icon: Mail,
     number: "05",
   },
   {
-    title: "Virtual Assistance",
-    label: "Operations Support",
+    title: "Digital Operations",
+    label: "Business Support",
     description:
-      "Calendar management, scheduling, client communication, task coordination, documents, and executive support.",
+      "Scheduling, communication, task coordination, documentation, and operational digital support.",
     href: "/work/virtual-assistance",
-    icon: CalendarDays,
+    icon: BriefcaseBusiness,
     number: "06",
   },
 ];
@@ -103,27 +103,20 @@ export default function SelectedWork() {
           {/* LEFT */}
 
           <div>
-            <div className="mb-7 flex items-center gap-4">
-              <span className="h-px w-10 bg-[#4F8CFF]/70" />
-
-              <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-[#79A8FF]">
-                03 / Selected Work
-              </p>
-            </div>
 
             <h2 className="font-(family-name:--font-display) max-w-2xl text-4xl font-semibold leading-[0.96] tracking-tighter md:text-6xl lg:text-7xl">
-              A closer look at
+              Explore the work
               <br />
 
               <span className="text-[#79A8FF]">
-                the work behind the screen.
+                behind the screen.
               </span>
             </h2>
 
             <p className="mt-8 max-w-xl text-base leading-8 text-[#A8B3C4] md:text-lg">
-              Explore selected work across social media, graphic
-              design, video editing, GoHighLevel, email marketing,
-              and digital operations.
+              Browse selected projects organized by the type
+              of work completed—from content and design to
+              marketing systems and digital operations.
             </p>
 
             <div className="mt-10 grid max-w-xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10">
@@ -155,7 +148,7 @@ export default function SelectedWork() {
               />
 
               <span>
-                Select a folder to explore the work.
+                Select a folder to explore the archive.
               </span>
             </div>
           </div>
@@ -229,9 +222,7 @@ export default function SelectedWork() {
                           <div className="absolute left-5 top-0 z-20 h-12 w-48 rounded-t-2xl border-x border-t border-[#C6CFDA] bg-[#D9E0E8] shadow-[0_-4px_20px_rgba(15,23,42,0.05)]">
                             <div className="flex h-full items-center gap-2 px-4">
                               <FolderOpen
-                                size={
-                                  14
-                                }
+                                size={14}
                                 className="text-[#4F8CFF]"
                               />
 
@@ -241,7 +232,7 @@ export default function SelectedWork() {
                             </div>
                           </div>
 
-                          {/* BODY */}
+                          {/* FOLDER */}
 
                           <div
                             className="
@@ -258,8 +249,6 @@ export default function SelectedWork() {
                               group-hover/folder:shadow-[0_35px_100px_rgba(0,0,0,0.27),0_0_60px_rgba(79,140,255,0.10)]
                             "
                           >
-                            {/* GRID */}
-
                             <div
                               className="
                                 pointer-events-none absolute inset-0
@@ -269,11 +258,7 @@ export default function SelectedWork() {
                               "
                             />
 
-                            {/* GLOW */}
-
-                            <div className="pointer-events-none absolute -right-20 -top-20 h-70 w-70 rounded-full bg-[#4F8CFF]/7 blur-[90px] transition-all duration-500 group-hover/folder:bg-[#4F8CFF]/12" />
-
-                            {/* NUMBER */}
+                            <div className="pointer-events-none absolute -right-20 -top-20 h-70 w-70 rounded-full bg-[#4F8CFF]/7 blur-[90px]" />
 
                             <span className="font-(family-name:--font-display) pointer-events-none absolute -right-1 top-7 text-[110px] font-bold leading-none tracking-tighter text-[#172033]/5">
                               {
@@ -282,8 +267,6 @@ export default function SelectedWork() {
                             </span>
 
                             <div className="relative z-10 flex h-full flex-col justify-between p-7 pt-9">
-                              {/* TOP */}
-
                               <div className="flex items-start justify-between">
                                 <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[#BFCADA] bg-[#F5F7FA] text-[#4F8CFF] shadow-[0_6px_18px_rgba(15,23,42,0.05)] transition-all duration-300 group-hover/folder:border-[#4F8CFF] group-hover/folder:bg-[#4F8CFF] group-hover/folder:text-white">
                                   <Icon
@@ -298,12 +281,9 @@ export default function SelectedWork() {
                                     size={
                                       16
                                     }
-                                    className="transition-transform duration-300 group-hover/folder:-translate-y-1 group-hover/folder:translate-x-1"
                                   />
                                 </div>
                               </div>
-
-                              {/* CONTENT */}
 
                               <div>
                                 <div className="mb-4 flex items-center gap-3">
