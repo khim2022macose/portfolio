@@ -7,199 +7,411 @@ import {
 import {
   ArrowUpRight,
   BriefcaseBusiness,
-  ChevronDown,
   Mail,
   Monitor,
   Palette,
   Share2,
   Video,
   Workflow,
+  type LucideIcon,
 } from "lucide-react";
 import Link from "next/link";
 import {
+  useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 
 import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
 
-const projects = [
+/* =========================================================
+   TYPES
+========================================================= */
+
+type Project = {
+  id: number;
+  title: string;
+  category: string;
+  platform: string;
+  description: string;
+  href: string;
+  website: string | null;
+  previewImage: string | null;
+  icon: LucideIcon;
+  tags: string[];
+};
+
+/* =========================================================
+   PROJECTS
+========================================================= */
+
+const projects: Project[] = [
+  /* =======================================================
+     SOCIAL MEDIA
+  ======================================================== */
+
   {
     id: 1,
     title:
       "Social Media Content Management",
-    category: "Social Media",
-    platform: "Canva",
+    category:
+      "Social Media",
+    platform:
+      "Canva",
     description:
       "Content planning, branded graphics, captions, publishing, scheduling, and consistent social presentation.",
-    href: "/work/social-media",
-    icon: Share2,
+    href:
+      "/work/social-media",
+    website:
+      null,
+    previewImage:
+      null,
+    icon:
+      Share2,
     tags: [
       "Content Planning",
       "Social Media",
       "Canva",
     ],
   },
+
   {
     id: 2,
-    title: "Social Content Calendar",
-    category: "Social Media",
-    platform: "Metricool",
+    title:
+      "Social Content Calendar",
+    category:
+      "Social Media",
+    platform:
+      "Metricool",
     description:
       "Organized planning and scheduling workflow for consistent social publishing.",
-    href: "/work/social-media",
-    icon: Share2,
+    href:
+      "/work/social-media",
+    website:
+      null,
+    previewImage:
+      null,
+    icon:
+      Share2,
     tags: [
       "Scheduling",
       "Content Calendar",
       "Publishing",
     ],
   },
+
+  /* =======================================================
+     GRAPHIC DESIGN
+  ======================================================== */
+
   {
     id: 3,
-    title: "Branded Social Graphics",
-    category: "Graphic Design",
-    platform: "Canva",
+    title:
+      "Branded Social Graphics",
+    category:
+      "Graphic Design",
+    platform:
+      "Canva",
     description:
       "Marketing graphics, social content, promotional materials, carousels, and branded digital assets.",
-    href: "/work/graphic-design",
-    icon: Palette,
+    href:
+      "/work/graphic-design",
+    website:
+      null,
+    previewImage:
+      null,
+    icon:
+      Palette,
     tags: [
       "Graphic Design",
       "Branding",
       "Canva",
     ],
   },
+
   {
     id: 4,
-    title: "Marketing Carousel Design",
-    category: "Graphic Design",
-    platform: "Canva",
+    title:
+      "Marketing Carousel Design",
+    category:
+      "Graphic Design",
+    platform:
+      "Canva",
     description:
       "Carousel content prepared for educational, promotional, and engagement-focused campaigns.",
-    href: "/work/graphic-design",
-    icon: Palette,
+    href:
+      "/work/graphic-design",
+    website:
+      null,
+    previewImage:
+      null,
+    icon:
+      Palette,
     tags: [
       "Carousel",
       "Content",
       "Visual Design",
     ],
   },
+
+  /* =======================================================
+     VIDEO EDITING
+  ======================================================== */
+
   {
     id: 5,
-    title: "Short-Form Social Video",
-    category: "Video Editing",
-    platform: "CapCut",
+    title:
+      "Short-Form Social Video",
+    category:
+      "Video Editing",
+    platform:
+      "CapCut",
     description:
       "Vertical social video with captions, text overlays, pacing, and platform-ready formatting.",
-    href: "/work/video-editing",
-    icon: Video,
+    href:
+      "/work/video-editing",
+    website:
+      null,
+    previewImage:
+      null,
+    icon:
+      Video,
     tags: [
       "Reels",
       "TikTok",
       "CapCut",
     ],
   },
+
   {
     id: 6,
-    title: "Reels & Video Content",
-    category: "Video Editing",
-    platform: "CapCut",
+    title:
+      "Reels & Video Content",
+    category:
+      "Video Editing",
+    platform:
+      "CapCut",
     description:
       "Short-form marketing videos prepared for social publishing and brand communication.",
-    href: "/work/video-editing",
-    icon: Video,
+    href:
+      "/work/video-editing",
+    website:
+      null,
+    previewImage:
+      null,
+    icon:
+      Video,
     tags: [
       "Video Editing",
       "Captions",
       "Short Form",
     ],
   },
+
+  /* =======================================================
+     FUNNELS & WEBSITES
+     PROJECT 01 — DOUBLE R RENTALS
+  ======================================================== */
+
   {
     id: 7,
-    title: "GoHighLevel Funnel Support",
-    category: "GoHighLevel",
-    platform: "GoHighLevel",
+    title:
+      "Double R Rentals",
+    category:
+      "Funnels & Websites",
+    platform:
+      "GoHighLevel + AI Studio",
     description:
-      "Landing pages, forms, calls to action, funnels, and digital lead-generation support.",
-    href: "/work/gohighlevel",
-    icon: Workflow,
+  "A premium car rental website designed to help customers explore available vehicles, understand rental options, and complete the booking process with a clear and professional experience.",
+    href:
+      "/work/gohighlevel",
+    website:
+      "https://doublerrentals.net/",
+    previewImage:
+      "/images/double-r-rentals-preview.png",
+    icon:
+      Workflow,
     tags: [
-      "Funnels",
-      "Landing Pages",
       "GoHighLevel",
+      "AI Studio",
+      "Car Rental Website",
     ],
   },
+
+  /* =======================================================
+     FUNNELS & WEBSITES
+     PROJECT 02 — THE CLEAN POWER EXPERTS
+  ======================================================== */
+
   {
     id: 8,
-    title: "CRM Workflow Automation",
-    category: "GoHighLevel",
-    platform: "GoHighLevel",
+    title:
+      "The Clean Power Experts ",
+    category:
+      "Funnels & Websites",
+    platform:
+      "WordPress + Elementor",
     description:
-      "Workflow setup, contacts, tags, automated follow-up, campaigns, and CRM organization.",
-    href: "/work/gohighlevel",
-    icon: Workflow,
+  "A clean-energy services website focused on helping homeowners explore energy-saving solutions, understand available services, and request a property energy-efficiency evaluation.",
+    href:
+      "/portfolio",
+    website:
+      "https://thecleanpowerexperts.com/",
+    previewImage:
+      "/images/clean-power-experts.png",
+    icon:
+      Monitor,
     tags: [
-      "Automation",
-      "CRM",
-      "Workflows",
+      "WordPress",
+      "Elementor",
+      "HTML",
+      "CSS",
     ],
   },
+
+  /* =======================================================
+     FUNNELS & WEBSITES
+     PROJECT 03 - PRIME TIME BUDGET 
+  ======================================================== */
+
+{
+  id: 9,
+
+  title:
+    "Prime-Time Budget Rides",
+
+  category:
+    "Funnels & Websites",
+
+  platform:
+    "GoHighLevel",
+
+  description:
+  "A private car rental website focused on fast approvals, transparent pricing, flexible rental terms, and a simple booking experience for customers across Metro Detroit.",
+
+  href:
+    "/work/gohighlevel",
+
+  website:
+    "https://primetimebudgetrides.com/",
+
+  previewImage:
+    "/images/prime-time-budget-rides.png",
+
+  icon:
+    Workflow,
+
+  tags: [
+    "GoHighLevel",
+    "Funnel",
+    "HTML",
+    "CSS",
+  ],
+},
+
+  /* =======================================================
+     EMAIL MARKETING
+  ======================================================== */
+
   {
-    id: 9,
-    title: "Email Campaign Support",
-    category: "Email Marketing",
-    platform: "GoHighLevel",
+    id: 10,
+    title:
+      "Email Campaign Support",
+    category:
+      "Email Marketing",
+    platform:
+      "GoHighLevel",
     description:
       "Marketing email preparation, campaign organization, formatting, and follow-up support.",
-    href: "/work/email-marketing",
-    icon: Mail,
+    href:
+      "/work/email-marketing",
+    website:
+      null,
+    previewImage:
+      null,
+    icon:
+      Mail,
     tags: [
       "Email",
       "Campaigns",
       "Follow-Up",
     ],
   },
+
   {
-    id: 10,
-    title: "Newsletter Support",
-    category: "Email Marketing",
-    platform: "Mailchimp",
+    id: 11,
+    title:
+      "Newsletter Support",
+    category:
+      "Email Marketing",
+    platform:
+      "Mailchimp",
     description:
       "Newsletter preparation and campaign formatting for clear branded communication.",
-    href: "/work/email-marketing",
-    icon: Mail,
+    href:
+      "/work/email-marketing",
+    website:
+      null,
+    previewImage:
+      null,
+    icon:
+      Mail,
     tags: [
       "Newsletter",
       "Mailchimp",
       "Marketing",
     ],
   },
-  {
-    id: 11,
-    title: "Landing Page Support",
-    category: "Websites & Funnels",
-    platform: "WordPress",
-    description:
-      "Website and landing-page content, forms, calls to action, and marketing-focused updates.",
-    href: "/portfolio",
-    icon: Monitor,
-    tags: [
-      "WordPress",
-      "Landing Page",
-      "Website",
-    ],
-  },
+
+  /* =======================================================
+     AUTOMATION & OPERATIONS
+  ======================================================== */
+
   {
     id: 12,
-    title: "Digital Operations Support",
-    category: "Digital Operations",
-    platform: "Outlook",
+    title:
+      "CRM Workflow Automation",
+    category:
+      "Automation & Operations",
+    platform:
+      "GoHighLevel",
+    description:
+      "Workflow setup, contacts, tags, automated follow-up, campaigns, and CRM organization.",
+    href:
+      "/work/gohighlevel",
+    website:
+      null,
+    previewImage:
+      null,
+    icon:
+      Workflow,
+    tags: [
+      "Automation",
+      "CRM",
+      "Workflows",
+    ],
+  },
+
+  {
+    id: 13,
+    title:
+      "Digital Operations Support",
+    category:
+      "Automation & Operations",
+    platform:
+      "Outlook",
     description:
       "Calendar coordination, communication, scheduling, documentation, and digital business support.",
-    href: "/work/virtual-assistance",
-    icon: BriefcaseBusiness,
+    href:
+      "/work/virtual-assistance",
+    website:
+      null,
+    previewImage:
+      null,
+    icon:
+      BriefcaseBusiness,
     tags: [
       "Operations",
       "Scheduling",
@@ -208,462 +420,1154 @@ const projects = [
   },
 ];
 
+/* =========================================================
+   CATEGORIES
+========================================================= */
+
 const categories = [
   "All",
   "Social Media",
   "Graphic Design",
   "Video Editing",
-  "GoHighLevel",
+  "Funnels & Websites",
   "Email Marketing",
-  "Websites & Funnels",
-  "Digital Operations",
+  "Automation & Operations",
 ];
 
-const platforms = [
-  "All",
-  "GoHighLevel",
-  "Canva",
-  "CapCut",
-  "Metricool",
-  "Mailchimp",
-  "WordPress",
-  "Outlook",
-];
+/* =========================================================
+   FULL WEBSITE IMAGE PREVIEW
+========================================================= */
+
+function ImageProjectPreview({
+  image,
+  title,
+}: {
+  image: string;
+  title: string;
+}) {
+  return (
+    <div className="relative w-full overflow-hidden bg-[#050505]">
+      {/* ===================================================
+          FULL SCREENSHOT
+
+          No object-cover.
+          No forced crop.
+          Full uploaded screenshot remains visible.
+      ==================================================== */}
+
+      <motion.img
+        src={image}
+        alt={`${title} website preview`}
+        loading="lazy"
+        initial={{
+          scale: 1,
+        }}
+        whileHover={{
+          scale: 1.01,
+        }}
+        transition={{
+          duration: 0.6,
+          ease: "easeOut",
+        }}
+        className="
+          block
+          h-auto
+          w-full
+          object-contain
+        "
+      />
+
+      {/* BOTTOM FADE */}
+
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-linear-to-t from-black/25 to-transparent" />
+
+      {/* WEBSITE PREVIEW BADGE */}
+
+      <div className="pointer-events-none absolute bottom-4 left-4">
+        <span
+          className="
+            rounded-full
+            border
+            border-white/20
+            bg-black/65
+            px-3 py-2
+            text-[7px]
+            font-semibold
+            uppercase
+            tracking-[0.14em]
+            text-white
+            backdrop-blur-md
+          "
+        >
+          Website Preview
+        </span>
+      </div>
+
+      {/* EXTERNAL LINK INDICATOR */}
+
+      <div
+        className="
+          pointer-events-none
+          absolute
+          right-4
+          top-4
+          flex
+          h-9
+          w-9
+          items-center
+          justify-center
+          rounded-full
+          border
+          border-white/20
+          bg-black/60
+          text-white
+          backdrop-blur-md
+        "
+      >
+        <ArrowUpRight
+          size={14}
+        />
+      </div>
+    </div>
+  );
+}
+
+/* =========================================================
+   PLACEHOLDER PREVIEW
+========================================================= */
+
+function StaticProjectPreview({
+  index,
+  Icon,
+}: {
+  index: number;
+  Icon: LucideIcon;
+}) {
+  return (
+    <div className="absolute inset-0 overflow-hidden bg-[#E6ECF4]">
+      {/* GRID */}
+
+      <div
+        className="
+          absolute
+          inset-0
+          bg-[linear-gradient(rgba(120,140,165,0.09)_1px,transparent_1px),linear-gradient(90deg,rgba(120,140,165,0.09)_1px,transparent_1px)]
+          bg-size-[34px_34px]
+        "
+      />
+
+      {/* NUMBER */}
+
+      <span
+        className="
+          font-(family-name:--font-display)
+          absolute
+          left-1/2
+          top-1/2
+          -translate-x-1/2
+          -translate-y-1/2
+          text-7xl
+          font-semibold
+          tracking-tighter
+          text-[#AFBBCB]/30
+        "
+      >
+        {String(
+          index + 1,
+        ).padStart(
+          2,
+          "0",
+        )}
+      </span>
+
+      {/* LABEL */}
+
+      <div
+        className="
+          absolute
+          bottom-5
+          left-5
+          flex
+          items-center
+          gap-2
+          rounded-full
+          border
+          border-[#CBD5E1]
+          bg-white/90
+          px-3
+          py-2
+          backdrop-blur-md
+        "
+      >
+        <Icon
+          size={11}
+          className="text-[#4F8CFF]"
+        />
+
+        <span className="text-[7px] font-semibold uppercase tracking-[0.14em] text-[#667085]">
+          Project Preview
+        </span>
+      </div>
+    </div>
+  );
+}
+
+/* =========================================================
+   PROJECT CARD
+========================================================= */
+
+function ProjectCard({
+  project,
+  index,
+}: {
+  project: Project;
+  index: number;
+}) {
+  const Icon =
+    project.icon;
+
+  const destination =
+    project.website ||
+    project.href;
+
+  return (
+    <motion.article
+      layout
+      initial={{
+        opacity: 0,
+        y: 20,
+      }}
+      animate={{
+        opacity: 1,
+        y: 0,
+      }}
+      exit={{
+        opacity: 0,
+        scale: 0.97,
+      }}
+      transition={{
+        duration: 0.4,
+      }}
+      className="group h-full"
+    >
+      <Link
+        href={destination}
+        target={
+          project.website
+            ? "_blank"
+            : undefined
+        }
+        rel={
+          project.website
+            ? "noopener noreferrer"
+            : undefined
+        }
+        className="block h-full"
+      >
+        <div
+          className="
+            flex
+            h-full
+            flex-col
+            overflow-hidden
+            rounded-4xl
+            border
+            border-[#D8E0EA]
+            bg-white
+            p-3
+            shadow-[0_12px_40px_rgba(15,23,42,0.04)]
+            transition-all
+            duration-500
+
+            hover:-translate-y-2
+            hover:border-[#4F8CFF]/40
+            hover:shadow-[0_24px_65px_rgba(15,23,42,0.10)]
+          "
+        >
+          {/* =================================================
+              PROJECT PREVIEW
+          ================================================= */}
+
+          {project.previewImage ? (
+            <div className="overflow-hidden rounded-3xl">
+              <ImageProjectPreview
+                image={
+                  project.previewImage
+                }
+                title={
+                  project.title
+                }
+              />
+            </div>
+          ) : (
+            <div className="relative aspect-16/10 overflow-hidden rounded-3xl bg-[#E7ECF3]">
+              <StaticProjectPreview
+                index={
+                  index
+                }
+                Icon={
+                  Icon
+                }
+              />
+            </div>
+          )}
+
+          {/* =================================================
+              CARD CONTENT
+          ================================================= */}
+
+          <div className="flex flex-1 flex-col px-3 pb-3 pt-5">
+            {/* PLATFORM */}
+
+            <div>
+              <span
+                className="
+                  rounded-full
+                  bg-[#EEF4FF]
+                  px-3
+                  py-1.5
+                  text-[8px]
+                  font-semibold
+                  uppercase
+                  tracking-[0.14em]
+                  text-[#4F8CFF]
+                "
+              >
+                {
+                  project.platform
+                }
+              </span>
+            </div>
+
+            {/* CATEGORY */}
+
+            <p
+              className="
+                mt-5
+                text-[8px]
+                font-semibold
+                uppercase
+                tracking-[0.14em]
+                text-[#98A2B3]
+              "
+            >
+              {
+                project.category
+              }
+            </p>
+
+            {/* TITLE */}
+
+            <div className="mt-2 flex items-start justify-between gap-4">
+              <h3
+                className="
+                  font-(family-name:--font-display)
+                  text-[25px]
+                  font-semibold
+                  leading-tight
+                  tracking-tight
+                  text-[#101828]
+                "
+              >
+                {
+                  project.title
+                }
+              </h3>
+
+              <ArrowUpRight
+                size={17}
+                className="
+                  mt-1
+                  shrink-0
+                  text-[#98A2B3]
+                  transition-all
+                  duration-300
+
+                  group-hover:-translate-y-1
+                  group-hover:translate-x-1
+                  group-hover:text-[#4F8CFF]
+                "
+              />
+            </div>
+
+            {/* DESCRIPTION */}
+
+            <p className="mt-4 text-sm leading-7 text-[#667085]">
+              {
+                project.description
+              }
+            </p>
+
+            {/* TAGS */}
+
+            <div className="mt-6 flex flex-wrap gap-2">
+              {project.tags.map(
+                (
+                  tag,
+                ) => (
+                  <span
+                    key={
+                      tag
+                    }
+                    className="
+                      rounded-lg
+                      bg-[#F2F4F7]
+                      px-2.5
+                      py-1.5
+                      text-[9px]
+                      font-medium
+                      text-[#667085]
+                    "
+                  >
+                    {
+                      tag
+                    }
+                  </span>
+                ),
+              )}
+            </div>
+
+            {/* BOTTOM */}
+
+            <div className="mt-auto pt-7">
+              <div
+                className="
+                  flex
+                  items-center
+                  justify-between
+                  border-t
+                  border-[#E4E7EC]
+                  pt-5
+                "
+              >
+                <span className="text-xs font-semibold text-[#344054]">
+                  {project.website
+                    ? "Visit Live Website"
+                    : "View Project"}
+                </span>
+
+                <ArrowUpRight
+                  size={14}
+                  className="text-[#4F8CFF]"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </Link>
+    </motion.article>
+  );
+}
+
+/* =========================================================
+   PORTFOLIO PAGE
+========================================================= */
 
 export default function PortfolioPage() {
   const [
     activeCategory,
     setActiveCategory,
-  ] = useState("All");
+  ] = useState(
+    "All",
+  );
+
+  /* =======================================================
+     PORTFOLIO HEADER STATE
+  ======================================================== */
 
   const [
-    activePlatform,
-    setActivePlatform,
-  ] = useState("All");
+    headerHidden,
+    setHeaderHidden,
+  ] = useState(
+    false,
+  );
 
-  const [
-    categoryOpen,
-    setCategoryOpen,
-  ] = useState(false);
+  const lastScrollY =
+    useRef(0);
+
+  const ticking =
+    useRef(
+      false,
+    );
+
+  const contentRef =
+    useRef<HTMLElement>(
+      null,
+    );
+
+  const contentStartY =
+    useRef(
+      Number.POSITIVE_INFINITY,
+    );
+
+  /* =======================================================
+     MEASURE CONTENT
+  ======================================================== */
+
+  useEffect(() => {
+    const measure =
+      () => {
+        if (
+          !contentRef.current
+        ) {
+          return;
+        }
+
+        contentStartY.current =
+          contentRef.current.getBoundingClientRect()
+            .top +
+          window.scrollY;
+      };
+
+    const frame =
+      window.requestAnimationFrame(
+        measure,
+      );
+
+    window.addEventListener(
+      "resize",
+      measure,
+    );
+
+    return () => {
+      window.cancelAnimationFrame(
+        frame,
+      );
+
+      window.removeEventListener(
+        "resize",
+        measure,
+      );
+    };
+  }, []);
+
+  /* =======================================================
+     PORTFOLIO HEADER BEHAVIOR
+
+     SCROLL DOWN = HIDE
+     SCROLL UP = SHOW
+  ======================================================== */
+
+  useEffect(() => {
+    lastScrollY.current =
+      window.scrollY;
+
+    const HEADER_HEIGHT =
+      88;
+
+    const THRESHOLD =
+      6;
+
+    const handleScroll =
+      () => {
+        if (
+          ticking.current
+        ) {
+          return;
+        }
+
+        ticking.current =
+          true;
+
+        window.requestAnimationFrame(
+          () => {
+            const current =
+              Math.max(
+                window.scrollY,
+                0,
+              );
+
+            const difference =
+              current -
+              lastScrollY.current;
+
+            const start =
+              Math.max(
+                contentStartY.current -
+                  HEADER_HEIGHT,
+                0,
+              );
+
+            /* HERO */
+
+            if (
+              current <
+              start
+            ) {
+              setHeaderHidden(
+                false,
+              );
+            }
+
+            /* SCROLL DOWN */
+
+            else if (
+              difference >
+              THRESHOLD
+            ) {
+              setHeaderHidden(
+                true,
+              );
+            }
+
+            /* SCROLL UP */
+
+            else if (
+              difference <
+              -THRESHOLD
+            ) {
+              setHeaderHidden(
+                false,
+              );
+            }
+
+            lastScrollY.current =
+              current;
+
+            ticking.current =
+              false;
+          },
+        );
+      };
+
+    window.addEventListener(
+      "scroll",
+      handleScroll,
+      {
+        passive: true,
+      },
+    );
+
+    return () => {
+      window.removeEventListener(
+        "scroll",
+        handleScroll,
+      );
+    };
+  }, []);
+
+  /* =======================================================
+     FILTER PROJECTS
+  ======================================================== */
 
   const filteredProjects =
     useMemo(() => {
+      if (
+        activeCategory ===
+        "All"
+      ) {
+        return projects;
+      }
+
       return projects.filter(
-        (project) => {
-          const categoryMatch =
-            activeCategory ===
-              "All" ||
-            project.category ===
-              activeCategory;
-
-          const platformMatch =
-            activePlatform ===
-              "All" ||
-            project.platform ===
-              activePlatform;
-
-          return (
-            categoryMatch &&
-            platformMatch
-          );
-        },
+        (
+          project,
+        ) =>
+          project.category ===
+          activeCategory,
       );
     }, [
       activeCategory,
-      activePlatform,
     ]);
 
+  /* =======================================================
+     CATEGORY COUNT
+  ======================================================== */
+
+  function categoryCount(
+    category: string,
+  ) {
+    if (
+      category ===
+      "All"
+    ) {
+      return projects.length;
+    }
+
+    return projects.filter(
+      (
+        project,
+      ) =>
+        project.category ===
+        category,
+    ).length;
+  }
+
   return (
-    <main className="min-h-screen bg-[#EEF2F7] font-(family-name:--font-body) text-[#101828]">
-      <SiteHeader />
+    <main className="min-h-screen bg-[#F8FAFC] font-(family-name:--font-body) text-[#101828]">
+      {/* =====================================================
+          HEADER
+      ====================================================== */}
 
-      {/* HERO */}
+      <div
+        className={`
+          [&>header]:transition-transform
+          [&>header]:duration-300
+          [&>header]:ease-[cubic-bezier(0.22,1,0.36,1)]
+          [&>header]:will-change-transform
 
-      <section className="relative overflow-hidden bg-[#07111F] text-white">
+          ${
+            headerHidden
+              ? "[&>header]:-translate-y-full"
+              : "[&>header]:translate-y-0"
+          }
+        `}
+      >
+        <SiteHeader />
+      </div>
+
+      {/* =====================================================
+          HERO
+      ====================================================== */}
+
+      <section
+        className="
+          relative
+          overflow-hidden
+          bg-[#07111F]
+          px-5
+          pb-14
+          pt-28
+          text-white
+
+          md:px-8
+          md:pb-16
+          md:pt-32
+
+          lg:px-10
+        "
+      >
+        {/* GRID */}
+
         <div
           className="
-            absolute inset-0 opacity-50
+            pointer-events-none
+            absolute
+            inset-0
+            opacity-40
+
             bg-[linear-gradient(rgba(148,163,184,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.035)_1px,transparent_1px)]
             bg-size-[72px_72px]
           "
         />
 
-        <div className="absolute -left-50 top-0 h-150 w-150 rounded-full bg-[#4F8CFF]/10 blur-[190px]" />
+        {/* GLOW */}
 
-        <div className="relative mx-auto flex min-h-190 max-w-360 flex-col justify-center px-5 pb-24 pt-36 md:px-8 md:pb-28 md:pt-40 lg:px-10 xl:px-16">
-          <div className="mb-10 flex flex-wrap items-center gap-4">
-            <span className="h-px w-12 bg-[#4F8CFF]" />
+        <div className="pointer-events-none absolute -left-50 -top-30 h-150 w-150 rounded-full bg-[#4F8CFF]/10 blur-[190px]" />
 
-            <p className="text-[9px] font-semibold uppercase tracking-[0.24em] text-[#79A8FF]">
-              Selected Work
-            </p>
+        <div className="relative mx-auto max-w-360">
+          {/* LABEL */}
 
-            <span className="hidden h-1 w-1 rounded-full bg-[#475569] sm:block" />
+          <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-[#79A8FF]">
+            Portfolio
+          </p>
 
-            <span className="text-[9px] font-medium uppercase tracking-[0.18em] text-[#64748B]">
-              Portfolio Archive
-            </span>
-          </div>
+          {/* CONTENT */}
 
-          <div className="max-w-6xl">
-            <h1 className="font-(family-name:--font-display) text-[clamp(3.2rem,5vw,5.75rem)] font-semibold leading-[0.88] tracking-tighter">
-              Work built across
+          <div
+            className="
+              mt-5
+              grid
+              gap-8
+
+              lg:grid-cols-[1.1fr_0.55fr]
+              lg:items-end
+              lg:gap-20
+            "
+          >
+            <h1
+              className="
+                font-(family-name:--font-display)
+                max-w-5xl
+                text-[clamp(3rem,5vw,5.5rem)]
+                font-semibold
+                leading-[0.92]
+                tracking-tighter
+              "
+            >
+              Projects I&apos;ve
               <br />
 
               <span className="text-[#79A8FF]">
-                content & systems.
+                worked on.
               </span>
             </h1>
-          </div>
 
-          <div className="mt-14 grid gap-10 border-t border-white/10 pt-8 lg:grid-cols-[1fr_1fr] lg:items-end">
-            <p className="max-w-2xl text-base leading-8 text-[#A8B3C4] md:text-lg">
+            <p className="max-w-lg text-sm leading-7 text-[#A8B3C4] md:text-base md:leading-8">
               Explore selected work across social
-              media, graphic design, video editing,
-              GoHighLevel, email marketing,
-              websites, funnels, and digital
-              operations.
+              media, content creation, GoHighLevel,
+              email marketing, websites, funnels,
+              and digital operations.
             </p>
-
-            <div className="flex flex-wrap gap-8 lg:justify-end">
-              <div>
-                <p className="font-(family-name:--font-display) text-2xl font-semibold">
-                  {projects.length}
-                </p>
-
-                <p className="mt-2 text-[9px] font-semibold uppercase tracking-[0.18em] text-[#64748B]">
-                  Work Entries
-                </p>
-              </div>
-
-              <div className="hidden h-12 w-px bg-white/10 sm:block" />
-
-              <div>
-                <p className="font-(family-name:--font-display) text-2xl font-semibold">
-                  Multi
-                </p>
-
-                <p className="mt-2 text-[9px] font-semibold uppercase tracking-[0.18em] text-[#64748B]">
-                  Platform Work
-                </p>
-              </div>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* FILTERS */}
+      {/* =====================================================
+          TWO COLUMN PORTFOLIO
+      ====================================================== */}
 
-      <section className="sticky top-22 z-30 border-b border-[#D8E0EA] bg-white/95 px-5 py-8 backdrop-blur-xl md:px-8 lg:px-10">
-        <div className="mx-auto grid max-w-360 gap-7 xl:grid-cols-[0.58fr_1.42fr] xl:items-end">
-          <div className="relative">
-            <p className="mb-3 text-[9px] font-semibold uppercase tracking-[0.18em] text-[#98A2B3]">
-              Category
-            </p>
+      <section
+        ref={
+          contentRef
+        }
+        className="
+          px-5
+          py-12
 
-            <button
-              type="button"
-              onClick={() =>
-                setCategoryOpen(
-                  !categoryOpen,
-                )
+          md:px-8
+          md:py-16
+
+          lg:px-10
+        "
+      >
+        <div
+          className="
+            mx-auto
+            grid
+            max-w-360
+            gap-10
+
+            xl:grid-cols-[270px_minmax(0,1fr)]
+            xl:gap-12
+          "
+        >
+          {/* =================================================
+              COLUMN 1
+              FILTER
+          ================================================= */}
+
+          <aside
+            className={`
+              self-start
+
+              xl:sticky
+
+              transition-[top]
+              duration-300
+              ease-[cubic-bezier(0.22,1,0.36,1)]
+
+              ${
+                headerHidden
+                  ? "xl:top-5"
+                  : "xl:top-27"
               }
-              className="flex w-full items-center justify-between rounded-2xl border border-[#D8E0EA] bg-[#F8FAFC] px-5 py-4 text-left text-sm font-semibold text-[#344054]"
+            `}
+          >
+            <div
+              className="
+                overflow-hidden
+                rounded-3xl
+                border
+                border-[#D8E0EA]
+                bg-white
+                shadow-[0_10px_35px_rgba(15,23,42,0.04)]
+              "
             >
-              {activeCategory}
+              {/* FILTER TITLE */}
 
-              <ChevronDown
-                size={17}
-                className={`
-                  transition-transform
-                  ${
-                    categoryOpen
-                      ? "rotate-180"
-                      : ""
-                  }
-                `}
-              />
-            </button>
+              <div className="border-b border-[#E4E7EC] px-5 py-5">
+                <p className="text-[8px] font-semibold uppercase tracking-[0.18em] text-[#4F8CFF]">
+                  Filter Work
+                </p>
 
-            {categoryOpen && (
-              <div className="absolute left-0 top-full z-50 mt-2 w-full overflow-hidden rounded-2xl border border-[#D8E0EA] bg-white p-2 shadow-[0_20px_60px_rgba(15,23,42,0.12)]">
+                <h2 className="font-(family-name:--font-display) mt-2 text-xl font-semibold tracking-tight">
+                  Categories
+                </h2>
+              </div>
+
+              {/* DESKTOP */}
+
+              <div className="hidden p-3 xl:block">
                 {categories.map(
-                  (category) => (
-                    <button
-                      key={category}
-                      type="button"
-                      onClick={() => {
-                        setActiveCategory(
-                          category,
-                        );
+                  (
+                    category,
+                  ) => {
+                    const active =
+                      activeCategory ===
+                      category;
 
-                        setCategoryOpen(
-                          false,
-                        );
-                      }}
-                      className={`
-                        flex w-full items-center
-                        justify-between rounded-xl
-                        px-4 py-3 text-left text-sm
-                        ${
-                          activeCategory ===
+                    return (
+                      <button
+                        key={
                           category
-                            ? "bg-[#EEF4FF] font-semibold text-[#4F8CFF]"
-                            : "text-[#475467] hover:bg-[#F8FAFC]"
                         }
-                      `}
-                    >
-                      {category}
-                    </button>
+                        type="button"
+                        onClick={() =>
+                          setActiveCategory(
+                            category,
+                          )
+                        }
+                        className={`
+                          flex
+                          w-full
+                          items-center
+                          justify-between
+                          rounded-xl
+                          px-4
+                          py-3.5
+                          transition-all
+                          duration-300
+
+                          ${
+                            active
+                              ? "bg-[#07111F] text-white"
+                              : "text-[#667085] hover:bg-[#F5F7FA] hover:text-[#101828]"
+                          }
+                        `}
+                      >
+                        <span className="text-left text-[10px] font-semibold uppercase tracking-[0.09em]">
+                          {category ===
+                          "All"
+                            ? "All Projects"
+                            : category}
+                        </span>
+
+                        {/* COUNT */}
+
+                        <span
+                          className={`
+                            flex
+                            h-6
+                            min-w-6
+                            items-center
+                            justify-center
+                            rounded-lg
+                            px-1.5
+                            text-[9px]
+                            font-semibold
+
+                            ${
+                              active
+                                ? "bg-white/10 text-white/80"
+                                : "bg-[#EEF2F7] text-[#98A2B3]"
+                            }
+                          `}
+                        >
+                          {categoryCount(
+                            category,
+                          )}
+                        </span>
+                      </button>
+                    );
+                  },
+                )}
+              </div>
+
+              {/* MOBILE / TABLET */}
+
+              <div className="p-4 xl:hidden">
+                <select
+                  value={
+                    activeCategory
+                  }
+                  onChange={(
+                    event,
+                  ) =>
+                    setActiveCategory(
+                      event.target
+                        .value,
+                    )
+                  }
+                  className="
+                    h-12
+                    w-full
+                    rounded-xl
+                    border
+                    border-[#D8E0EA]
+                    bg-[#F8FAFC]
+                    px-4
+                    text-sm
+                    font-semibold
+                    text-[#344054]
+                    outline-none
+
+                    focus:border-[#4F8CFF]
+                    focus:ring-3
+                    focus:ring-[#4F8CFF]/10
+                  "
+                >
+                  {categories.map(
+                    (
+                      category,
+                    ) => (
+                      <option
+                        key={
+                          category
+                        }
+                        value={
+                          category
+                        }
+                      >
+                        {category ===
+                        "All"
+                          ? `All Projects (${projects.length})`
+                          : `${category} (${categoryCount(
+                              category,
+                            )})`}
+                      </option>
+                    ),
+                  )}
+                </select>
+              </div>
+            </div>
+          </aside>
+
+          {/* =================================================
+              COLUMN 2
+              PROJECTS
+          ================================================= */}
+
+          <div className="min-w-0">
+            {/* RESULTS HEADER */}
+
+            <div
+              className="
+                mb-8
+                flex
+                flex-col
+                gap-4
+                border-b
+                border-[#D8E0EA]
+                pb-7
+
+                sm:flex-row
+                sm:items-end
+                sm:justify-between
+              "
+            >
+              <div>
+                <p className="text-[8px] font-semibold uppercase tracking-[0.18em] text-[#4F8CFF]">
+                  {activeCategory ===
+                  "All"
+                    ? "Portfolio"
+                    : activeCategory}
+                </p>
+
+                <h2 className="font-(family-name:--font-display) mt-2 text-3xl font-semibold tracking-tight">
+                  {activeCategory ===
+                  "All"
+                    ? "All Projects"
+                    : activeCategory}
+                </h2>
+              </div>
+
+              <div className="flex items-center gap-4">
+                <p className="text-sm text-[#667085]">
+                  Showing{" "}
+
+                  <span className="font-semibold text-[#101828]">
+                    {
+                      filteredProjects.length
+                    }
+                  </span>{" "}
+
+                  {filteredProjects.length ===
+                  1
+                    ? "project"
+                    : "projects"}
+                </p>
+
+                {activeCategory !==
+                  "All" && (
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setActiveCategory(
+                        "All",
+                      )
+                    }
+                    className="text-xs font-semibold text-[#4F8CFF] transition-opacity hover:opacity-60"
+                  >
+                    Clear
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* =================================================
+                CARDS — 2 PER ROW
+            ================================================= */}
+
+            <AnimatePresence mode="popLayout">
+              <motion.div
+                layout
+                className="grid gap-6 md:grid-cols-2"
+              >
+                {filteredProjects.map(
+                  (
+                    project,
+                    index,
+                  ) => (
+                    <ProjectCard
+                      key={
+                        project.id
+                      }
+                      project={
+                        project
+                      }
+                      index={
+                        index
+                      }
+                    />
                   ),
                 )}
+              </motion.div>
+            </AnimatePresence>
+
+            {/* EMPTY */}
+
+            {filteredProjects.length ===
+              0 && (
+              <div
+                className="
+                  flex
+                  min-h-80
+                  flex-col
+                  items-center
+                  justify-center
+                  rounded-4xl
+                  border
+                  border-dashed
+                  border-[#CBD5E1]
+                  bg-white
+                  p-8
+                  text-center
+                "
+              >
+                <Monitor
+                  size={22}
+                  className="text-[#4F8CFF]"
+                />
+
+                <h3 className="font-(family-name:--font-display) mt-5 text-2xl font-semibold">
+                  No matching projects
+                </h3>
+
+                <p className="mt-3 text-sm text-[#667085]">
+                  Try another category.
+                </p>
+
+                <button
+                  type="button"
+                  onClick={() =>
+                    setActiveCategory(
+                      "All",
+                    )
+                  }
+                  className="mt-6 rounded-xl bg-[#07111F] px-5 py-3 text-xs font-semibold text-white"
+                >
+                  View All Projects
+                </button>
               </div>
             )}
           </div>
-
-          <div>
-            <p className="mb-3 text-[9px] font-semibold uppercase tracking-[0.18em] text-[#98A2B3]">
-              Platform
-            </p>
-
-            <div className="flex flex-wrap gap-2">
-              {platforms.map(
-                (platform) => (
-                  <button
-                    key={platform}
-                    type="button"
-                    onClick={() =>
-                      setActivePlatform(
-                        platform,
-                      )
-                    }
-                    className={`
-                      rounded-xl border px-4 py-3
-                      text-[9px] font-semibold uppercase
-                      tracking-[0.11em]
-                      ${
-                        activePlatform ===
-                        platform
-                          ? "border-[#07111F] bg-[#07111F] text-white"
-                          : "border-[#D8E0EA] bg-white text-[#667085] hover:border-[#4F8CFF]/50"
-                      }
-                    `}
-                  >
-                    {platform}
-                  </button>
-                ),
-              )}
-            </div>
-          </div>
         </div>
       </section>
 
-      {/* PROJECTS */}
-
-      <section className="px-5 py-16 md:px-8 md:py-24 lg:px-10">
-        <div className="mx-auto max-w-360">
-          <div className="mb-10 flex flex-col gap-5 border-b border-[#D3DBE6] pb-7 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-[9px] font-semibold uppercase tracking-[0.19em] text-[#4F8CFF]">
-                Portfolio Projects
-              </p>
-
-              <h2 className="font-(family-name:--font-display) mt-3 text-3xl font-semibold tracking-tight md:text-4xl">
-                Selected work
-              </h2>
-            </div>
-
-            <p className="text-sm text-[#667085]">
-              Showing{" "}
-
-              <span className="font-semibold text-[#101828]">
-                {filteredProjects.length}
-              </span>{" "}
-
-              {filteredProjects.length === 1
-                ? "project"
-                : "projects"}
-            </p>
-          </div>
-
-          <AnimatePresence
-            mode="popLayout"
-          >
-            <motion.div
-              layout
-              className="grid gap-6 md:grid-cols-2 xl:grid-cols-3"
-            >
-              {filteredProjects.map(
-                (
-                  project,
-                  index,
-                ) => {
-                  const Icon =
-                    project.icon;
-
-                  return (
-                    <motion.div
-                      layout
-                      key={project.id}
-                      initial={{
-                        opacity: 0,
-                        y: 20,
-                      }}
-                      animate={{
-                        opacity: 1,
-                        y: 0,
-                      }}
-                      exit={{
-                        opacity: 0,
-                        scale: 0.97,
-                      }}
-                    >
-                      <Link
-                        href={project.href}
-                        className="group block overflow-hidden rounded-4xl border border-[#D8E0EA] bg-white p-3 shadow-[0_12px_40px_rgba(15,23,42,0.04)] transition-all duration-500 hover:-translate-y-2 hover:border-[#4F8CFF]/45 hover:shadow-[0_24px_65px_rgba(15,23,42,0.10)]"
-                      >
-                        <div className="relative aspect-16/10 overflow-hidden rounded-3xl bg-[#0D1826]">
-                          <div
-                            className="
-                              absolute inset-0 opacity-50
-                              bg-[linear-gradient(rgba(148,163,184,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.04)_1px,transparent_1px)]
-                              bg-size-[34px_34px]
-                            "
-                          />
-
-                          <span className="font-(family-name:--font-display) absolute -right-2 top-1 text-[100px] font-semibold tracking-tighter text-white/3">
-                            {String(
-                              index + 1,
-                            ).padStart(
-                              2,
-                              "0",
-                            )}
-                          </span>
-
-                          <div className="relative flex h-full flex-col justify-between p-6">
-                            <div className="flex items-start justify-between">
-                              <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-[#79A8FF]">
-                                <Icon size={20} />
-                              </div>
-
-                              <ArrowUpRight
-                                size={17}
-                                className="text-[#64748B] transition-all group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-[#79A8FF]"
-                              />
-                            </div>
-
-                            <div className="flex flex-wrap gap-2">
-                              <span className="rounded-full border border-[#4F8CFF]/25 bg-[#4F8CFF]/10 px-3 py-1.5 text-[8px] font-semibold uppercase tracking-[0.15em] text-[#B8D2FF]">
-                                {project.category}
-                              </span>
-
-                              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[8px] font-semibold uppercase tracking-[0.15em] text-[#94A3B8]">
-                                {project.platform}
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="p-5">
-                          <h3 className="font-(family-name:--font-display) text-2xl font-semibold tracking-tight">
-                            {project.title}
-                          </h3>
-
-                          <p className="mt-4 text-sm leading-7 text-[#667085]">
-                            {project.description}
-                          </p>
-
-                          <div className="mt-6 flex flex-wrap gap-2">
-                            {project.tags.map(
-                              (tag) => (
-                                <span
-                                  key={tag}
-                                  className="rounded-lg bg-[#F2F4F7] px-2.5 py-1.5 text-[9px] font-medium text-[#667085]"
-                                >
-                                  {tag}
-                                </span>
-                              ),
-                            )}
-                          </div>
-
-                          <div className="mt-7 flex items-center justify-between border-t border-[#E2E8F0] pt-5">
-                            <span className="text-xs font-semibold text-[#344054]">
-                              View Project
-                            </span>
-
-                            <ArrowUpRight
-                              size={14}
-                              className="text-[#4F8CFF]"
-                            />
-                          </div>
-                        </div>
-                      </Link>
-                    </motion.div>
-                  );
-                },
-              )}
-            </motion.div>
-          </AnimatePresence>
-
-          {filteredProjects.length ===
-            0 && (
-            <div className="flex min-h-90 flex-col items-center justify-center rounded-4xl border border-dashed border-[#CBD5E1] bg-white p-8 text-center">
-              <Monitor
-                size={22}
-                className="text-[#4F8CFF]"
-              />
-
-              <h3 className="font-(family-name:--font-display) mt-6 text-2xl font-semibold">
-                No matching projects
-              </h3>
-
-              <button
-                type="button"
-                onClick={() => {
-                  setActiveCategory(
-                    "All",
-                  );
-                  setActivePlatform(
-                    "All",
-                  );
-                }}
-                className="mt-6 rounded-xl bg-[#07111F] px-5 py-3 text-xs font-semibold text-white"
-              >
-                View All Projects
-              </button>
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* CTA */}
-
-      <section className="relative overflow-hidden bg-[#07111F] px-5 py-28 text-white md:px-8 md:py-36 lg:px-10">
-        <div className="relative mx-auto grid max-w-360 gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
-          <div>
-            <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-[#79A8FF]">
-              Work Together
-            </p>
-
-            <h2 className="font-(family-name:--font-display) mt-5 max-w-4xl text-4xl font-semibold tracking-tighter md:text-6xl">
-              Have a project that needs{" "}
-
-              <span className="text-[#79A8FF]">
-                creative or digital support?
-              </span>
-            </h2>
-          </div>
-
-          <Link
-            href="/#contact"
-            className="group inline-flex items-center gap-3 rounded-xl bg-white px-6 py-4 text-sm font-semibold text-[#07111F]"
-          >
-            Start a Project
-
-            <ArrowUpRight size={15} />
-          </Link>
-        </div>
-      </section>
+      {/* =====================================================
+          FOOTER
+      ====================================================== */}
 
       <SiteFooter />
     </main>
