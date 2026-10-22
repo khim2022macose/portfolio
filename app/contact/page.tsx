@@ -11,7 +11,7 @@ import {
   Phone,
   Send,
 } from "lucide-react";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 
 import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
@@ -23,10 +23,8 @@ import SiteHeader from "@/components/SiteHeader";
 ========================================================= */
 
 const contactDetails = {
-  email: "your@email.com",
-  phone: "Add your phone number",
-  whatsapp: "Add your WhatsApp number",
-  location: "Add your location",
+  email: "khim2022macose@gmail.com",
+  whatsapp: "+639177503814",
 };
 
 const services = [
@@ -45,60 +43,41 @@ const services = [
 ========================================================= */
 
 export default function ContactPage() {
-  function handleSubmit(
-    event: FormEvent<HTMLFormElement>,
-  ) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (isSubmitting) return;
 
-    const form = new FormData(
-      event.currentTarget,
-    );
+    const element = event.currentTarget;
+    const form = new FormData(element);
+    const payload = {
+      name: String(form.get("name") || "").trim(),
+      email: String(form.get("email") || "").trim(),
+      service: String(form.get("service") || "").trim(),
+      details: String(form.get("details") || "").trim(),
+      website: String(form.get("website") || ""), // hidden anti-bot field
+    };
 
-    const name = String(
-      form.get("name") || "",
-    );
+    setIsSubmitting(true);
+    setSubmitStatus("idle");
 
-    const email = String(
-      form.get("email") || "",
-    );
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
-    const service = String(
-      form.get("service") || "",
-    );
-
-    const details = String(
-      form.get("details") || "",
-    );
-
-    if (
-      contactDetails.email ===
-      "your@email.com"
-    ) {
-      window.alert(
-        "Add your real email address in app/contact/page.tsx first.",
-      );
-
-      return;
+      if (!response.ok) throw new Error("Submission failed");
+      setSubmitStatus("success");
+      element.reset();
+    } catch {
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
     }
-
-    const subject =
-      encodeURIComponent(
-        `Portfolio inquiry from ${name}`,
-      );
-
-    const body =
-      encodeURIComponent(
-        `Name: ${name}
-
-Email: ${email}
-
-Service Needed: ${service}
-
-Project Details:
-${details}`,
-      );
-
-    window.location.href = `mailto:${contactDetails.email}?subject=${subject}&body=${body}`;
   }
 
   return (
@@ -241,39 +220,6 @@ ${details}`,
               </div>
             </motion.article>
 
-            {/* PHONE */}
-
-            <motion.article
-              initial={{
-                opacity: 0,
-                y: 20,
-              }}
-              whileInView={{
-                opacity: 1,
-                y: 0,
-              }}
-              viewport={{
-                once: true,
-              }}
-              className="rounded-3xl border border-[#D8E0EA] bg-white p-6 shadow-[0_10px_35px_rgba(15,23,42,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-[#4F8CFF]/35"
-            >
-              <div className="flex items-start gap-4">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#EEF4FF] text-[#4F8CFF]">
-                  <Phone size={17} />
-                </div>
-
-                <div>
-                  <p className="text-[8px] font-semibold uppercase tracking-[0.18em] text-[#98A2B3]">
-                    Phone
-                  </p>
-
-                  <p className="font-(family-name:--font-display) mt-2 text-lg font-semibold text-[#101828]">
-                    {contactDetails.phone}
-                  </p>
-                </div>
-              </div>
-            </motion.article>
-
             {/* WHATSAPP */}
 
             <motion.article
@@ -307,38 +253,6 @@ ${details}`,
               </div>
             </motion.article>
 
-            {/* LOCATION */}
-
-            <motion.article
-              initial={{
-                opacity: 0,
-                y: 20,
-              }}
-              whileInView={{
-                opacity: 1,
-                y: 0,
-              }}
-              viewport={{
-                once: true,
-              }}
-              className="rounded-3xl border border-[#D8E0EA] bg-white p-6 shadow-[0_10px_35px_rgba(15,23,42,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-[#4F8CFF]/35"
-            >
-              <div className="flex items-start gap-4">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#EEF4FF] text-[#4F8CFF]">
-                  <MapPin size={17} />
-                </div>
-
-                <div>
-                  <p className="text-[8px] font-semibold uppercase tracking-[0.18em] text-[#98A2B3]">
-                    Location
-                  </p>
-
-                  <p className="font-(family-name:--font-display) mt-2 text-lg font-semibold text-[#101828]">
-                    {contactDetails.location}
-                  </p>
-                </div>
-              </div>
-            </motion.article>
 
             {/* AVAILABILITY */}
 
@@ -564,16 +478,23 @@ ${details}`,
                 />
               </div>
 
+              {/* Hidden anti-spam field: real visitors should leave this empty */}
+              <div className="absolute left-[10000px]" aria-hidden="true">
+                <label htmlFor="website">Website</label>
+                <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+              </div>
+
               {/* BUTTONS */}
 
               <div className="mt-7 grid gap-3 md:grid-cols-2">
                 <button
                   type="submit"
+                  disabled={isSubmitting}
                   className="group inline-flex h-14 items-center justify-center gap-3 rounded-xl bg-[#07111F] px-6 text-[10px] font-semibold uppercase tracking-[0.16em] text-white transition-all duration-300 hover:bg-[#132033]"
                 >
                   <Send size={14} />
 
-                  Send Message
+                  {isSubmitting ? "Sending..." : "Send Message"}
 
                   <ArrowUpRight
                     size={13}
@@ -592,6 +513,15 @@ ${details}`,
 
                   WhatsApp Instead
                 </button>
+              </div>
+
+              <div role="status" aria-live="polite" className="mt-5 text-center text-sm">
+                {submitStatus === "success" && (
+                  <p className="text-green-700">Thank you! Your message has been sent successfully.</p>
+                )}
+                {submitStatus === "error" && (
+                  <p className="text-red-700">Sorry, your message could not be sent. Please try again or email me directly.</p>
+                )}
               </div>
 
               <p className="mt-5 text-center text-[10px] leading-6 text-[#98A2B3]">
