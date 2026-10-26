@@ -3,14 +3,12 @@
 import { motion } from "framer-motion";
 import {
   ArrowRight,
-  BriefcaseBusiness,
-  CircleCheck,
-  Mail,
-  Megaphone,
-  Monitor,
+  ArrowUpRight,
+  CalendarDays,
+  Check,
   Palette,
-  Share2,
-  Video,
+  Rocket,
+  Search,
   Workflow,
 } from "lucide-react";
 import Link from "next/link";
@@ -24,139 +22,168 @@ import SiteHeader from "@/components/SiteHeader";
 
 const services = [
   {
+    number: "01",
     title: "Social Media Management",
-    category: "Social & Content",
     description:
-      "Consistent social media support built around planning, publishing, organization, and brand presentation.",
-    icon: Share2,
-    href: "/work/social-media",
-    bullets: [
-      "Content planning and scheduling",
-      "Captions and calls to action",
-      "Publishing and content organization",
-      "Brand consistency across platforms",
+      "Ongoing social media support focused on keeping content organized, consistent, and ready for publishing across the platforms your business uses.",
+    relatedWork: "/work/social-media",
+    features: [
+      "Content planning & scheduling",
+      "Content calendar organization",
+      "Captions & calls to action",
+      "Publishing support",
+      "Brand consistency",
     ],
   },
+
   {
+    number: "02",
     title: "Graphic Design & Content Creation",
-    category: "Creative",
     description:
-      "Branded visual content designed to support social media, promotions, campaigns, and everyday marketing.",
-    icon: Palette,
-    href: "/work/graphic-design",
-    bullets: [
+      "Branded creative support for social media, promotions, campaigns, educational content, and everyday digital marketing materials.",
+    relatedWork: "/work/graphic-design",
+    features: [
       "Social media graphics",
-      "Promotional materials",
       "Branded templates",
-      "Carousels and educational content",
+      "Carousel content",
+      "Promotional materials",
+      "Educational & quote graphics",
     ],
   },
+
   {
+    number: "03",
     title: "Short-Form Video Editing",
-    category: "Video Content",
     description:
-      "Short-form content prepared for modern social platforms with clear formatting, captions, and visual structure.",
-    icon: Video,
-    href: "/work/video-editing",
-    bullets: [
-      "Reels and TikTok content",
-      "Text overlays and captions",
+      "Short-form video content prepared for social platforms with clean pacing, captions, text overlays, and platform-ready vertical formatting.",
+    relatedWork: "/work/video-editing",
+    features: [
+      "Reels & TikTok editing",
+      "Captions & text overlays",
       "Vertical video formatting",
-      "Content organization and review",
+      "Social-ready exports",
+      "CapCut editing",
     ],
   },
+
   {
+    number: "04",
     title: "GoHighLevel Marketing Operations",
-    category: "CRM & Automation",
     description:
-      "Support across GoHighLevel funnels, workflows, contacts, campaigns, forms, and follow-up systems.",
-    icon: Workflow,
-    href: "/work/gohighlevel",
-    bullets: [
-      "Funnels and landing page updates",
-      "Workflow and automation support",
-      "Contacts, tags, and organization",
-      "Forms and lead follow-up",
+      "Marketing operations support inside GoHighLevel for organizing funnels, contacts, forms, campaigns, workflows, scheduling, and lead follow-up.",
+    relatedWork: "/work/gohighlevel",
+    features: [
+      "Funnels & landing pages",
+      "CRM contacts & tags",
+      "Workflow automation",
+      "Forms & appointment scheduling",
+      "Campaign & follow-up support",
     ],
   },
+
   {
-    title: "Email Marketing & Newsletter Support",
-    category: "Email",
+    number: "05",
+    title: "Email Marketing",
     description:
-      "Email campaign support focused on organization, presentation, follow-up, and consistent communication.",
-    icon: Mail,
-    href: "/work/email-marketing",
-    bullets: [
+      "Email marketing support for newsletters, promotions, follow-ups, and lead nurturing with clear formatting and organized campaign communication.",
+    relatedWork: "/work/email-marketing",
+    features: [
+      "Email campaigns",
       "Newsletter preparation",
+      "Follow-up emails",
+      "Lead nurturing support",
       "Campaign formatting",
-      "Lead nurture and follow-up",
-      "Promotional email support",
     ],
   },
+
   {
+    number: "06",
     title: "Virtual & Executive Support",
-    category: "Operations",
     description:
-      "Reliable operational support for scheduling, communication, documentation, coordination, and daily digital tasks.",
-    icon: BriefcaseBusiness,
-    href: "/work/virtual-assistance",
-    bullets: [
-      "Calendar and meeting scheduling",
-      "Client communication and follow-ups",
-      "Task and project coordination",
-      "Documents and presentations",
+      "Administrative and operational support for scheduling, communication, coordination, documentation, and the day-to-day digital work behind a business.",
+    relatedWork: "/work/virtual-assistance",
+    features: [
+      "Calendar & scheduling support",
+      "Client communication",
+      "Task coordination",
+      "Document preparation",
+      "Administrative support",
     ],
   },
+
   {
-    title: "Website, Landing Page & Funnel Support",
-    category: "Web",
+    number: "07",
+    title: "Websites, Landing Pages & Funnels",
     description:
-      "Digital page support focused on content, layout, lead generation, forms, calls to action, and conversion flow.",
-    icon: Monitor,
-    href: "/portfolio",
-    bullets: [
+      "Digital page and funnel support focused on clear structure, responsive presentation, calls to action, lead forms, and an easier customer journey.",
+    relatedWork: "/portfolio",
+    features: [
       "Website content updates",
-      "Landing pages and funnels",
-      "Lead forms and calls to action",
-      "Promotional page support",
+      "Landing page support",
+      "Lead forms & calls to action",
+      "GoHighLevel funnels",
+      "WordPress & Shopify support",
     ],
   },
+
   {
+    number: "08",
     title: "Digital Marketing & Lead Generation",
-    category: "Marketing",
     description:
-      "Marketing support that helps keep campaigns, promotional content, leads, and follow-up activity organized.",
-    icon: Megaphone,
-    href: "/portfolio",
-    bullets: [
+      "Marketing support that connects promotional content, lead follow-up, campaign materials, and digital operations into a more organized workflow.",
+    relatedWork: "/portfolio",
+    features: [
       "Campaign support",
+      "Lead follow-up",
       "Promotional content",
-      "Lead follow-up organization",
       "Marketing coordination",
+      "Brand consistency",
     ],
   },
 ];
 
 /* =========================================================
-   SUPPORT GROUPS
+   PROCESS
+   Same content/style direction as Home page Process
 ========================================================= */
 
-const creativeSupport = [
-  "Social Media Management",
-  "Graphic Design",
-  "Content Creation",
-  "Short-Form Video",
-  "Email Campaigns",
-  "Promotional Content",
-];
-
-const systemSupport = [
-  "GoHighLevel",
-  "CRM Workflows",
-  "Landing Pages",
-  "Funnels",
-  "Lead Follow-Up",
-  "Virtual Assistance",
+const process = [
+  {
+    title: "Understand",
+    description:
+      "Clarify the goal, audience, requirements, and priorities before the work begins.",
+    icon: Search,
+  },
+  {
+    title: "Plan",
+    description:
+      "Organize the timeline, workflow, resources, content, and required deliverables.",
+    icon: CalendarDays,
+  },
+  {
+    title: "Create",
+    description:
+      "Produce the required creative, content, messaging, or digital assets.",
+    icon: Palette,
+  },
+  {
+    title: "Build",
+    description:
+      "Implement campaigns, workflows, funnels, pages, and digital systems.",
+    icon: Workflow,
+  },
+  {
+    title: "Review",
+    description:
+      "Check branding, functionality, messaging, links, and final details.",
+    icon: Check,
+  },
+  {
+    title: "Deliver",
+    description:
+      "Prepare the completed work for publishing, launch, or final handoff.",
+    icon: Rocket,
+  },
 ];
 
 /* =========================================================
@@ -165,122 +192,87 @@ const systemSupport = [
 
 export default function ServicesPage() {
   return (
-    <main className="min-h-screen font-(family-name:--font-body) selection:bg-[#4F8CFF] selection:text-white">
+    <main className="min-h-screen bg-white font-(family-name:--font-body) text-[#101828] selection:bg-[#4F8CFF] selection:text-white">
+      {/* =====================================================
+          HEADER
+      ====================================================== */}
+
       <SiteHeader />
 
       {/* =====================================================
           HERO
+          Same structural hierarchy as reference:
+          label / heading / description
       ====================================================== */}
 
-      <section className="relative overflow-hidden bg-[#07111F] px-5 pb-24 pt-36 text-white md:px-8 md:pb-32 md:pt-40 lg:px-10 lg:pb-36">
+      <section className="relative overflow-hidden bg-[#07111F] px-5 pb-20 pt-36 text-white md:px-8 md:pb-24 md:pt-40 lg:px-10">
         {/* GRID */}
 
         <div
           className="
-            pointer-events-none absolute inset-0 opacity-60
-            bg-[linear-gradient(rgba(148,163,184,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.04)_1px,transparent_1px)]
+            pointer-events-none
+            absolute inset-0
+            opacity-45
+            bg-[linear-gradient(rgba(148,163,184,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.035)_1px,transparent_1px)]
             bg-size-[72px_72px]
           "
         />
 
-        {/* GLOWS */}
+        {/* GLOW */}
 
-        <motion.div
-          animate={{
-            x: [0, 35, 0],
-            y: [0, 20, 0],
-          }}
-          transition={{
-            duration: 14,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="pointer-events-none absolute -left-60 -top-60 h-175 w-175 rounded-full bg-[#4F8CFF]/13 blur-[190px]"
-        />
+        <div className="pointer-events-none absolute -left-50 -top-40 h-150 w-150 rounded-full bg-[#4F8CFF]/12 blur-[190px]" />
 
-        <motion.div
-          animate={{
-            x: [0, -25, 0],
-            y: [0, -20, 0],
-          }}
-          transition={{
-            duration: 16,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="pointer-events-none absolute -bottom-60 right-[-10%] h-150 w-150 rounded-full bg-[#94A3B8]/7 blur-[170px]"
-        />
+        <div className="pointer-events-none absolute -bottom-50 right-[-10%] h-125 w-125 rounded-full bg-[#79A8FF]/6 blur-[170px]" />
 
-        <div className="relative mx-auto grid max-w-360 items-center gap-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
-          {/* =================================================
-              LEFT
-          ================================================= */}
+        <div className="relative mx-auto max-w-360">
+          {/* LABEL */}
 
-          <div>
-            <motion.div
-              initial={{
-                opacity: 0,
-                y: 15,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-              transition={{
-                duration: 0.5,
-              }}
-              className="mb-7 inline-flex items-center gap-3 rounded-full border border-[#4F8CFF]/25 bg-[#4F8CFF]/10 px-4 py-2"
-            >
-              <span className="relative flex h-2 w-2">
-                <motion.span
-                  animate={{
-                    scale: [1, 1.8, 1],
-                    opacity: [0.5, 0, 0.5],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                  }}
-                  className="absolute inset-0 rounded-full bg-[#79A8FF]"
-                />
+          <motion.p
+            initial={{
+              opacity: 0,
+              y: 12,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              duration: 0.45,
+            }}
+            className="text-[9px] font-semibold uppercase tracking-[0.22em] text-[#79A8FF]"
+          >
+            Services
+          </motion.p>
 
-                <span className="relative h-2 w-2 rounded-full bg-[#79A8FF]" />
-              </span>
+          {/* TITLE + DESCRIPTION */}
 
-              <span className="text-[9px] font-semibold uppercase tracking-[0.21em] text-[#B8D2FF]">
-                Services
-              </span>
-            </motion.div>
-
+          <div className="mt-6 grid gap-10 lg:grid-cols-[1.05fr_0.55fr] lg:items-end lg:gap-20">
             <motion.h1
               initial={{
                 opacity: 0,
-                y: 25,
+                y: 24,
               }}
               animate={{
                 opacity: 1,
                 y: 0,
               }}
               transition={{
-                duration: 0.7,
+                duration: 0.65,
               }}
-              className="font-(family-name:--font-display) max-w-4xl text-[clamp(3.2rem,5vw,5.75rem)] font-semibold leading-[0.92] tracking-tighter"
+              className="font-(family-name:--font-display) max-w-5xl text-[clamp(3.2rem,5vw,5.6rem)] font-semibold leading-[0.92] tracking-tighter"
             >
-              Creative support.
-              <br />
-
-              Marketing systems.
+              Digital support built
               <br />
 
               <span className="text-[#79A8FF]">
-                Digital execution.
+                around your work.
               </span>
             </motion.h1>
 
             <motion.p
               initial={{
                 opacity: 0,
-                y: 20,
+                y: 18,
               }}
               animate={{
                 opacity: 1,
@@ -288,251 +280,267 @@ export default function ServicesPage() {
               }}
               transition={{
                 delay: 0.12,
+                duration: 0.55,
               }}
-              className="mt-8 max-w-2xl text-base leading-8 text-[#A8B3C4] md:text-lg"
+              className="max-w-lg text-sm leading-7 text-[#A8B3C4] md:text-base md:leading-8"
             >
-              Flexible digital support across content,
-              marketing, websites, CRM systems, and
-              day-to-day operations — built to help
-              businesses keep their digital work moving.
+              Flexible creative, marketing, and
+              operational support across content,
+              social media, GoHighLevel, email,
+              websites, funnels, and digital
+              business operations.
             </motion.p>
-
-            {/* BUTTONS */}
-
-            <motion.div
-              initial={{
-                opacity: 0,
-                y: 20,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-              transition={{
-                delay: 0.2,
-              }}
-              className="mt-10 flex flex-wrap gap-4"
-            >
-              <Link
-                href="/contact#contact-form"
-                className="group inline-flex items-center gap-3 rounded-2xl bg-[#4F8CFF] px-6 py-4 text-sm font-semibold text-white shadow-[0_15px_50px_rgba(79,140,255,0.22)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#79A8FF]"
-              >
-                Start a Project
-
-                <ArrowRight
-                  size={16}
-                  className="transition-transform duration-300 group-hover:translate-x-1"
-                />
-              </Link>
-
-              <Link
-                href="/portfolio"
-                className="group inline-flex items-center gap-3 rounded-2xl border border-[#2B3A50] bg-[#132033] px-6 py-4 text-sm font-semibold text-[#A8B3C4] transition-all duration-300 hover:-translate-y-1 hover:border-[#4F8CFF]/50 hover:bg-[#19283D] hover:text-white"
-              >
-                View Portfolio
-
-                <ArrowRight
-                  size={16}
-                  className="transition-transform duration-300 group-hover:translate-x-1"
-                />
-              </Link>
-            </motion.div>
           </div>
+        </div>
+      </section>
 
+      {/* =====================================================
+          SERVICES
+          
+          REFERENCE STRUCTURE ON DESKTOP:
+          
+          NUMBER
+          |
+          SERVICE TITLE / DESCRIPTION / ACTIONS
+          |
+          INCLUDED FEATURES
+      ====================================================== */}
+
+      <section className="bg-white px-5 md:px-8 lg:px-10">
+        <div className="mx-auto max-w-360">
+          {services.map(
+            (
+              service,
+              index,
+            ) => (
+              <motion.article
+                key={
+                  service.number
+                }
+                initial={{
+                  opacity: 0,
+                  y: 24,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                viewport={{
+                  once: true,
+                  amount: 0.12,
+                }}
+                transition={{
+                  duration: 0.55,
+                }}
+                className={`
+                  grid
+                  gap-8
+                  border-b
+                  border-[#D8E0EA]
+                  py-16
+
+                  md:py-20
+
+                  lg:grid-cols-[90px_minmax(0,1.1fr)_minmax(280px,0.7fr)]
+                  lg:gap-12
+                  lg:py-24
+
+                  xl:grid-cols-[110px_minmax(0,1.1fr)_minmax(320px,0.65fr)]
+                  xl:gap-16
+
+                  ${
+                    index === 0
+                      ? "border-t"
+                      : ""
+                  }
+                `}
+              >
+                {/* ===========================================
+                    COLUMN 1
+                    NUMBER
+                ============================================ */}
+
+                <div>
+                  <span className="font-(family-name:--font-display) text-sm font-semibold tracking-tight text-[#4F8CFF]">
+                    {
+                      service.number
+                    }
+                  </span>
+                </div>
+
+                {/* ===========================================
+                    COLUMN 2
+                    SERVICE DETAILS
+                ============================================ */}
+
+                <div>
+                  {/* TITLE */}
+
+                  <h2 className="font-(family-name:--font-display) max-w-2xl text-[clamp(2rem,3vw,3.35rem)] font-semibold leading-[1] tracking-tighter text-[#101828]">
+                    {
+                      service.title
+                    }
+                  </h2>
+
+                  {/* DESCRIPTION */}
+
+                  <p className="mt-6 max-w-2xl text-base leading-8 text-[#667085]">
+                    {
+                      service.description
+                    }
+                  </p>
+
+                  {/* ACTIONS */}
+
+                  <div className="mt-8 flex flex-wrap gap-3">
+                    {/* GET A QUOTE */}
+
+                    <Link
+                      href="/contact#contact-form"
+                      className="
+                        group
+                        inline-flex
+                        items-center
+                        gap-2
+                        rounded-xl
+                        bg-[#07111F]
+                        px-5
+                        py-3.5
+                        text-sm
+                        font-semibold
+                        text-white
+
+                        transition-all
+                        duration-300
+
+                        hover:-translate-y-0.5
+                        hover:bg-[#4F8CFF]
+                      "
+                    >
+                      Get a Quote
+
+                      <ArrowUpRight
+                        size={14}
+                        className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                      />
+                    </Link>
+
+                    {/* RELATED WORK */}
+
+                    <Link
+                      href={
+                        service.relatedWork
+                      }
+                      className="
+                        group
+                        inline-flex
+                        items-center
+                        gap-2
+                        rounded-xl
+                        border
+                        border-[#D8E0EA]
+                        bg-white
+                        px-5
+                        py-3.5
+                        text-sm
+                        font-semibold
+                        text-[#344054]
+
+                        transition-all
+                        duration-300
+
+                        hover:-translate-y-0.5
+                        hover:border-[#4F8CFF]/40
+                        hover:text-[#4F8CFF]
+                      "
+                    >
+                      Explore Related Work
+
+                      <ArrowRight
+                        size={14}
+                        className="transition-transform duration-300 group-hover:translate-x-1"
+                      />
+                    </Link>
+                  </div>
+                </div>
+
+                {/* ===========================================
+                    COLUMN 3
+                    INCLUDED FEATURES
+                ============================================ */}
+
+                <div className="lg:border-l lg:border-[#E4E7EC] lg:pl-10 xl:pl-12">
+                  {/* LABEL */}
+
+                  <p className="text-[8px] font-semibold uppercase tracking-[0.18em] text-[#98A2B3]">
+                    What&apos;s Included
+                  </p>
+
+                  {/* FEATURES */}
+
+                  <div className="mt-5 space-y-4">
+                    {service.features.map(
+                      (
+                        feature,
+                      ) => (
+                        <div
+                          key={
+                            feature
+                          }
+                          className="flex items-start gap-3"
+                        >
+                          <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#EEF4FF] text-[#4F8CFF]">
+                            <Check
+                              size={
+                                11
+                              }
+                              strokeWidth={
+                                2.5
+                              }
+                            />
+                          </div>
+
+                          <span className="text-sm leading-6 text-[#475467]">
+                            {
+                              feature
+                            }
+                          </span>
+                        </div>
+                      ),
+                    )}
+                  </div>
+                </div>
+              </motion.article>
+            ),
+          )}
+        </div>
+      </section>
+
+      {/* =====================================================
+          HOW I WORK
+
+          SAME VISUAL STRUCTURE AS HOME PAGE PROCESS
+      ====================================================== */}
+
+      <section
+        id="process"
+        className="relative overflow-hidden bg-[#F8FAFC] px-5 py-28 text-[#101828] md:px-8 md:py-40 lg:px-10"
+      >
+        {/* BACKGROUND GLOWS */}
+
+        <div className="pointer-events-none absolute -left-40 top-20 h-125 w-125 rounded-full bg-[#4F8CFF]/6 blur-[150px]" />
+
+        <div className="pointer-events-none absolute -right-40 bottom-0 h-125 w-125 rounded-full bg-[#79A8FF]/6 blur-[150px]" />
+
+        <div className="relative mx-auto max-w-360">
           {/* =================================================
-              HERO VISUAL
+              HEADING
+              Same Home Process layout
           ================================================= */}
 
           <motion.div
             initial={{
               opacity: 0,
-              x: 40,
-            }}
-            animate={{
-              opacity: 1,
-              x: 0,
-            }}
-            transition={{
-              duration: 0.9,
-            }}
-            className="relative mx-auto w-full max-w-125"
-          >
-            {/* BACK FRAME */}
-
-            <div className="absolute -right-6 -top-6 h-full w-full rounded-[36px] border border-[#4F8CFF]/15" />
-
-            {/* MAIN VISUAL */}
-
-            <div className="relative overflow-hidden rounded-[36px] border border-white/10 bg-[#0D1826]/95 p-5 shadow-[0_35px_120px_rgba(0,0,0,0.3)] backdrop-blur-xl md:p-7">
-              {/* INNER GLOW */}
-
-              <div className="pointer-events-none absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#4F8CFF]/12 blur-[90px]" />
-
-              {/* TOP */}
-
-              <div className="relative flex items-center justify-between border-b border-white/8 pb-5">
-                <div>
-                  <p className="text-[8px] font-semibold uppercase tracking-[0.2em] text-[#79A8FF]">
-                    Digital Support
-                  </p>
-
-                  <p className="font-(family-name:--font-display) mt-2 text-lg font-semibold">
-                    Creative + Systems
-                  </p>
-                </div>
-
-                <motion.span
-                  animate={{
-                    rotate: 360,
-                  }}
-                  transition={{
-                    duration: 10,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-[#4F8CFF]/25 bg-[#4F8CFF]/10 text-[#79A8FF]"
-                >
-                  <Workflow size={16} />
-                </motion.span>
-              </div>
-
-              {/* VISUAL CARDS */}
-
-              <div className="relative mt-5 grid grid-cols-2 gap-3">
-                <motion.div
-                  animate={{
-                    y: [0, -5, 0],
-                  }}
-                  transition={{
-                    duration: 4.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  className="rounded-3xl border border-white/8 bg-[#132033] p-5"
-                >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#4F8CFF]/12 text-[#79A8FF]">
-                    <Share2 size={16} />
-                  </div>
-
-                  <p className="mt-6 text-xs font-semibold">
-                    Social Media
-                  </p>
-
-                  <p className="mt-2 text-[10px] leading-5 text-[#6E7C90]">
-                    Content & publishing
-                  </p>
-                </motion.div>
-
-                <motion.div
-                  animate={{
-                    y: [0, 6, 0],
-                  }}
-                  transition={{
-                    duration: 5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  className="rounded-3xl border border-white/8 bg-[#132033] p-5"
-                >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#4F8CFF]/12 text-[#79A8FF]">
-                    <Palette size={16} />
-                  </div>
-
-                  <p className="mt-6 text-xs font-semibold">
-                    Creative
-                  </p>
-
-                  <p className="mt-2 text-[10px] leading-5 text-[#6E7C90]">
-                    Design & content
-                  </p>
-                </motion.div>
-
-                <motion.div
-                  animate={{
-                    y: [0, 6, 0],
-                  }}
-                  transition={{
-                    duration: 5.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  className="rounded-3xl border border-white/8 bg-[#132033] p-5"
-                >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#4F8CFF]/12 text-[#79A8FF]">
-                    <Workflow size={16} />
-                  </div>
-
-                  <p className="mt-6 text-xs font-semibold">
-                    Automation
-                  </p>
-
-                  <p className="mt-2 text-[10px] leading-5 text-[#6E7C90]">
-                    CRM & workflows
-                  </p>
-                </motion.div>
-
-                <motion.div
-                  animate={{
-                    y: [0, -5, 0],
-                  }}
-                  transition={{
-                    duration: 4.8,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  className="rounded-3xl border border-white/8 bg-[#132033] p-5"
-                >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#4F8CFF]/12 text-[#79A8FF]">
-                    <BriefcaseBusiness size={16} />
-                  </div>
-
-                  <p className="mt-6 text-xs font-semibold">
-                    Operations
-                  </p>
-
-                  <p className="mt-2 text-[10px] leading-5 text-[#6E7C90]">
-                    Support & execution
-                  </p>
-                </motion.div>
-              </div>
-
-              {/* BOTTOM STATUS */}
-
-              <div className="relative mt-5 flex items-center gap-3 rounded-2xl border border-white/8 bg-[#101C2C] px-4 py-3">
-                <span className="relative flex h-2.5 w-2.5">
-                  <motion.span
-                    animate={{
-                      scale: [1, 1.9, 1],
-                      opacity: [0.5, 0, 0.5],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                    }}
-                    className="absolute inset-0 rounded-full bg-[#4F8CFF]"
-                  />
-
-                  <span className="relative m-auto h-2 w-2 rounded-full bg-[#4F8CFF]" />
-                </span>
-
-                <span className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#A8B3C4]">
-                  Built around your digital workflow
-                </span>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* =====================================================
-          SERVICES INTRO
-      ====================================================== */}
-
-      <section className="relative overflow-hidden bg-white px-5 pb-12 pt-28 text-[#101828] md:px-8 md:pb-16 md:pt-40 lg:px-10">
-        <div className="mx-auto max-w-360">
-          <motion.div
-            initial={{
-              opacity: 0,
               y: 25,
             }}
             whileInView={{
@@ -545,639 +553,368 @@ export default function ServicesPage() {
             transition={{
               duration: 0.6,
             }}
-            className="grid gap-10 lg:grid-cols-[1fr_0.6fr] lg:items-end lg:gap-20"
+            className="grid gap-8 lg:grid-cols-[0.28fr_1fr] lg:gap-12"
           >
-            <div>
-              <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-[#4F8CFF]">
-                Services
-              </p>
+            {/* LABEL */}
 
-              <h2 className="font-(family-name:--font-display) mt-6 max-w-4xl text-[clamp(2.8rem,4.5vw,4.75rem)] font-semibold leading-[0.96] tracking-tighter">
-                Support built around{" "}
+            <div className="pt-2">
+              <div className="flex items-center gap-3">
+                <span className="h-px w-8 bg-[#4F8CFF]" />
 
-                <span className="text-[#4F8CFF]">
-                  real digital work.
-                </span>
-              </h2>
+                <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-[#4F8CFF]">
+                  How I Work
+                </p>
+              </div>
             </div>
 
-            <p className="max-w-lg text-sm leading-7 text-[#667085] md:text-base md:leading-8 lg:pb-1">
-              From creative production to marketing
-              systems and daily operations, each service
-              can work independently or as part of a
-              larger digital workflow.
-            </p>
+            {/* TITLE + DESCRIPTION */}
+
+            <div className="grid gap-7 xl:grid-cols-[1fr_0.55fr] xl:items-end">
+              <h2 className="font-(family-name:--font-display) max-w-3xl text-[clamp(2.8rem,4.5vw,4.75rem)] font-semibold leading-[0.96] tracking-tighter">
+                A simple path from{" "}
+
+                <span className="text-[#4F8CFF]">
+                  idea to delivery.
+                </span>
+              </h2>
+
+              <p className="max-w-md text-sm leading-7 text-[#667085] xl:justify-self-end xl:text-base xl:leading-8">
+                Every project moves through a clear
+                workflow so the work stays organized,
+                focused, and easy to follow.
+              </p>
+            </div>
           </motion.div>
-        </div>
-      </section>
 
-      {/* =====================================================
-          SERVICE GRID
-      ====================================================== */}
+          {/* =================================================
+              PROCESS JOURNEY
+          ================================================= */}
 
-      <section className="relative overflow-hidden bg-white px-5 pb-28 text-[#101828] md:px-8 md:pb-40 lg:px-10">
-        <div className="pointer-events-none absolute -right-40 top-1/3 h-125 w-125 rounded-full bg-[#4F8CFF]/5 blur-[150px]" />
+          <div className="relative mt-28">
+            {/* =================================================
+                DESKTOP CURVED PATH
+            ================================================= */}
 
-        <div className="relative mx-auto max-w-360">
-          <div className="grid gap-5 lg:grid-cols-2">
-            {services.map(
-              (
-                service,
-                index,
-              ) => {
-                const Icon = service.icon;
+            <div className="pointer-events-none absolute left-[4%] right-[4%] top-1/2 hidden -translate-y-1/2 xl:block">
+              <svg
+                viewBox="0 0 1200 360"
+                className="h-90 w-full"
+                preserveAspectRatio="none"
+              >
+                {/* BASE PATH */}
 
-                return (
-                  <motion.article
-                    key={service.title}
-                    initial={{
-                      opacity: 0,
-                      y: 30,
-                    }}
-                    whileInView={{
-                      opacity: 1,
-                      y: 0,
-                    }}
-                    viewport={{
-                      once: true,
-                      amount: 0.15,
-                    }}
-                    transition={{
-                      duration: 0.55,
-                      delay:
-                        (index % 2) *
-                        0.06,
-                    }}
-                    whileHover={{
-                      y: -6,
-                    }}
-                    className="group relative overflow-hidden rounded-4xl border border-[#D8E0EA] bg-[#F8FAFC] p-6 transition-all duration-500 hover:border-[#4F8CFF]/40 hover:bg-white hover:shadow-[0_25px_70px_rgba(15,23,42,0.08)] md:p-8"
-                  >
-                    {/* TOP LINE */}
+                <path
+                  d="
+                    M 40 180
+                    C 130 180, 135 65, 225 65
+                    C 315 65, 315 295, 405 295
+                    C 495 295, 495 65, 585 65
+                    C 675 65, 675 295, 765 295
+                    C 855 295, 855 65, 945 65
+                    C 1035 65, 1040 180, 1160 180
+                  "
+                  fill="none"
+                  stroke="#D8E0EA"
+                  strokeWidth="2"
+                />
 
-                    <div className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-linear-to-r from-[#4F8CFF] to-[#79A8FF] transition-transform duration-500 group-hover:scale-x-100" />
+                {/* ANIMATED BLUE PATH */}
 
-                    {/* GLOW */}
+                <motion.path
+                  d="
+                    M 40 180
+                    C 130 180, 135 65, 225 65
+                    C 315 65, 315 295, 405 295
+                    C 495 295, 495 65, 585 65
+                    C 675 65, 675 295, 765 295
+                    C 855 295, 855 65, 945 65
+                    C 1035 65, 1040 180, 1160 180
+                  "
+                  fill="none"
+                  stroke="#4F8CFF"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  initial={{
+                    pathLength: 0,
+                  }}
+                  whileInView={{
+                    pathLength: 1,
+                  }}
+                  viewport={{
+                    once: true,
+                  }}
+                  transition={{
+                    duration: 2,
+                    ease: "easeInOut",
+                  }}
+                />
+              </svg>
+            </div>
 
-                    <div className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-[#4F8CFF]/0 blur-[80px] transition-all duration-500 group-hover:bg-[#4F8CFF]/10" />
+            {/* =================================================
+                PROCESS ITEMS
+            ================================================= */}
 
-                    {/* WATERMARK ICON */}
+            <div className="relative grid gap-6 md:grid-cols-2 xl:grid-cols-6 xl:gap-4">
+              {process.map(
+                (
+                  step,
+                  index,
+                ) => {
+                  const Icon =
+                    step.icon;
 
-                    <Icon
-                      size={150}
-                      strokeWidth={0.7}
-                      className="pointer-events-none absolute -bottom-8 -right-8 text-[#101828]/2.5 transition-all duration-500 group-hover:-translate-x-2 group-hover:-translate-y-2 group-hover:text-[#4F8CFF]/5"
-                    />
+                  const raised =
+                    index % 2 ===
+                    0;
 
-                    <div className="relative">
-                      {/* TOP */}
+                  return (
+                    <motion.article
+                      key={
+                        step.title
+                      }
+                      initial={{
+                        opacity: 0,
+                        y: raised
+                          ? 35
+                          : -35,
+                      }}
+                      whileInView={{
+                        opacity: 1,
+                        y: 0,
+                      }}
+                      viewport={{
+                        once: true,
+                        amount: 0.2,
+                      }}
+                      transition={{
+                        duration: 0.55,
+                        delay:
+                          index *
+                          0.09,
+                      }}
+                      className={`
+                        group
+                        relative
 
-                      <div className="flex items-start justify-between gap-5">
-                        <motion.div
-                          whileHover={{
-                            rotate: -7,
-                            scale: 1.08,
+                        ${
+                          raised
+                            ? "xl:-translate-y-14"
+                            : "xl:translate-y-14"
+                        }
+                      `}
+                    >
+                      {/* =====================================
+                          PROCESS CARD
+                      ====================================== */}
+
+                      <motion.div
+                        whileHover={{
+                          y: -8,
+                          scale:
+                            1.015,
+                        }}
+                        transition={{
+                          type: "spring",
+                          stiffness:
+                            240,
+                          damping:
+                            18,
+                        }}
+                        className="
+                          relative
+                          min-h-72
+                          overflow-hidden
+                          rounded-4xl
+                          border
+                          border-[#D8E0EA]
+                          bg-white
+                          p-6
+
+                          shadow-[0_12px_40px_rgba(15,23,42,0.045)]
+
+                          transition-all
+                          duration-300
+
+                          group-hover:border-[#4F8CFF]/45
+                          group-hover:shadow-[0_22px_55px_rgba(79,140,255,0.12)]
+                        "
+                      >
+                        {/* TOP ACCENT */}
+
+                        <div className="absolute inset-x-0 top-0 h-1 scale-x-0 bg-[#4F8CFF] transition-transform duration-500 group-hover:scale-x-100" />
+
+                        {/* GLOW */}
+
+                        <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-[#4F8CFF]/0 blur-[60px] transition-all duration-500 group-hover:bg-[#4F8CFF]/12" />
+
+                        <div className="relative">
+                          {/* ICON */}
+
+                          <motion.div
+                            whileHover={{
+                              rotate:
+                                -8,
+                              scale:
+                                1.08,
+                            }}
+                            transition={{
+                              type: "spring",
+                              stiffness:
+                                250,
+                              damping:
+                                17,
+                            }}
+                            className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#EEF4FF] text-[#4F8CFF]"
+                          >
+                            <Icon
+                              size={
+                                18
+                              }
+                            />
+                          </motion.div>
+
+                          {/* TITLE */}
+
+                          <h3 className="font-(family-name:--font-display) mt-8 text-2xl font-semibold tracking-tight text-[#101828]">
+                            {
+                              step.title
+                            }
+                          </h3>
+
+                          {/* DESCRIPTION */}
+
+                          <p className="mt-4 text-sm leading-7 text-[#667085]">
+                            {
+                              step.description
+                            }
+                          </p>
+                        </div>
+
+                        {/* PULSE */}
+
+                        <motion.span
+                          animate={{
+                            scale: [
+                              1,
+                              1.5,
+                              1,
+                            ],
+                            opacity: [
+                              0.5,
+                              1,
+                              0.5,
+                            ],
                           }}
                           transition={{
-                            type: "spring",
-                            stiffness: 250,
-                            damping: 18,
+                            duration: 2,
+                            repeat:
+                              Infinity,
+                            delay:
+                              index *
+                              0.15,
                           }}
-                          className="flex h-13 w-13 items-center justify-center rounded-2xl border border-[#D8E0EA] bg-white text-[#4F8CFF] shadow-[0_8px_25px_rgba(15,23,42,0.05)]"
-                        >
-                          <Icon size={19} />
-                        </motion.div>
+                          className="absolute bottom-5 right-5 h-2 w-2 rounded-full bg-[#4F8CFF]"
+                        />
+                      </motion.div>
 
-                        <span className="rounded-full border border-[#D8E0EA] bg-white px-3 py-1.5 text-[8px] font-semibold uppercase tracking-[0.14em] text-[#667085]">
-                          {service.category}
-                        </span>
-                      </div>
+                      {/* =====================================
+                          MOBILE / TABLET CONNECTOR
+                      ====================================== */}
 
-                      {/* TITLE */}
-
-                      <h3 className="font-(family-name:--font-display) mt-9 max-w-lg text-2xl font-semibold leading-tight tracking-tight md:text-[28px]">
-                        {service.title}
-                      </h3>
-
-                      {/* DESCRIPTION */}
-
-                      <p className="mt-5 max-w-xl text-sm leading-7 text-[#667085]">
-                        {service.description}
-                      </p>
-
-                      {/* DIVIDER */}
-
-                      <div className="my-7 h-px bg-[#DDE4ED]" />
-
-                      {/* BULLETS */}
-
-                      <div className="grid gap-3 sm:grid-cols-2">
-                        {service.bullets.map(
-                          (
-                            bullet,
-                            bulletIndex,
-                          ) => (
-                            <motion.div
-                              key={bullet}
-                              initial={{
-                                opacity: 0,
-                                x: -10,
-                              }}
-                              whileInView={{
-                                opacity: 1,
-                                x: 0,
-                              }}
-                              viewport={{
-                                once: true,
-                              }}
-                              transition={{
-                                delay:
-                                  bulletIndex *
-                                  0.04,
-                              }}
-                              className="flex items-start gap-3"
-                            >
-                              <CircleCheck
-                                size={16}
-                                className="mt-1 shrink-0 text-[#4F8CFF]"
-                              />
-
-                              <span className="text-xs leading-6 text-[#475467]">
-                                {bullet}
-                              </span>
-                            </motion.div>
-                          ),
-                        )}
-                      </div>
-
-                      {/* LINK */}
-
-                      <div className="mt-8">
-                        <Link
-                          href={service.href}
-                          className="group/link inline-flex items-center gap-2 text-xs font-semibold text-[#344054]"
-                        >
-                          Explore Related Work
-
-                          <ArrowRight
-                            size={14}
-                            className="text-[#4F8CFF] transition-transform duration-300 group-hover/link:translate-x-1"
-                          />
-                        </Link>
-                      </div>
-                    </div>
-                  </motion.article>
-                );
-              },
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* =====================================================
-          HOW SERVICES CONNECT
-      ====================================================== */}
-
-      <section className="relative overflow-hidden bg-[#E9EEF5] px-5 py-28 text-[#101828] md:px-8 md:py-40 lg:px-10">
-        {/* BACKGROUND */}
-
-        <div
-          className="
-            pointer-events-none absolute inset-0 opacity-50
-            bg-[linear-gradient(rgba(148,163,184,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.04)_1px,transparent_1px)]
-            bg-size-[72px_72px]
-          "
-        />
-
-        <div className="pointer-events-none absolute -left-40 -top-40 h-150 w-150 rounded-full bg-white/70 blur-[170px]" />
-
-        <div className="relative mx-auto max-w-360">
-          {/* HEADER */}
-
-          <motion.div
-            initial={{
-              opacity: 0,
-              y: 25,
-            }}
-            whileInView={{
-              opacity: 1,
-              y: 0,
-            }}
-            viewport={{
-              once: true,
-            }}
-            transition={{
-              duration: 0.6,
-            }}
-            className="max-w-4xl"
-          >
-            <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-[#4F8CFF]">
-              Connected Support
-            </p>
-
-            <h2 className="font-(family-name:--font-display) mt-6 text-[clamp(2.8rem,4.5vw,4.75rem)] font-semibold leading-[0.96] tracking-tighter">
-              Creative work and systems{" "}
-
-              <span className="text-[#4F8CFF]">
-                working together.
-              </span>
-            </h2>
-
-            <p className="mt-7 max-w-2xl text-sm leading-7 text-[#667085] md:text-base md:leading-8">
-              Digital work often overlaps. Content needs
-              publishing, campaigns need follow-up, and
-              funnels need systems behind them. The
-              services can connect where needed.
-            </p>
-          </motion.div>
-
-          {/* TWO PANELS */}
-
-          <div className="mt-16 grid gap-5 lg:grid-cols-2">
-            {/* CREATIVE */}
-
-            <motion.article
-              initial={{
-                opacity: 0,
-                x: -25,
-              }}
-              whileInView={{
-                opacity: 1,
-                x: 0,
-              }}
-              viewport={{
-                once: true,
-              }}
-              transition={{
-                duration: 0.6,
-              }}
-              whileHover={{
-                y: -6,
-              }}
-              className="group relative overflow-hidden rounded-4xl border border-[#D2DBE6] bg-white p-7 shadow-[0_15px_45px_rgba(15,23,42,0.04)] md:p-9"
-            >
-              <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-[#4F8CFF]/8 blur-[90px]" />
-
-              <div className="relative">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#EEF4FF] text-[#4F8CFF]">
-                  <Palette size={21} />
-                </div>
-
-                <p className="mt-10 text-[9px] font-semibold uppercase tracking-[0.18em] text-[#4F8CFF]">
-                  Creative & Growth
-                </p>
-
-                <h3 className="font-(family-name:--font-display) mt-4 text-3xl font-semibold tracking-tighter md:text-4xl">
-                  Content that supports the message.
-                </h3>
-
-                <p className="mt-5 max-w-xl text-sm leading-7 text-[#667085]">
-                  Creative support helps turn ideas,
-                  promotions, and campaigns into
-                  consistent digital content.
-                </p>
-
-                {/* TAGS */}
-
-                <div className="mt-9 flex flex-wrap gap-2">
-                  {creativeSupport.map(
-                    (
-                      item,
-                      index,
-                    ) => (
-                      <motion.span
-                        key={item}
-                        initial={{
-                          opacity: 0,
-                          scale: 0.95,
-                        }}
-                        whileInView={{
-                          opacity: 1,
-                          scale: 1,
-                        }}
-                        viewport={{
-                          once: true,
-                        }}
-                        transition={{
-                          delay:
-                            index *
-                            0.04,
-                        }}
-                        className="rounded-full border border-[#D8E0EA] bg-[#F8FAFC] px-4 py-2 text-[10px] font-medium text-[#475467]"
-                      >
-                        {item}
-                      </motion.span>
-                    ),
-                  )}
-                </div>
-              </div>
-            </motion.article>
-
-            {/* SYSTEMS */}
-
-            <motion.article
-              initial={{
-                opacity: 0,
-                x: 25,
-              }}
-              whileInView={{
-                opacity: 1,
-                x: 0,
-              }}
-              viewport={{
-                once: true,
-              }}
-              transition={{
-                duration: 0.6,
-              }}
-              whileHover={{
-                y: -6,
-              }}
-              className="group relative overflow-hidden rounded-4xl border border-[#1C2B3E] bg-[#0D1826] p-7 text-white shadow-[0_25px_70px_rgba(15,23,42,0.16)] md:p-9"
-            >
-              <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-[#4F8CFF]/14 blur-[90px]" />
-
-              <div
-                className="
-                  pointer-events-none absolute inset-0 opacity-25
-                  bg-[linear-gradient(rgba(148,163,184,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.05)_1px,transparent_1px)]
-                  bg-size-[34px_34px]
-                "
-              />
-
-              <div className="relative">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#4F8CFF]/20 bg-[#4F8CFF]/10 text-[#79A8FF]">
-                  <Workflow size={21} />
-                </div>
-
-                <p className="mt-10 text-[9px] font-semibold uppercase tracking-[0.18em] text-[#79A8FF]">
-                  Systems & Operations
-                </p>
-
-                <h3 className="font-(family-name:--font-display) mt-4 text-3xl font-semibold tracking-tighter md:text-4xl">
-                  Systems that support the work.
-                </h3>
-
-                <p className="mt-5 max-w-xl text-sm leading-7 text-[#A8B3C4]">
-                  CRM, workflows, funnels, follow-up,
-                  scheduling, and operations help turn
-                  digital activity into an organized
-                  process.
-                </p>
-
-                {/* TAGS */}
-
-                <div className="mt-9 flex flex-wrap gap-2">
-                  {systemSupport.map(
-                    (
-                      item,
-                      index,
-                    ) => (
-                      <motion.span
-                        key={item}
-                        initial={{
-                          opacity: 0,
-                          scale: 0.95,
-                        }}
-                        whileInView={{
-                          opacity: 1,
-                          scale: 1,
-                        }}
-                        viewport={{
-                          once: true,
-                        }}
-                        transition={{
-                          delay:
-                            index *
-                            0.04,
-                        }}
-                        className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-[10px] font-medium text-[#B8C3D1]"
-                      >
-                        {item}
-                      </motion.span>
-                    ),
-                  )}
-                </div>
-              </div>
-            </motion.article>
-          </div>
-        </div>
-      </section>
-
-      {/* =====================================================
-          WORKING STYLE
-      ====================================================== */}
-
-      <section className="relative overflow-hidden bg-white px-5 py-28 text-[#101828] md:px-8 md:py-40 lg:px-10">
-        <div className="mx-auto max-w-360">
-          <motion.div
-            initial={{
-              opacity: 0,
-              y: 25,
-            }}
-            whileInView={{
-              opacity: 1,
-              y: 0,
-            }}
-            viewport={{
-              once: true,
-            }}
-            transition={{
-              duration: 0.6,
-            }}
-            className="grid gap-12 lg:grid-cols-[0.8fr_1fr] lg:items-start lg:gap-24"
-          >
-            {/* LEFT */}
-
-            <div className="lg:sticky lg:top-32">
-              <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-[#4F8CFF]">
-                Working Style
-              </p>
-
-              <h2 className="font-(family-name:--font-display) mt-6 max-w-xl text-[clamp(2.8rem,4.5vw,4.75rem)] font-semibold leading-[0.96] tracking-tighter">
-                Clear support without the{" "}
-
-                <span className="text-[#4F8CFF]">
-                  unnecessary complexity.
-                </span>
-              </h2>
-
-              <p className="mt-7 max-w-xl text-sm leading-7 text-[#667085] md:text-base md:leading-8">
-                The focus is on keeping digital tasks
-                organized, maintaining consistency, and
-                moving projects from idea to execution.
-              </p>
-            </div>
-
-            {/* RIGHT */}
-
-            <div className="space-y-4">
-              {[
-                {
-                  title: "Organized Execution",
-                  text:
-                    "Clear tasks, priorities, files, content, and project details so work is easier to manage.",
+                      {index <
+                        process.length -
+                          1 && (
+                        <div className="flex justify-center py-3 xl:hidden">
+                          <motion.div
+                            animate={{
+                              y: [
+                                0,
+                                5,
+                                0,
+                              ],
+                            }}
+                            transition={{
+                              duration:
+                                1.5,
+                              repeat:
+                                Infinity,
+                            }}
+                            className="flex h-9 w-9 items-center justify-center rounded-full border border-[#D8E0EA] bg-white text-[#4F8CFF]"
+                          >
+                            <ArrowRight
+                              size={
+                                14
+                              }
+                              className="rotate-90 md:rotate-0"
+                            />
+                          </motion.div>
+                        </div>
+                      )}
+                    </motion.article>
+                  );
                 },
-                {
-                  title: "Creative Consistency",
-                  text:
-                    "Content and marketing materials that stay visually aligned with the business and its message.",
-                },
-                {
-                  title: "Connected Systems",
-                  text:
-                    "CRM, websites, funnels, email, and follow-up activity organized around the larger workflow.",
-                },
-                {
-                  title: "Flexible Support",
-                  text:
-                    "Support can focus on one specific area or connect multiple parts of a digital project.",
-                },
-              ].map(
-                (
-                  item,
-                  index,
-                ) => (
-                  <motion.article
-                    key={item.title}
-                    initial={{
-                      opacity: 0,
-                      x: 25,
-                    }}
-                    whileInView={{
-                      opacity: 1,
-                      x: 0,
-                    }}
-                    viewport={{
-                      once: true,
-                    }}
-                    transition={{
-                      duration: 0.5,
-                      delay:
-                        index *
-                        0.06,
-                    }}
-                    whileHover={{
-                      x: 6,
-                    }}
-                    className="group flex gap-5 rounded-3xl border border-[#D8E0EA] bg-[#F8FAFC] p-6 transition-all duration-300 hover:border-[#4F8CFF]/35 hover:bg-white hover:shadow-[0_12px_40px_rgba(15,23,42,0.06)] md:p-7"
-                  >
-                    <div className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#EEF4FF] text-[#4F8CFF]">
-                      <CircleCheck size={16} />
-                    </div>
-
-                    <div>
-                      <h3 className="font-(family-name:--font-display) text-lg font-semibold tracking-tight md:text-xl">
-                        {item.title}
-                      </h3>
-
-                      <p className="mt-3 max-w-xl text-sm leading-7 text-[#667085]">
-                        {item.text}
-                      </p>
-                    </div>
-                  </motion.article>
-                ),
               )}
             </div>
-          </motion.div>
+
+            {/* =================================================
+                STRUCTURED WORKFLOW BADGE
+            ================================================= */}
+
+            <motion.div
+              initial={{
+                opacity: 0,
+                scale: 0.9,
+              }}
+              whileInView={{
+                opacity: 1,
+                scale: 1,
+              }}
+              viewport={{
+                once: true,
+              }}
+              transition={{
+                delay: 0.6,
+              }}
+              className="relative mx-auto mt-16 flex w-fit items-center gap-3 rounded-full border border-[#D8E0EA] bg-white px-5 py-3 shadow-[0_8px_25px_rgba(15,23,42,0.05)] xl:mt-24"
+            >
+              <span className="relative flex h-2.5 w-2.5">
+                <motion.span
+                  animate={{
+                    scale: [
+                      1,
+                      1.9,
+                      1,
+                    ],
+                    opacity: [
+                      0.45,
+                      0,
+                      0.45,
+                    ],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat:
+                      Infinity,
+                  }}
+                  className="absolute inset-0 rounded-full bg-[#4F8CFF]"
+                />
+
+                <span className="relative m-auto h-2 w-2 rounded-full bg-[#4F8CFF]" />
+              </span>
+
+              <span className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#667085]">
+                Structured Workflow
+              </span>
+            </motion.div>
+          </div>
         </div>
       </section>
 
       {/* =====================================================
-          FINAL CTA
+          FOOTER
+          Reference ends after process → footer
       ====================================================== */}
-
-      <section className="relative overflow-hidden bg-[#07111F] px-5 py-28 text-white md:px-8 md:py-36 lg:px-10">
-        {/* GLOW */}
-
-        <div className="pointer-events-none absolute left-1/2 top-0 h-150 w-150 -translate-x-1/2 rounded-full bg-[#4F8CFF]/13 blur-[180px]" />
-
-        {/* GRID */}
-
-        <div
-          className="
-            pointer-events-none absolute inset-0 opacity-35
-            bg-[linear-gradient(rgba(148,163,184,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.04)_1px,transparent_1px)]
-            bg-size-[72px_72px]
-          "
-        />
-
-        <motion.div
-          initial={{
-            opacity: 0,
-            y: 30,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          viewport={{
-            once: true,
-          }}
-          transition={{
-            duration: 0.65,
-          }}
-          className="relative mx-auto max-w-4xl text-center"
-        >
-          <motion.div
-            animate={{
-              y: [0, -5, 0],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-[#4F8CFF]/25 bg-[#4F8CFF]/10 text-[#79A8FF]"
-          >
-            <BriefcaseBusiness size={20} />
-          </motion.div>
-
-          <p className="mt-8 text-[9px] font-semibold uppercase tracking-[0.2em] text-[#79A8FF]">
-            Have a Project in Mind?
-          </p>
-
-          <h2 className="font-(family-name:--font-display) mt-6 text-[clamp(3rem,4.5vw,5.2rem)] font-semibold leading-[0.95] tracking-tighter">
-            Let&apos;s turn the work into{" "}
-
-            <span className="text-[#79A8FF]">
-              something useful.
-            </span>
-          </h2>
-
-          <p className="mx-auto mt-7 max-w-2xl text-sm leading-7 text-[#A8B3C4] md:text-base md:leading-8">
-            Tell me what you&apos;re working on, where
-            you need support, and what needs to get
-            done.
-          </p>
-
-          <div className="mt-10 flex flex-wrap justify-center gap-4">
-            <Link
-              href="/contact#contact-form"
-              className="group inline-flex items-center gap-3 rounded-2xl bg-[#4F8CFF] px-6 py-4 text-sm font-semibold text-white shadow-[0_15px_50px_rgba(79,140,255,0.22)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#79A8FF]"
-            >
-              Start a Project
-
-              <ArrowRight
-                size={16}
-                className="transition-transform duration-300 group-hover:translate-x-1"
-              />
-            </Link>
-
-            <Link
-              href="/portfolio"
-              className="group inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-6 py-4 text-sm font-semibold text-[#D8E0EA] transition-all duration-300 hover:-translate-y-1 hover:bg-white/10 hover:text-white"
-            >
-              Explore My Work
-
-              <ArrowRight
-                size={16}
-                className="transition-transform duration-300 group-hover:translate-x-1"
-              />
-            </Link>
-          </div>
-        </motion.div>
-      </section>
 
       <SiteFooter />
     </main>
