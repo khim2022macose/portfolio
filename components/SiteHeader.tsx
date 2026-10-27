@@ -28,10 +28,6 @@ const navigation = [
     href: "/services",
   },
   {
-    label: "Portfolio",
-    href: "/portfolio",
-  },
-  {
     label: "Contact",
     href: "/contact",
   },
