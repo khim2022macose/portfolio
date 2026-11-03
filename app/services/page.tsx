@@ -20,13 +20,22 @@ import SiteHeader from "@/components/SiteHeader";
    SERVICES
 ========================================================= */
 
+/**
+ * Every service links to the matching home-page portfolio tab and filter.
+ * Links stay on the homepage's Services & Work section; no /work routes.
+ */
+function relatedWorkHref(category: string, filter: string = "All"): string {
+  const params = new URLSearchParams({ category, filter });
+  return `/?${params.toString()}#services`;
+}
+
 const services = [
   {
     number: "01",
     title: "Social Media Management",
     description:
       "Ongoing social media support focused on keeping content organized, consistent, and ready for publishing across the platforms your business uses.",
-    relatedWork: "/work/social-media",
+    relatedWork: relatedWorkHref("social-content", "Social Media"),
     features: [
       "Content planning & scheduling",
       "Content calendar organization",
@@ -41,7 +50,7 @@ const services = [
     title: "Graphic Design & Content Creation",
     description:
       "Branded creative support for social media, promotions, campaigns, educational content, and everyday digital marketing materials.",
-    relatedWork: "/work/graphic-design",
+    relatedWork: relatedWorkHref("social-content", "Graphic Design"),
     features: [
       "Social media graphics",
       "Branded templates",
@@ -56,7 +65,7 @@ const services = [
     title: "Short-Form Video Editing",
     description:
       "Short-form video content prepared for social platforms with clean pacing, captions, text overlays, and platform-ready vertical formatting.",
-    relatedWork: "/work/video-editing",
+    relatedWork: relatedWorkHref("social-content", "Video Editing"),
     features: [
       "Reels & TikTok editing",
       "Captions & text overlays",
@@ -71,7 +80,7 @@ const services = [
     title: "GoHighLevel Marketing Operations",
     description:
       "Marketing operations support inside GoHighLevel for organizing funnels, contacts, forms, campaigns, workflows, scheduling, and lead follow-up.",
-    relatedWork: "/work/gohighlevel",
+    relatedWork: relatedWorkHref("marketing-systems", "GHL Workflow"),
     features: [
       "Funnels & landing pages",
       "CRM contacts & tags",
@@ -86,7 +95,7 @@ const services = [
     title: "Email Marketing",
     description:
       "Email marketing support for newsletters, promotions, follow-ups, and lead nurturing with clear formatting and organized campaign communication.",
-    relatedWork: "/work/email-marketing",
+    relatedWork: relatedWorkHref("marketing-systems", "Email Marketing"),
     features: [
       "Email campaigns",
       "Newsletter preparation",
@@ -101,7 +110,7 @@ const services = [
     title: "Virtual & Executive Support",
     description:
       "Administrative and operational support for scheduling, communication, coordination, documentation, and the day-to-day digital work behind a business.",
-    relatedWork: "/work/virtual-assistance",
+    relatedWork: relatedWorkHref("operations-growth", "Virtual Support"),
     features: [
       "Calendar & scheduling support",
       "Client communication",
@@ -116,7 +125,7 @@ const services = [
     title: "Websites, Landing Pages & Funnels",
     description:
       "Digital page and funnel support focused on clear structure, responsive presentation, calls to action, lead forms, and an easier customer journey.",
-    relatedWork: "/portfolio",
+    relatedWork: relatedWorkHref("web-funnels", "All"),
     features: [
       "Website content updates",
       "Landing page support",
@@ -131,7 +140,7 @@ const services = [
     title: "Digital Marketing & Lead Generation",
     description:
       "Marketing support that connects promotional content, lead follow-up, campaign materials, and digital operations into a more organized workflow.",
-    relatedWork: "/portfolio",
+    relatedWork: relatedWorkHref("operations-growth", "Lead Generation"),
     features: [
       "Campaign support",
       "Lead follow-up",
