@@ -1,6 +1,7 @@
+
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -16,18 +17,21 @@ import Link from "next/link";
 import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
 
-/* =========================================================
-   SERVICES
-========================================================= */
+// ======================================================
+// RELATED WORK LINKS
+// ======================================================
 
-/**
- * Every service links to the matching home-page portfolio tab and filter.
- * Links stay on the homepage's Services & Work section; no /work routes.
- */
-function relatedWorkHref(category: string, filter: string = "All"): string {
+function relatedWorkHref(
+  category: string,
+  filter: string = "All"
+): string {
   const params = new URLSearchParams({ category, filter });
   return `/?${params.toString()}#services`;
 }
+
+// ======================================================
+// SERVICES DATA
+// ======================================================
 
 const services = [
   {
@@ -44,7 +48,6 @@ const services = [
       "Brand consistency",
     ],
   },
-
   {
     number: "02",
     title: "Graphic Design & Content Creation",
@@ -59,7 +62,6 @@ const services = [
       "Educational & quote graphics",
     ],
   },
-
   {
     number: "03",
     title: "Short-Form Video Editing",
@@ -74,7 +76,6 @@ const services = [
       "CapCut editing",
     ],
   },
-
   {
     number: "04",
     title: "GoHighLevel Marketing Operations",
@@ -89,7 +90,6 @@ const services = [
       "Campaign & follow-up support",
     ],
   },
-
   {
     number: "05",
     title: "Email Marketing",
@@ -104,7 +104,6 @@ const services = [
       "Campaign formatting",
     ],
   },
-
   {
     number: "06",
     title: "Virtual & Executive Support",
@@ -119,7 +118,6 @@ const services = [
       "Administrative support",
     ],
   },
-
   {
     number: "07",
     title: "Websites, Landing Pages & Funnels",
@@ -134,7 +132,6 @@ const services = [
       "WordPress & Shopify support",
     ],
   },
-
   {
     number: "08",
     title: "Digital Marketing & Lead Generation",
@@ -151,10 +148,9 @@ const services = [
   },
 ];
 
-/* =========================================================
-   PROCESS
-   Same content/style direction as Home page Process
-========================================================= */
+// ======================================================
+// PROCESS DATA
+// ======================================================
 
 const process = [
   {
@@ -195,141 +191,120 @@ const process = [
   },
 ];
 
-/* =========================================================
-   SERVICES PAGE
-========================================================= */
+// ======================================================
+// SHARED CONTAINER
+// Matches the SiteHeader width and responsive gutters.
+// ======================================================
+
+const containerClass =
+  "mx-auto w-full max-w-360 px-5 md:px-8 lg:px-10";
+
+// ======================================================
+// SERVICES PAGE
+// app/services/page.tsx
+// ======================================================
 
 export default function ServicesPage() {
+  const reduceMotion = useReducedMotion();
+
   return (
     <main className="min-h-screen bg-white font-(family-name:--font-body) text-[#101828] selection:bg-[#4F8CFF] selection:text-white">
-      {/* =====================================================
-          HEADER
-      ====================================================== */}
-
       <SiteHeader />
 
-      {/* =====================================================
+      {/* ==================================================
           HERO
-          Same structural hierarchy as reference:
-          label / heading / description
-      ====================================================== */}
+      ================================================== */}
 
-      <section className="relative overflow-hidden bg-[#07111F] px-5 pb-20 pt-36 text-white md:px-8 md:pb-24 md:pt-40 lg:px-10">
-        {/* GRID */}
-
-        <div
-          className="
-            pointer-events-none
-            absolute inset-0
-            opacity-45
-            bg-[linear-gradient(rgba(148,163,184,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.035)_1px,transparent_1px)]
-            bg-size-[72px_72px]
-          "
-        />
-
-        {/* GLOW */}
-
+      <section className="relative overflow-hidden bg-[#07111F] pb-20 pt-36 text-white md:pb-24 md:pt-40">
+        {/* Background glow */}
         <div className="pointer-events-none absolute -left-50 -top-40 h-150 w-150 rounded-full bg-[#4F8CFF]/12 blur-[190px]" />
 
         <div className="pointer-events-none absolute -bottom-50 right-[-10%] h-125 w-125 rounded-full bg-[#79A8FF]/6 blur-[170px]" />
 
-        <div className="relative mx-auto max-w-360">
-          {/* LABEL */}
-
+        <div className={`relative ${containerClass}`}>
+          {/* Section label */}
           <motion.p
-            initial={{
-              opacity: 0,
-              y: 12,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-            transition={{
-              duration: 0.45,
-            }}
-            className="text-[9px] font-semibold uppercase tracking-[0.22em] text-[#79A8FF]"
+            initial={
+              reduceMotion
+                ? false
+                : { opacity: 0, y: 12 }
+            }
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45 }}
+            className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#79A8FF]"
           >
             Services
           </motion.p>
 
-          {/* TITLE + DESCRIPTION */}
-
+          {/* Heading and description */}
           <div className="mt-6 grid gap-10 lg:grid-cols-[1.05fr_0.55fr] lg:items-end lg:gap-20">
             <motion.h1
-              initial={{
-                opacity: 0,
-                y: 24,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
+              initial={
+                reduceMotion
+                  ? false
+                  : { opacity: 0, y: 24 }
+              }
+              animate={{ opacity: 1, y: 0 }}
               transition={{
-                duration: 0.65,
+                duration: 0.7,
+                ease: [0.22, 1, 0.36, 1],
               }}
-              className="font-(family-name:--font-display) max-w-5xl text-[clamp(3.2rem,5vw,5.6rem)] font-semibold leading-[0.92] tracking-tighter"
+              className="font-(family-name:--font-display) max-w-5xl text-[clamp(3.2rem,5vw,5.6rem)] font-semibold leading-[0.98] tracking-tighter"
             >
               Digital support built
-              <br />
-
-              <span className="text-[#79A8FF]">
+              <span className="mt-2 block text-[#79A8FF]">
                 around your work.
               </span>
             </motion.h1>
 
             <motion.p
-              initial={{
-                opacity: 0,
-                y: 18,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
+              initial={
+                reduceMotion
+                  ? false
+                  : { opacity: 0, y: 18 }
+              }
+              animate={{ opacity: 1, y: 0 }}
               transition={{
-                delay: 0.12,
+                delay: reduceMotion ? 0 : 0.12,
                 duration: 0.55,
               }}
               className="max-w-lg text-sm leading-7 text-[#A8B3C4] md:text-base md:leading-8"
             >
-              Flexible creative, marketing, and
-              operational support across content,
-              social media, GoHighLevel, email,
-              websites, funnels, and digital
-              business operations.
+              Flexible creative, marketing, and operational
+              support across content, social media,
+              GoHighLevel, email, websites, funnels, and
+              digital business operations.
             </motion.p>
           </div>
         </div>
       </section>
 
-      {/* =====================================================
+      {/* ==================================================
           SERVICES
-          
-          REFERENCE STRUCTURE ON DESKTOP:
-          
-          NUMBER
-          |
-          SERVICE TITLE / DESCRIPTION / ACTIONS
-          |
-          INCLUDED FEATURES
-      ====================================================== */}
+          1 column mobile
+          2 columns tablet
+          3 columns desktop
+      ================================================== */}
 
-      <section className="bg-white px-5 md:px-8 lg:px-10">
-        <div className="mx-auto max-w-360">
-          {services.map(
-            (
-              service,
-              index,
-            ) => (
+      <section
+        id="services"
+        className="relative scroll-mt-24 bg-white py-20 md:py-28"
+      >
+        <div className={containerClass}>
+
+          {/* Three-column services grid */}
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-7">
+            {services.map((service, index) => (
               <motion.article
-                key={
-                  service.number
+                key={service.number}
+                initial={
+                  reduceMotion
+                    ? false
+                    : {
+                        opacity: 0,
+                        y: 28,
+                      }
                 }
-                initial={{
-                  opacity: 0,
-                  y: 24,
-                }}
                 whileInView={{
                   opacity: 1,
                   y: 0,
@@ -339,572 +314,352 @@ export default function ServicesPage() {
                   amount: 0.12,
                 }}
                 transition={{
-                  duration: 0.55,
+                  duration: reduceMotion ? 0 : 0.55,
+                  delay: reduceMotion
+                    ? 0
+                    : (index % 3) * 0.08,
+                  ease: "easeOut",
                 }}
-                className={`
-                  grid
-                  gap-8
-                  border-b
-                  border-[#D8E0EA]
-                  py-16
-
-                  md:py-20
-
-                  lg:grid-cols-[90px_minmax(0,1.1fr)_minmax(280px,0.7fr)]
-                  lg:gap-12
-                  lg:py-24
-
-                  xl:grid-cols-[110px_minmax(0,1.1fr)_minmax(320px,0.65fr)]
-                  xl:gap-16
-
-                  ${
-                    index === 0
-                      ? "border-t"
-                      : ""
-                  }
-                `}
+                whileHover={
+                  reduceMotion ? undefined : { y: -6 }
+                }
+                className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-[#D8E0EA] bg-[#F9FBFF] p-6 shadow-[0_12px_35px_rgba(15,23,42,0.04)] transition-[border-color,box-shadow,background-color] duration-300 hover:border-[#4F8CFF]/45 hover:bg-white hover:shadow-[0_22px_55px_rgba(15,23,42,0.09)] sm:p-7"
               >
-                {/* ===========================================
-                    COLUMN 1
-                    NUMBER
-                ============================================ */}
+                {/* Top hover accent */}
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-[#4F8CFF] transition-transform duration-500 group-hover:scale-x-100"
+                />
 
-                <div>
-                  <span className="font-(family-name:--font-display) text-sm font-semibold tracking-tight text-[#4F8CFF]">
-                    {
-                      service.number
-                    }
+                {/* Card number and icon */}
+                <div className="mb-7 flex items-center justify-between">
+                  <span className="font-(family-name:--font-display) text-lg font-semibold text-[#4F8CFF]">
+                    {service.number}
+                  </span>
+
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#D9E6FD] bg-[#EEF4FF] text-[#4F8CFF] transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
+                    <ArrowUpRight
+                      size={18}
+                      strokeWidth={1.8}
+                      aria-hidden="true"
+                    />
                   </span>
                 </div>
 
-                {/* ===========================================
-                    COLUMN 2
-                    SERVICE DETAILS
-                ============================================ */}
+                {/* Service title */}
+                <h3 className="font-(family-name:--font-display) text-[clamp(1.45rem,2vw,1.9rem)] font-semibold leading-[1.15] tracking-tight text-[#101828]">
+                  {service.title}
+                </h3>
 
-                <div>
-                  {/* TITLE */}
+                {/* Description */}
+                <p className="mt-4 text-sm leading-7 text-[#667085]">
+                  {service.description}
+                </p>
 
-                  <h2 className="font-(family-name:--font-display) max-w-2xl text-[clamp(2rem,3vw,3.35rem)] font-semibold leading-[1] tracking-tighter text-[#101828]">
-                    {
-                      service.title
-                    }
-                  </h2>
-
-                  {/* DESCRIPTION */}
-
-                  <p className="mt-6 max-w-2xl text-base leading-8 text-[#667085]">
-                    {
-                      service.description
-                    }
-                  </p>
-
-                  {/* ACTIONS */}
-
-                  <div className="mt-8 flex flex-wrap gap-3">
-                    {/* GET A QUOTE */}
-
-                    <Link
-                      href="/contact#contact-form"
-                      className="
-                        group
-                        inline-flex
-                        items-center
-                        gap-2
-                        rounded-xl
-                        bg-[#07111F]
-                        px-5
-                        py-3.5
-                        text-sm
-                        font-semibold
-                        text-white
-
-                        transition-all
-                        duration-300
-
-                        hover:-translate-y-0.5
-                        hover:bg-[#4F8CFF]
-                      "
-                    >
-                      Get a Quote
-
-                      <ArrowUpRight
-                        size={14}
-                        className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                      />
-                    </Link>
-
-                    {/* RELATED WORK */}
-
-                    <Link
-                      href={
-                        service.relatedWork
-                      }
-                      className="
-                        group
-                        inline-flex
-                        items-center
-                        gap-2
-                        rounded-xl
-                        border
-                        border-[#D8E0EA]
-                        bg-white
-                        px-5
-                        py-3.5
-                        text-sm
-                        font-semibold
-                        text-[#344054]
-
-                        transition-all
-                        duration-300
-
-                        hover:-translate-y-0.5
-                        hover:border-[#4F8CFF]/40
-                        hover:text-[#4F8CFF]
-                      "
-                    >
-                      Explore Related Work
-
-                      <ArrowRight
-                        size={14}
-                        className="transition-transform duration-300 group-hover:translate-x-1"
-                      />
-                    </Link>
-                  </div>
-                </div>
-
-                {/* ===========================================
-                    COLUMN 3
-                    INCLUDED FEATURES
-                ============================================ */}
-
-                <div className="lg:border-l lg:border-[#E4E7EC] lg:pl-10 xl:pl-12">
-                  {/* LABEL */}
-
-                  <p className="text-[8px] font-semibold uppercase tracking-[0.18em] text-[#98A2B3]">
+                {/* Included features */}
+                <div className="mt-7 border-t border-[#E0E7F0] pt-6">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#98A2B3]">
                     What&apos;s Included
                   </p>
 
-                  {/* FEATURES */}
+                  <ul className="mt-4 space-y-3">
+                    {service.features.map((feature) => (
+                      <li
+                        key={feature}
+                        className="flex items-start gap-3"
+                      >
+                        <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#E8F0FF] text-[#4F8CFF]">
+                          <Check
+                            size={12}
+                            strokeWidth={2.5}
+                            aria-hidden="true"
+                          />
+                        </span>
 
-                  <div className="mt-5 space-y-4">
-                    {service.features.map(
-                      (
-                        feature,
-                      ) => (
-                        <div
-                          key={
-                            feature
-                          }
-                          className="flex items-start gap-3"
-                        >
-                          <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#EEF4FF] text-[#4F8CFF]">
-                            <Check
-                              size={
-                                11
-                              }
-                              strokeWidth={
-                                2.5
-                              }
-                            />
-                          </div>
+                        <span className="text-sm leading-6 text-[#475467]">
+                          {feature}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
-                          <span className="text-sm leading-6 text-[#475467]">
-                            {
-                              feature
-                            }
-                          </span>
-                        </div>
-                      ),
-                    )}
-                  </div>
+                {/* Action buttons */}
+                <div className="mt-auto grid gap-3 pt-8">
+                  <Link
+                    href="/contact#contact-form"
+                    className="group/quote inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#07111F] px-4 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#4F8CFF] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4F8CFF]"
+                  >
+                    Get a Quote
+
+                    <ArrowUpRight
+                      size={15}
+                      className="transition-transform duration-300 group-hover/quote:-translate-y-0.5 group-hover/quote:translate-x-0.5"
+                    />
+                  </Link>
+
+                  <Link
+                    href={service.relatedWork}
+                    className="group/work inline-flex w-full items-center justify-center gap-2 rounded-xl border border-[#D8E0EA] bg-white px-4 py-3.5 text-sm font-semibold text-[#344054] transition-all duration-300 hover:border-[#4F8CFF]/45 hover:text-[#4F8CFF] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4F8CFF]"
+                  >
+                    Explore Related Work
+
+                    <ArrowRight
+                      size={15}
+                      className="transition-transform duration-300 group-hover/work:translate-x-1"
+                    />
+                  </Link>
                 </div>
               </motion.article>
-            ),
-          )}
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* =====================================================
+      {/* ==================================================
           HOW I WORK
-
-          SAME VISUAL STRUCTURE AS HOME PAGE PROCESS
-      ====================================================== */}
+      ================================================== */}
 
       <section
         id="process"
-        className="relative overflow-hidden bg-[#F8FAFC] px-5 py-28 text-[#101828] md:px-8 md:py-40 lg:px-10"
+        className="relative overflow-hidden bg-[#F8FAFC] py-28 text-[#101828] md:py-40"
       >
-        {/* BACKGROUND GLOWS */}
-
+        {/* Background glow */}
         <div className="pointer-events-none absolute -left-40 top-20 h-125 w-125 rounded-full bg-[#4F8CFF]/6 blur-[150px]" />
 
         <div className="pointer-events-none absolute -right-40 bottom-0 h-125 w-125 rounded-full bg-[#79A8FF]/6 blur-[150px]" />
 
-        <div className="relative mx-auto max-w-360">
-          {/* =================================================
-              HEADING
-              Same Home Process layout
-          ================================================= */}
-
+        <div className={`relative ${containerClass}`}>
+          {/* Process heading */}
           <motion.div
-            initial={{
-              opacity: 0,
-              y: 25,
-            }}
-            whileInView={{
-              opacity: 1,
-              y: 0,
-            }}
-            viewport={{
-              once: true,
-            }}
-            transition={{
-              duration: 0.6,
-            }}
+            initial={
+              reduceMotion
+                ? false
+                : { opacity: 0, y: 25 }
+            }
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
             className="grid gap-8 lg:grid-cols-[0.28fr_1fr] lg:gap-12"
           >
-            {/* LABEL */}
-
             <div className="pt-2">
               <div className="flex items-center gap-3">
                 <span className="h-px w-8 bg-[#4F8CFF]" />
 
-                <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-[#4F8CFF]">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#4F8CFF]">
                   How I Work
                 </p>
               </div>
             </div>
 
-            {/* TITLE + DESCRIPTION */}
-
             <div className="grid gap-7 xl:grid-cols-[1fr_0.55fr] xl:items-end">
               <h2 className="font-(family-name:--font-display) max-w-3xl text-[clamp(2.8rem,4.5vw,4.75rem)] font-semibold leading-[0.96] tracking-tighter">
                 A simple path from{" "}
-
                 <span className="text-[#4F8CFF]">
                   idea to delivery.
                 </span>
               </h2>
 
               <p className="max-w-md text-sm leading-7 text-[#667085] xl:justify-self-end xl:text-base xl:leading-8">
-                Every project moves through a clear
-                workflow so the work stays organized,
-                focused, and easy to follow.
+                Every project moves through a clear workflow
+                so the work stays organized, focused, and
+                easy to follow.
               </p>
             </div>
           </motion.div>
 
-          {/* =================================================
-              PROCESS JOURNEY
-          ================================================= */}
-
-          <div className="relative mt-28">
-            {/* =================================================
-                DESKTOP CURVED PATH
-            ================================================= */}
-
+          {/* Process cards */}
+          <div className="relative mt-20 xl:mt-28">
+            {/* Animated curved path */}
             <div className="pointer-events-none absolute left-[4%] right-[4%] top-1/2 hidden -translate-y-1/2 xl:block">
               <svg
                 viewBox="0 0 1200 360"
                 className="h-90 w-full"
                 preserveAspectRatio="none"
               >
-                {/* BASE PATH */}
-
                 <path
-                  d="
-                    M 40 180
-                    C 130 180, 135 65, 225 65
-                    C 315 65, 315 295, 405 295
-                    C 495 295, 495 65, 585 65
-                    C 675 65, 675 295, 765 295
-                    C 855 295, 855 65, 945 65
-                    C 1035 65, 1040 180, 1160 180
-                  "
+                  d="M 40 180 C 130 180, 135 65, 225 65 C 315 65, 315 295, 405 295 C 495 295, 495 65, 585 65 C 675 65, 675 295, 765 295 C 855 295, 855 65, 945 65 C 1035 65, 1040 180, 1160 180"
                   fill="none"
                   stroke="#D8E0EA"
                   strokeWidth="2"
                 />
 
-                {/* ANIMATED BLUE PATH */}
-
                 <motion.path
-                  d="
-                    M 40 180
-                    C 130 180, 135 65, 225 65
-                    C 315 65, 315 295, 405 295
-                    C 495 295, 495 65, 585 65
-                    C 675 65, 675 295, 765 295
-                    C 855 295, 855 65, 945 65
-                    C 1035 65, 1040 180, 1160 180
-                  "
+                  d="M 40 180 C 130 180, 135 65, 225 65 C 315 65, 315 295, 405 295 C 495 295, 495 65, 585 65 C 675 65, 675 295, 765 295 C 855 295, 855 65, 945 65 C 1035 65, 1040 180, 1160 180"
                   fill="none"
                   stroke="#4F8CFF"
                   strokeWidth="2"
                   strokeLinecap="round"
-                  initial={{
-                    pathLength: 0,
-                  }}
-                  whileInView={{
-                    pathLength: 1,
-                  }}
-                  viewport={{
-                    once: true,
-                  }}
+                  initial={
+                    reduceMotion
+                      ? false
+                      : { pathLength: 0 }
+                  }
+                  whileInView={{ pathLength: 1 }}
+                  viewport={{ once: true }}
                   transition={{
-                    duration: 2,
+                    duration: reduceMotion ? 0 : 2,
                     ease: "easeInOut",
                   }}
                 />
               </svg>
             </div>
 
-            {/* =================================================
-                PROCESS ITEMS
-            ================================================= */}
-
             <div className="relative grid gap-6 md:grid-cols-2 xl:grid-cols-6 xl:gap-4">
-              {process.map(
-                (
-                  step,
-                  index,
-                ) => {
-                  const Icon =
-                    step.icon;
+              {process.map((step, index) => {
+                const Icon = step.icon;
+                const raised = index % 2 === 0;
 
-                  const raised =
-                    index % 2 ===
-                    0;
-
-                  return (
-                    <motion.article
-                      key={
-                        step.title
+                return (
+                  <motion.article
+                    key={step.title}
+                    initial={
+                      reduceMotion
+                        ? false
+                        : {
+                            opacity: 0,
+                            y: raised ? 35 : -35,
+                          }
+                    }
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{
+                      once: true,
+                      amount: 0.2,
+                    }}
+                    transition={{
+                      duration: reduceMotion ? 0 : 0.55,
+                      delay: reduceMotion
+                        ? 0
+                        : index * 0.09,
+                    }}
+                    className={`group relative ${
+                      raised
+                        ? "xl:-translate-y-14"
+                        : "xl:translate-y-14"
+                    }`}
+                  >
+                    <motion.div
+                      whileHover={
+                        reduceMotion
+                          ? undefined
+                          : { y: -8, scale: 1.015 }
                       }
-                      initial={{
-                        opacity: 0,
-                        y: raised
-                          ? 35
-                          : -35,
-                      }}
-                      whileInView={{
-                        opacity: 1,
-                        y: 0,
-                      }}
-                      viewport={{
-                        once: true,
-                        amount: 0.2,
-                      }}
                       transition={{
-                        duration: 0.55,
-                        delay:
-                          index *
-                          0.09,
+                        type: "spring",
+                        stiffness: 240,
+                        damping: 18,
                       }}
-                      className={`
-                        group
-                        relative
-
-                        ${
-                          raised
-                            ? "xl:-translate-y-14"
-                            : "xl:translate-y-14"
-                        }
-                      `}
+                      className="relative min-h-72 overflow-hidden rounded-4xl border border-[#D8E0EA] bg-white p-6 shadow-[0_12px_40px_rgba(15,23,42,0.045)] transition-all duration-300 group-hover:border-[#4F8CFF]/45 group-hover:shadow-[0_22px_55px_rgba(79,140,255,0.12)]"
                     >
-                      {/* =====================================
-                          PROCESS CARD
-                      ====================================== */}
+                      {/* Top accent */}
+                      <div className="absolute inset-x-0 top-0 h-1 scale-x-0 bg-[#4F8CFF] transition-transform duration-500 group-hover:scale-x-100" />
 
-                      <motion.div
-                        whileHover={{
-                          y: -8,
-                          scale:
-                            1.015,
-                        }}
-                        transition={{
-                          type: "spring",
-                          stiffness:
-                            240,
-                          damping:
-                            18,
-                        }}
-                        className="
-                          relative
-                          min-h-72
-                          overflow-hidden
-                          rounded-4xl
-                          border
-                          border-[#D8E0EA]
-                          bg-white
-                          p-6
+                      {/* Soft glow */}
+                      <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-[#4F8CFF]/0 blur-[60px] transition-all duration-500 group-hover:bg-[#4F8CFF]/12" />
 
-                          shadow-[0_12px_40px_rgba(15,23,42,0.045)]
-
-                          transition-all
-                          duration-300
-
-                          group-hover:border-[#4F8CFF]/45
-                          group-hover:shadow-[0_22px_55px_rgba(79,140,255,0.12)]
-                        "
-                      >
-                        {/* TOP ACCENT */}
-
-                        <div className="absolute inset-x-0 top-0 h-1 scale-x-0 bg-[#4F8CFF] transition-transform duration-500 group-hover:scale-x-100" />
-
-                        {/* GLOW */}
-
-                        <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-[#4F8CFF]/0 blur-[60px] transition-all duration-500 group-hover:bg-[#4F8CFF]/12" />
-
-                        <div className="relative">
-                          {/* ICON */}
-
-                          <motion.div
-                            whileHover={{
-                              rotate:
-                                -8,
-                              scale:
-                                1.08,
-                            }}
-                            transition={{
-                              type: "spring",
-                              stiffness:
-                                250,
-                              damping:
-                                17,
-                            }}
-                            className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#EEF4FF] text-[#4F8CFF]"
-                          >
-                            <Icon
-                              size={
-                                18
-                              }
-                            />
-                          </motion.div>
-
-                          {/* TITLE */}
-
-                          <h3 className="font-(family-name:--font-display) mt-8 text-2xl font-semibold tracking-tight text-[#101828]">
-                            {
-                              step.title
-                            }
-                          </h3>
-
-                          {/* DESCRIPTION */}
-
-                          <p className="mt-4 text-sm leading-7 text-[#667085]">
-                            {
-                              step.description
-                            }
-                          </p>
-                        </div>
-
-                        {/* PULSE */}
-
-                        <motion.span
-                          animate={{
-                            scale: [
-                              1,
-                              1.5,
-                              1,
-                            ],
-                            opacity: [
-                              0.5,
-                              1,
-                              0.5,
-                            ],
-                          }}
+                      <div className="relative">
+                        <motion.div
+                          whileHover={
+                            reduceMotion
+                              ? undefined
+                              : {
+                                  rotate: -8,
+                                  scale: 1.08,
+                                }
+                          }
                           transition={{
-                            duration: 2,
-                            repeat:
-                              Infinity,
-                            delay:
-                              index *
-                              0.15,
+                            type: "spring",
+                            stiffness: 250,
+                            damping: 17,
                           }}
-                          className="absolute bottom-5 right-5 h-2 w-2 rounded-full bg-[#4F8CFF]"
-                        />
-                      </motion.div>
+                          className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#EEF4FF] text-[#4F8CFF]"
+                        >
+                          <Icon size={18} />
+                        </motion.div>
 
-                      {/* =====================================
-                          MOBILE / TABLET CONNECTOR
-                      ====================================== */}
+                        <h3 className="font-(family-name:--font-display) mt-8 text-2xl font-semibold tracking-tight text-[#101828]">
+                          {step.title}
+                        </h3>
 
-                      {index <
-                        process.length -
-                          1 && (
-                        <div className="flex justify-center py-3 xl:hidden">
-                          <motion.div
-                            animate={{
-                              y: [
-                                0,
-                                5,
-                                0,
-                              ],
-                            }}
-                            transition={{
-                              duration:
-                                1.5,
-                              repeat:
-                                Infinity,
-                            }}
-                            className="flex h-9 w-9 items-center justify-center rounded-full border border-[#D8E0EA] bg-white text-[#4F8CFF]"
-                          >
-                            <ArrowRight
-                              size={
-                                14
+                        <p className="mt-4 text-sm leading-7 text-[#667085]">
+                          {step.description}
+                        </p>
+                      </div>
+
+                      {/* Animated status dot */}
+                      <motion.span
+                        animate={
+                          reduceMotion
+                            ? undefined
+                            : {
+                                scale: [1, 1.5, 1],
+                                opacity: [0.5, 1, 0.5],
                               }
-                              className="rotate-90 md:rotate-0"
-                            />
-                          </motion.div>
-                        </div>
-                      )}
-                    </motion.article>
-                  );
-                },
-              )}
+                        }
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          delay: index * 0.15,
+                        }}
+                        className="absolute bottom-5 right-5 h-2 w-2 rounded-full bg-[#4F8CFF]"
+                      />
+                    </motion.div>
+
+                    {/* Mobile / tablet connector */}
+                    {index < process.length - 1 && (
+                      <div className="flex justify-center py-3 xl:hidden">
+                        <motion.div
+                          animate={
+                            reduceMotion
+                              ? undefined
+                              : { y: [0, 5, 0] }
+                          }
+                          transition={{
+                            duration: 1.5,
+                            repeat: Infinity,
+                          }}
+                          className="flex h-9 w-9 items-center justify-center rounded-full border border-[#D8E0EA] bg-white text-[#4F8CFF]"
+                        >
+                          <ArrowRight
+                            size={14}
+                            className="rotate-90 md:rotate-0"
+                          />
+                        </motion.div>
+                      </div>
+                    )}
+                  </motion.article>
+                );
+              })}
             </div>
 
-            {/* =================================================
-                STRUCTURED WORKFLOW BADGE
-            ================================================= */}
-
+            {/* Structured workflow badge */}
             <motion.div
-              initial={{
-                opacity: 0,
-                scale: 0.9,
-              }}
-              whileInView={{
-                opacity: 1,
-                scale: 1,
-              }}
-              viewport={{
-                once: true,
-              }}
+              initial={
+                reduceMotion
+                  ? false
+                  : { opacity: 0, scale: 0.9 }
+              }
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
               transition={{
-                delay: 0.6,
+                duration: 0.5,
+                delay: reduceMotion ? 0 : 0.6,
               }}
               className="relative mx-auto mt-16 flex w-fit items-center gap-3 rounded-full border border-[#D8E0EA] bg-white px-5 py-3 shadow-[0_8px_25px_rgba(15,23,42,0.05)] xl:mt-24"
             >
               <span className="relative flex h-2.5 w-2.5">
                 <motion.span
-                  animate={{
-                    scale: [
-                      1,
-                      1.9,
-                      1,
-                    ],
-                    opacity: [
-                      0.45,
-                      0,
-                      0.45,
-                    ],
-                  }}
+                  animate={
+                    reduceMotion
+                      ? undefined
+                      : {
+                          scale: [1, 1.9, 1],
+                          opacity: [0.45, 0, 0.45],
+                        }
+                  }
                   transition={{
                     duration: 2,
-                    repeat:
-                      Infinity,
+                    repeat: Infinity,
                   }}
                   className="absolute inset-0 rounded-full bg-[#4F8CFF]"
                 />
@@ -912,18 +667,13 @@ export default function ServicesPage() {
                 <span className="relative m-auto h-2 w-2 rounded-full bg-[#4F8CFF]" />
               </span>
 
-              <span className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#667085]">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#667085]">
                 Structured Workflow
               </span>
             </motion.div>
           </div>
         </div>
       </section>
-
-      {/* =====================================================
-          FOOTER
-          Reference ends after process → footer
-      ====================================================== */}
 
       <SiteFooter />
     </main>

@@ -948,11 +948,13 @@ function AboutSection() {
   const reduceMotion = useReducedMotion();
 
   return (
+    
     <section
       id="about"
       aria-labelledby="about-heading"
-      className="relative scroll-mt-20 overflow-hidden bg-[#07111F] px-5 py-24 text-white md:px-8 md:py-32 lg:px-10"
+      className="relative scroll-mt-0 overflow-hidden bg-[#07111F] px-5 py-24 text-white md:px-8 md:py-32 lg:px-10"
     >
+
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_15%_50%,rgba(79,140,255,0.08),transparent_58%)]"

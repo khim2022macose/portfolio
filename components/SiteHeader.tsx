@@ -1,104 +1,76 @@
+
 "use client";
 
-import {
-  ArrowUpRight,
-  Menu,
-  X,
-} from "lucide-react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import Link from "next/link";
-import {
-  usePathname,
-} from "next/navigation";
-import {
-  useEffect,
-  useState,
-} from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState, type MouseEvent } from "react";
 
 const navigation = [
-  {
-    label: "Home",
-    href: "/",
-  },
-  {
-    label: "About",
-    href: "/about",
-  },
-  {
-    label: "Services",
-    href: "/services",
-  },
-  {
-    label: "Contact",
-    href: "/contact",
-  },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/#about" },
+  { label: "Services", href: "/services" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function SiteHeader() {
-  const pathname =
-    usePathname();
+  const pathname = usePathname();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const [
-    menuOpen,
-    setMenuOpen,
-  ] = useState(false);
-
-  const [
-    scrolled,
-    setScrolled,
-  ] = useState(false);
-
-  const contactPage =
-    pathname === "/contact";
+  const contactPage = pathname === "/contact";
+  const darkHeader = contactPage || !scrolled;
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(
-        window.scrollY > 30,
-      );
+      setScrolled(window.scrollY > 30);
     };
 
     handleScroll();
 
-    window.addEventListener(
-      "scroll",
-      handleScroll,
-      {
-        passive: true,
-      },
-    );
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+    });
 
     return () => {
-      window.removeEventListener(
-        "scroll",
-        handleScroll,
-      );
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
-  function isActive(
-    href: string,
-  ) {
-    if (
-      href === "/" &&
-      pathname === "/"
-    ) {
-      return true;
-    }
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
 
-    if (
-      href !== "/" &&
-      pathname.startsWith(
-        href,
-      )
-    ) {
-      return true;
-    }
-
-    return false;
+  function isActive(href: string) {
+    if (href === "/") return pathname === "/";
+    if (href === "/#about") return false;
+    return pathname.startsWith(href);
   }
 
-  const darkHeader =
-    contactPage || !scrolled;
+  function handleNavigationClick(
+    event: MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) {
+    setMenuOpen(false);
+
+    if (href !== "/#about" || pathname !== "/") return;
+
+    const aboutSection = document.getElementById("about");
+    if (!aboutSection) return;
+
+    event.preventDefault();
+
+    window.history.pushState(null, "", "/#about");
+
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    aboutSection.scrollIntoView({
+      behavior: reducedMotion ? "auto" : "smooth",
+      block: "start",
+    });
+  }
 
   return (
     <header
@@ -116,18 +88,14 @@ export default function SiteHeader() {
     >
       <div className="mx-auto flex h-22 max-w-360 items-center justify-between px-5 md:px-8 lg:px-10">
         {/* BRAND */}
-
         <Link
           href="/"
           className="group flex shrink-0 items-center gap-3"
         >
           <div
             className={`
-              relative flex h-11 w-11
-              items-center justify-center
-              overflow-hidden
-              rounded-xl border
-              transition-all duration-500
+              relative flex h-11 w-11 items-center justify-center
+              overflow-hidden rounded-xl border transition-all duration-500
               ${
                 darkHeader
                   ? "border-white/20 bg-white/10 backdrop-blur-md"
@@ -146,14 +114,9 @@ export default function SiteHeader() {
             <p
               className={`
                 font-(family-name:--font-display)
-                text-sm font-semibold
-                tracking-tight
+                text-sm font-semibold tracking-tight
                 transition-colors duration-500
-                ${
-                  darkHeader
-                    ? "text-white"
-                    : "text-[#101828]"
-                }
+                ${darkHeader ? "text-white" : "text-[#101828]"}
               `}
             >
               Khimberlie D. Macose
@@ -161,94 +124,68 @@ export default function SiteHeader() {
 
             <p
               className={`
-                mt-1 text-[8px]
-                font-semibold uppercase
-                tracking-[0.18em]
-                transition-colors duration-500
-                ${
-                  darkHeader
-                    ? "text-white/45"
-                    : "text-[#98A2B3]"
-                }
+                mt-1 text-[8px] font-semibold uppercase
+                tracking-[0.18em] transition-colors duration-500
+                ${darkHeader ? "text-white/45" : "text-[#98A2B3]"}
               `}
             >
-              Digital Marketing &
-              Operations
+              Digital Marketing &amp; Operations
             </p>
           </div>
         </Link>
 
-        {/* DESKTOP NAV */}
-
+        {/* DESKTOP NAVIGATION */}
         <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 lg:flex xl:gap-10">
-          {navigation.map(
-            (item) => {
-              const active =
-                isActive(
-                  item.href,
-                );
+          {navigation.map((item) => {
+            const active = isActive(item.href);
 
-              return (
-                <Link
-                  key={
-                    item.label
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                onClick={(event) =>
+                  handleNavigationClick(event, item.href)
+                }
+                className={`
+                  group/nav relative py-3 text-[10px]
+                  font-semibold uppercase tracking-[0.14em]
+                  transition-colors duration-300
+                  ${
+                    darkHeader
+                      ? active
+                        ? "text-white"
+                        : "text-white/60 hover:text-white"
+                      : active
+                        ? "text-[#101828]"
+                        : "text-[#667085] hover:text-[#101828]"
                   }
-                  href={
-                    item.href
-                  }
+                `}
+              >
+                {item.label}
+
+                <span
                   className={`
-                    group/nav
-                    relative py-3
-                    text-[10px]
-                    font-semibold
-                    uppercase
-                    tracking-[0.14em]
-                    transition-colors duration-300
+                    absolute bottom-1 left-0 h-px
+                    bg-[#4F8CFF] transition-all duration-300
                     ${
-                      darkHeader
-                        ? active
-                          ? "text-white"
-                          : "text-white/60 hover:text-white"
-                        : active
-                          ? "text-[#101828]"
-                          : "text-[#667085] hover:text-[#101828]"
+                      active
+                        ? "w-full"
+                        : "w-0 group-hover/nav:w-full"
                     }
                   `}
-                >
-                  {
-                    item.label
-                  }
-
-                  <span
-                    className={`
-                      absolute bottom-1 left-0
-                      h-px bg-[#4F8CFF]
-                      transition-all duration-300
-                      ${
-                        active
-                          ? "w-full"
-                          : "w-0 group-hover/nav:w-full"
-                      }
-                    `}
-                  />
-                </Link>
-              );
-            },
-          )}
+                />
+              </Link>
+            );
+          })}
         </nav>
 
-        {/* CTA */}
-
+        {/* DESKTOP CTA + MOBILE MENU BUTTON */}
         <div className="flex shrink-0 items-center gap-3">
           <Link
             href="/contact#contact-form"
             className={`
-              group hidden h-11
-              items-center gap-2
-              rounded-xl px-5
-              text-xs font-semibold
-              transition-all duration-300
-              md:flex
+              group hidden h-11 items-center gap-2 rounded-xl
+              px-5 text-xs font-semibold transition-all duration-300 md:flex
               ${
                 darkHeader
                   ? "border border-white/25 bg-white/10 text-white hover:bg-white hover:text-[#07111F]"
@@ -267,20 +204,11 @@ export default function SiteHeader() {
           <button
             type="button"
             aria-label="Toggle navigation"
-            aria-expanded={
-              menuOpen
-            }
-            onClick={() =>
-              setMenuOpen(
-                !menuOpen,
-              )
-            }
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen(!menuOpen)}
             className={`
-              flex h-11 w-11
-              items-center justify-center
-              rounded-xl border
-              transition-all duration-300
-              lg:hidden
+              flex h-11 w-11 items-center justify-center
+              rounded-xl border transition-all duration-300 lg:hidden
               ${
                 darkHeader
                   ? "border-white/20 bg-white/10 text-white"
@@ -288,24 +216,15 @@ export default function SiteHeader() {
               }
             `}
           >
-            {menuOpen ? (
-              <X size={18} />
-            ) : (
-              <Menu
-                size={18}
-              />
-            )}
+            {menuOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
         </div>
       </div>
 
-      {/* MOBILE */}
-
+      {/* MOBILE NAVIGATION */}
       <div
         className={`
-          overflow-hidden bg-white
-          transition-all duration-300
-          lg:hidden
+          overflow-hidden bg-white transition-all duration-300 lg:hidden
           ${
             menuOpen
               ? "max-h-140 border-t border-[#E2E8F0]"
@@ -314,82 +233,53 @@ export default function SiteHeader() {
         `}
       >
         <div className="mx-auto max-w-360 px-5 py-4 md:px-8">
-          {navigation.map(
-            (
-              item,
-              index,
-            ) => {
-              const active =
-                isActive(
-                  item.href,
-                );
+          {navigation.map((item, index) => {
+            const active = isActive(item.href);
 
-              return (
-                <Link
-                  key={
-                    item.label
-                  }
-                  href={
-                    item.href
-                  }
-                  onClick={() =>
-                    setMenuOpen(
-                      false,
-                    )
-                  }
-                  className="flex items-center justify-between border-b border-[#EEF2F6] py-4 last:border-none"
-                >
-                  <div className="flex items-center gap-4">
-                    <span className="text-[9px] font-semibold text-[#98A2B3]">
-                      {String(
-                        index +
-                          1,
-                      ).padStart(
-                        2,
-                        "0",
-                      )}
-                    </span>
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                onClick={(event) =>
+                  handleNavigationClick(event, item.href)
+                }
+                className="flex items-center justify-between border-b border-[#EEF2F6] py-4 last:border-none"
+              >
+                <div className="flex items-center gap-4">
+                  <span className="text-[9px] font-semibold text-[#98A2B3]">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
 
-                    <span
-                      className={`
-                        font-(family-name:--font-display)
-                        text-base font-semibold
-                        ${
-                          active
-                            ? "text-[#4F8CFF]"
-                            : "text-[#344054]"
-                        }
-                      `}
-                    >
-                      {
-                        item.label
+                  <span
+                    className={`
+                      font-(family-name:--font-display)
+                      text-base font-semibold
+                      ${
+                        active
+                          ? "text-[#4F8CFF]"
+                          : "text-[#344054]"
                       }
-                    </span>
-                  </div>
+                    `}
+                  >
+                    {item.label}
+                  </span>
+                </div>
 
-                  <ArrowUpRight
-                    size={15}
-                    className="text-[#98A2B3]"
-                  />
-                </Link>
-              );
-            },
-          )}
+                <ArrowUpRight
+                  size={15}
+                  className="text-[#98A2B3]"
+                />
+              </Link>
+            );
+          })}
 
           <Link
             href="/contact#contact-form"
-            onClick={() =>
-              setMenuOpen(
-                false,
-              )
-            }
+            onClick={() => setMenuOpen(false)}
             className="mt-4 flex w-full items-center justify-center gap-3 rounded-xl bg-[#07111F] px-5 py-4 text-sm font-semibold text-white"
           >
             Start a Project
-
-            <ArrowUpRight
-              size={15}
-            />
+            <ArrowUpRight size={15} />
           </Link>
         </div>
       </div>
